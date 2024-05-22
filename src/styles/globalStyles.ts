@@ -6,12 +6,14 @@ export const GlobalStyles = createGlobalStyle`
   @font-face {
     /* font-weight: 400 */
     font-style: normal;
+		src: local('Pretendard400'), local('Pretendard400');
     font-family: "Pretendard400";
     src: url(${Pretendard400}) format("woff2");
   }
   @font-face {
     /* font-weight: 600 */
     font-style: normal;
+		src: local('Pretendard600'), local('Pretendard600');
     font-family: "Pretendard600";
     src: url(${Pretendard600}) format("woff2");
   }
