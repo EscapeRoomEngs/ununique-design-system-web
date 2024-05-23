@@ -36,6 +36,14 @@ npm run storybook
 Runs Storybook Docs in the development mode.\
 Open [http://localhost:6006](http://localhost:6006) to view Stories in the browser.
 
+** storybook 실행 시 preset-create-react-app 관련 오류 처리 가이드 **
+```
+npx -p @storybook/cli sb init
+npm install --dev @storybook/preset-create-react-app @storybook/addon-docs
+```
+[참고 링크](https://velog.io/@velopert/storybook-tips-and-tutorial-conclusion)
+
+
 ### 2-2. start react app (web app)
 ```
 npm start

@@ -87,77 +87,11 @@ export const GlobalStyles = createGlobalStyle`
 		text-decoration: none;
 		color: inherit;
 	}
-
 	/* Typography */
-	html { /* default (p3) */
-		font-size: 15px;
-		font-family: 'Pretendard400';
-		overflow-x: hidden;
-	}
-	p.display1 { /* display1 */
-		font-family: 'Pretendard600';
-		font-size: 48px;
-	}
-	p.display2 { /* display2 */
-		font-family: 'Pretendard600';
-		font-size: 44px;
-	}
-	p.display3 { /* display3 */
-		font-family: 'Pretendard600';
-		font-size: 40px;
-	}
-	h1 {
-		font-family: 'Pretendard600';
-		font-size: 36px;
-	}
-	h2 {
-		font-family: 'Pretendard600';
-		font-size: 33px;
-	}
-	h3 {
-		font-family: 'Pretendard600';
-		font-size: 30px;
-	}
-	h4 {
-		font-family: 'Pretendard600';
-		font-size: 27px;
-	}
-	h5 {
-		font-family: 'Pretendard600';
-		font-size: 34px;
-	}
-	h6 {
-		font-family: 'Pretendard600';
-		font-size: 31px;
-	}
-	p.large { /* p1 */
-		font-size: 19px;
-	}
-	p.medium { /* p2 */
-		font-size: 17px;
-	}
-	p { /* default (p3, bodySmall) */
-		font-size: 15px;
-	}
-	p.small { /* p4 */
-		font-size: 13px;
-	}
-	label.large { /* label1 */
-		font-family: 'Pretendard600';
-		font-size: 19px;
-	}
-	label { /* default (label2, labelMedium) */
-		font-family: 'Pretendard600';
-		font-size: 17px;
-	}
-	label.small { /* label3 */
-		font-family: 'Pretendard600';
-		font-size: 15px;
-	}
 	p.400, span.400 {
-		font-family: 'Pretendard400';
+		font-family: "Pretendard400";
 	}
 	p.600, span.600 {
-		font-family: 'Pretendard600';
+		font-family: "Pretendard600";
 	}
 `;
