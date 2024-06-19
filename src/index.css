@@ -39,43 +39,54 @@ p.display3 {
   font-family: "Pretendard600";
   font-size: 40px;
 }
-h1 {
+h1,
+.heading1 {
   font-family: "Pretendard600";
   font-size: 36px;
 }
-h2 {
+h2,
+.heading2 {
   font-family: "Pretendard600";
   font-size: 33px;
 }
-h3 {
+h3,
+.heading3 {
   font-family: "Pretendard600";
   font-size: 30px;
 }
-h4 {
+h4,
+.title1 {
   font-family: "Pretendard600";
   font-size: 27px;
 }
-h5 {
+h5,
+.title2 {
   font-family: "Pretendard600";
-  font-size: 34px;
+  font-size: 24px;
 }
-h6 {
+h6,
+.title3 {
   font-family: "Pretendard600";
-  font-size: 31px;
+  font-size: 21px;
 }
-p.large {
+p.large,
+.p1 {
   /* p1 */
   font-size: 19px;
 }
-p.medium {
+p.medium,
+.p2 {
   /* p2 */
   font-size: 17px;
 }
-p {
+p,
+.p3,
+.body {
   /* default (p3, bodySmall) */
   font-size: 15px;
 }
-p.small {
+p.small,
+.p4 {
   /* p4 */
   font-size: 13px;
 }
