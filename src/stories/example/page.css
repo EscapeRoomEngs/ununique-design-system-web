@@ -1,17 +1,15 @@
-@font-face {
-  /* font-weight: 400 */
+/* @font-face {
   font-style: normal;
   src: local("Pretendard400"), local("Pretendard400");
   font-family: "Pretendard400";
   src: url("../assets/fonts/Pretendard-Regular.woff2") format("woff2");
 }
 @font-face {
-  /* font-weight: 600 */
   font-style: normal;
   src: local("Pretendard600"), local("Pretendard600");
   font-family: "Pretendard600";
   src: url("../assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
-}
+} */
 
 * {
   font-family: "Pretendard400";
