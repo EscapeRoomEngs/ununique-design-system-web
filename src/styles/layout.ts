@@ -14,14 +14,14 @@ export const spacing = {
 
 export const layout = {
   flex: (obj: object | any) => `
-      dispaly: flex;
+      display: flex;
       flex-direction: ${obj?.direction ?? "column"};
       justify-content: ${obj?.justify ?? "center"}; 
       align-items: ${obj?.align ?? "center"}; 
       gap: ${obj?.spacing ?? "16px"};
     `,
   grid: (obj: object | any) => `
-      dispaly: grid;
+      display: grid;
       justify-content: ${obj?.justify ?? "center"}; 
       align-items: ${obj?.align ?? "center"}; 
       gap: ${obj?.spacing ?? "16px"};

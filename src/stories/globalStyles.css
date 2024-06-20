@@ -6,13 +6,6 @@
   src: url("../../src/assets/fonts/Pretendard-Regular.woff2") format("woff2");
 }
 @font-face {
-  /* font-weight: 500 */
-  font-style: normal;
-  src: local("Pretendard500"), local("Pretendard500");
-  font-family: "Pretendard500";
-  src: url("../../src/assets/fonts/Pretendard-Medium.woff2") format("woff2");
-}
-@font-face {
   /* font-weight: 600 */
   font-style: normal;
   src: local("Pretendard600"), local("Pretendard600");
@@ -23,11 +16,11 @@
 .sbdocs-content {
   font-size: 14px;
   * {
-    font-family: "Pretendard500";
+    font-family: "Pretendard400";
   }
   p,
   table th {
-    font-family: "Pretendard500";
+    font-family: "Pretendard400";
   }
   h1,
   h2,

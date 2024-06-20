@@ -10,20 +10,21 @@ export interface TypographyProps {
 export const Display = ({
   weight = 600,
   style = "Medium",
-  color = "primary",
+  color,
   children: value,
 }: TypographyProps) => {
   const DisplayContainer = styled.p`
     font-size: ${style === "Large" ? "48px" : style === "Medium" ? "44px" : "40px"};
     font-family: "Pretendard${weight}";
-    color: ${palette.text[color]};
+    color: ${color ? palette.text[color] : "inherit"};
+    margin: 0;
   `;
   return <DisplayContainer className="display">{value}</DisplayContainer>;
 };
 export const Heading = ({
   weight = 600,
   style = "Large",
-  color = "primary",
+  color,
   children: text,
 }: TypographyProps) => {
   const HeadingContainer = (style === "Large"
@@ -31,15 +32,17 @@ export const Heading = ({
     : style === "Medium"
       ? styled.h2
       : styled.h3)`
+  font-size: ${style === "Large" ? "36px" : style === "Medium" ? "33px" : "30px"};
   font-family: "Pretendard${weight}"; 
-  color: ${palette.text[color]};
+  color: ${color ? palette.text[color] : "inherit"};
+  margin: 0;
 `;
   return <HeadingContainer className="heading">{text}</HeadingContainer>;
 };
 export const Title = ({
   weight = 600,
   style = "Medium",
-  color = "primary",
+  color,
   children: text,
 }: TypographyProps) => {
   const TitleContainer = (style === "Large"
@@ -47,17 +50,14 @@ export const Title = ({
     : style === "Medium"
       ? styled.h5
       : styled.h6)`
+  font-size: ${style === "Large" ? "27px" : style === "Medium" ? "24px" : "21px"};
   font-family: "Pretendard${weight}"; 
-  color: ${palette.text[color]};
+  color: ${color ? palette.text[color] : "inherit"};
+  margin: 0;
 `;
   return <TitleContainer className="title">{text}</TitleContainer>;
 };
-export const Body = ({
-  weight = 400,
-  style = "Small",
-  color = "primary",
-  children: text,
-}: TypographyProps) => {
+export const Body = ({ weight = 400, style = "Small", color, children: text }: TypographyProps) => {
   const fontSize = () => {
     switch (style) {
       case "Large":
@@ -74,14 +74,15 @@ export const Body = ({
   const BodyContainer = styled.p`
   font-size: ${fontSize()}
   font-family: "Pretendard${weight}"; 
-  color: ${palette.text[color]};
+  color: ${color ? palette.text[color] : "inherit"};
+  margin: 0;
 `;
-  return <BodyContainer>{text}</BodyContainer>;
+  return <div>{text?.split("\n")?.map((el) => <BodyContainer>{el}</BodyContainer> || <br />)}</div>;
 };
 export const Lable = ({
   weight = 600,
   style = "Medium",
-  color = "primary",
+  color,
   children: text,
 }: TypographyProps) => {
   const fontSize = () => {
@@ -98,6 +99,6 @@ export const Lable = ({
   const LableContainer = styled.label`
   font-size: ${fontSize()}
   font-family: "Pretendard${weight}"; 
-  color: ${palette.text[color]};`;
+  color: ${color ? palette.text[color] : "inherit"};`;
   return <LableContainer>{text}</LableContainer>;
 };
