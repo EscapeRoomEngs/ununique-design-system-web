@@ -55,6 +55,7 @@ export const GlobalStyles = createGlobalStyle`
 		line-height: 130%;
 		font: inherit;
 		vertical-align: baseline;
+		font-family: "Pretendard400";
 	}
 	/* HTML5 display-role reset for older browsers */
 	article, aside, details, figcaption, figure, 
@@ -88,10 +89,10 @@ export const GlobalStyles = createGlobalStyle`
 		color: inherit;
 	}
 	/* Typography */
-	p.400, span.400 {
+	.400 {
 		font-family: "Pretendard400";
 	}
-	p.600, span.600 {
+	.600 {
 		font-family: "Pretendard600";
 	}
 `;

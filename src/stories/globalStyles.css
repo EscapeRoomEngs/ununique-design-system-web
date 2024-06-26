@@ -13,21 +13,50 @@
   src: url("../../src/assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
 }
 
-.sbdocs-content {
-  font-size: 14px;
-  * {
-    font-family: "Pretendard400";
+#storybook-root > *,
+#storybook-docs .sbdocs-preview *,
+#storybook-docs > div.sbdocs-wrapper > div.sbdocs-content p {
+  font-family: "Pretendard400";
+  font-size: 17px;
+}
+#storybook-docs {
+  > .sbdocs-wrapper > .sbdocs-content > * {
+    margin: 16px 0;
   }
-  p,
-  table th {
+  p {
+    margin: 0;
+  }
+  table#guide {
+    width: 100%;
+    margin: 40px 0;
+    table-layout: fixed;
     font-family: "Pretendard400";
+    > thead > tr {
+      background-color: #f5f5f5;
+      color: #636363;
+      > th {
+        border: 0;
+      }
+    }
+    > tbody > tr {
+      background-color: white;
+      > td {
+        text-align: center;
+        border-left: 0;
+        border-right: 0;
+        > p {
+          font-size: inherit;
+        }
+      }
+    }
   }
   h1,
   h2,
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  .bold {
     font-family: "Pretendard600";
   }
 }

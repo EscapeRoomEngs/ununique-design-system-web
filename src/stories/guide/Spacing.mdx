@@ -1,39 +1,34 @@
 import { Meta, Typeset } from "@storybook/blocks";
 import { color } from "../../styles/color";
+import { spacing } from "../../styles/layout";
 import "../globalStyles.css";
-
-export const spacing = [0, 2, 4, 8, 12, 16, 20, 24, 32, 40, 56];
 
 <Meta title="Design System/Guide/Spacing" />
 
 # 간격(Spacing)
 
-<p>
-  균일한 간격의 사용은 체계적인 UI 배열을 만들어줍니다. 주요 디바이스의 스크린 사이즈는 8로
-  나누어떨어지며 1.5배수 시 렌더링 이슈가 최소화되기 때문에 8-Point grid를 원칙으로 합니다. 작게는
-  카드나 테이블 등의 컴포넌트부터 페이지 레이아웃까지 규격화된 수치로 간격을 유지하기 위해
-  사용합니다.
-</p>
-<p>
-  스페이싱의 기본 단위는 4와 8의 배수에 기반한 8가지로 규정하여 사용합니다. 8의 배수는 가장 큰 기본
-  배수이며 8이 포함하고 있는 2와 4의 배수도 허용합니다. 그러므로 상황에 따라 4px의 배수 간격을
-  사용할 수 있습니다.
-</p>
+균일한 간격의 사용은 체계적인 UI 배열을 만들어줍니다. 주요 디바이스의 스크린 사이즈는 8로
+나누어떨어지며 1.5배수 시 렌더링 이슈가 최소화되기 때문에 8-Point grid를 원칙으로 합니다. 작게는
+카드나 테이블 등의 컴포넌트부터 페이지 레이아웃까지 규격화된 수치로 간격을 유지하기 위해
+사용합니다. <br/>
+스페이싱의 기본 단위는 4와 8의 배수에 기반한 8가지로 규정하여 사용합니다. 8의 배수는 가장 큰 기본
+배수이며 8이 포함하고 있는 2와 4의 배수도 허용합니다. 그러므로 상황에 따라 4px의 배수 간격을
+사용할 수 있습니다.
 
-<table style={{ width: "100%", tableLayout: "fixed", margin: "40px 0" }}>
+<table id="guide" style={{ width: "100%", tableLayout: "fixed", margin: "40px 0" }}>
   <thead>
-    <tr style={{ backgroundColor: color.surface.tertiary, color: color.text.secondary }}>
+    <tr>
       <th>Usage</th>
       <th>Spacing</th>
       <th>Spacing Size</th>
     </tr>
   </thead>
   <tbody>
-    {spacing.map((space, index) => (
-      <tr key={index} style={{ backgroundColor: color.surface.primary }}>
+    {Object.values(spacing)?.map((space, index) => (
+      <tr key={index}>
         <td>Template</td>
         <td>Spacing - {index}</td>
-        <td>{space}px</td>
+        <td>{space}</td>
       </tr>
     ))}
   </tbody>

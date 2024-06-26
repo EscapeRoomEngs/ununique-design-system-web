@@ -20,7 +20,7 @@ export const GridContainer = ({
 }: ContainerProps) => {
   const StyledGridContainer = styled.div`
     ${layout.grid({ justify, align, spacing })}
-    background-color: ${bgColor && color.surface[bgColor]}
+    background-color: ${bgColor && color.surface[bgColor]?.hex};
   `;
   return (
     <StyledGridContainer className="grid-container" style={props.style}>
@@ -37,7 +37,7 @@ export const FlexContainer = ({
 }: ContainerProps) => {
   const StyledFlexContainer = styled.div`
     ${layout.flex({ justify, align, spacing })}
-    background-color: ${bgColor && color.surface[bgColor]}
+    background-color: ${bgColor && color.surface[bgColor]?.hex};
   `;
   return (
     <StyledFlexContainer className="flex-container" style={props.style}>
@@ -60,11 +60,11 @@ export const CardTemplate = ({ heading, title, subTitle, body, ...props }: CardP
     <GridContainer {...props.containerStyle} style={props.style} spacing="80px">
       <Heading>{heading?.children}</Heading>
       <GridContainer spacing="40px">
-        <Heading style={title?.style}>{title?.children}</Heading>
+        <Heading fontStyle={title?.fontStyle}>{title?.children}</Heading>
         <GridContainer spacing="32px">
-          <Title style={subTitle?.style}>{subTitle?.children}</Title>
+          <Title fontStyle={subTitle?.fontStyle}>{subTitle?.children}</Title>
           <GridContainer spacing="24px">
-            <Body style={body?.style}>{body?.children}</Body>
+            <Body fontStyle={body?.fontStyle}>{body?.children}</Body>
             {props.children}
           </GridContainer>
         </GridContainer>

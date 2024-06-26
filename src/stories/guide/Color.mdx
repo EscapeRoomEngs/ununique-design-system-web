@@ -1,0 +1,91 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+import { palette, color } from "../../styles/color";
+import { spacing } from "../../styles/layout";
+import "../globalStyles.css";
+
+<Meta title="Design System/Guide/Color" />
+
+# Color Palette
+
+<ColorPalette>
+  <ColorItem title="Gray" subtitle="theme.palette.gray" colors={palette?.gray} />
+  <ColorItem title="Navy" subtitle="theme.palette.navy" colors={palette?.navy} />
+  <ColorItem title="Red" subtitle="theme.palette.red" colors={palette?.red} />
+  <ColorItem title="Blue" subtitle="theme.palette.blue" colors={palette?.blue} />
+</ColorPalette>
+
+<hr />
+
+# Usage
+
+### 1. Surface
+
+<table id="guide" style={{ width: "100%", tableLayout: "fixed", margin: "40px 0" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "100px" }}>-</th>
+      <th>Color Style Name</th>
+      <th>Color Palette</th>
+      <th>Hex</th>
+      <th style={{ width: "42%" }}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Object.keys(color?.surface).map((surfaceStyleNm, index) => {
+      const surfaceColorObj = color?.surface[surfaceStyleNm] || {};
+      return (
+        <tr key={index}>
+          <td style={{ backgroundColor: surfaceColorObj.hex, height: "100px" }} />
+          <td className="bold">{surfaceColorObj.styleNm}</td>
+          <td>{`${surfaceColorObj.palette}/${surfaceColorObj.depth}`}</td>
+          <td>{surfaceColorObj.hex}</td>
+          <td style={{ textAlign: "left" }}>
+            {surfaceColorObj.description?.split("\n")?.map((line) => <p>{line}</p> || <br />)}
+          </td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
+
+<hr />
+
+### 2. Text
+
+<table id="guide" style={{ width: "100%", tableLayout: "fixed", margin: "40px 0" }}>
+  <thead>
+    <tr>
+      <th style={{ width: "100px" }}>-</th>
+      <th>Color Style Name</th>
+      <th>Color Palette</th>
+      <th>Hex</th>
+      <th style={{ width: "42%" }}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Object.keys(color?.text).map((textStyleNm, index) => {
+      const textColorObj = color?.text[textStyleNm] || {};
+      return (
+        <tr key={index}>
+          <td
+            className="bold"
+            style={{
+              backgroundColor: textStyleNm === "invert" ? color.surface.invert.hex : undefined,
+              color: textColorObj.hex,
+              fontSize: "64px",
+              height: "100px",
+            }}
+          >
+            가
+          </td>
+          <td className="bold">{textColorObj.styleNm}</td>
+          <td>{`${textColorObj.palette}/${textColorObj.depth}`}</td>
+          <td>{textColorObj.hex}</td>
+          <td style={{ textAlign: "left" }}>
+            {textColorObj.description?.split("\n")?.map((line) => <p>{line}</p> || <br />)}
+          </td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
