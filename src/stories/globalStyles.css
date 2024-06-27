@@ -14,7 +14,6 @@
 }
 
 #storybook-root > *,
-#storybook-docs .sbdocs-preview *,
 #storybook-docs > div.sbdocs-wrapper > div.sbdocs-content p {
   font-family: "Pretendard400";
   font-size: 17px;

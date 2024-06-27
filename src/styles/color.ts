@@ -100,22 +100,94 @@ const text = {
   },
 };
 const icon = {
-  default: gray[900],
-  secondary: gray[600],
-  tertiary: gray[300],
-  disabled: gray[500],
-  invert: gray[0],
+  default: {
+    styleNm: "Default",
+    palette: "gray",
+    depth: 900,
+    hex: gray[900],
+    description: "기본 아이콘 색상입니다.",
+  },
+  sub: {
+    styleNm: "Sub",
+    palette: "gray",
+    depth: 600,
+    hex: gray[600],
+    description: "두 번째 위계의 아이콘 색상입니다.",
+  },
+  tertiary: {
+    styleNm: "Tertiary",
+    palette: "gray",
+    depth: 300,
+    hex: gray[300],
+    description: "세 번째 위계의 아이콘 색상입니다.",
+  },
+  disabled: {
+    styleNm: "Disabled",
+    palette: "gray",
+    depth: 500,
+    hex: gray[500],
+    description: "상호 작용이 불가능한 비활성화된 아이콘 색상입니다.",
+  },
+  invert: {
+    styleNm: "Invert",
+    palette: "gray",
+    depth: 0,
+    hex: gray[0],
+    description: "반전 아이콘 색상입니다.",
+  },
 };
 const border = {
-  default: gray[300],
-  hover: gray[500],
-  focused: gray[800],
-  disabled: gray[200],
-  error: red[600],
+  default: {
+    styleNm: "Default",
+    palette: "gray",
+    depth: 300,
+    hex: gray[300],
+    description: "기본 테두리 색상입니다.",
+  },
+  hover: {
+    styleNm: "Hover",
+    palette: "gray",
+    depth: 500,
+    hex: gray[500],
+    description: "Hover 테두리 색상입니다.(Web에서만 사용)",
+  },
+  focused: {
+    styleNm: "Focused",
+    palette: "gray",
+    depth: 800,
+    hex: gray[800],
+    description: "선택된 테두리 색상입니다.",
+  },
+  disabled: {
+    styleNm: "Disabled",
+    palette: "gray",
+    depth: 200,
+    hex: gray[200],
+    description: "상호 작용이 불가능한 비활성화된 테두리 색상입니다.",
+  },
+  error: {
+    styleNm: "Error",
+    palette: "red",
+    depth: 600,
+    hex: red[600],
+    description: "상호 작용이 불가능한 비활성화된 테두리 색상입니다.",
+  },
 };
 const divider = {
-  default: gray[200],
-  strong: gray[400],
+  default: {
+    styleNm: "Default",
+    palette: "gray",
+    depth: 200,
+    hex: gray[200],
+    description: "기본 구분선 색상입니다.",
+  },
+  strong: {
+    styleNm: "Stron",
+    palette: "gray",
+    depth: 400,
+    hex: gray[400],
+    description: "특정 부분을 강조하기 위한 구분선 색상입니다.",
+  },
 };
 const surface = {
   primary: {
