@@ -37,6 +37,6 @@ export const InvertCardTemplate: Story = {
     },
     containerStyle: { bgColor: "invert" },
     style: { padding: "40px", borderRadius: "20px", color: color.text.invert.hex },
-    children: "주요 콘텐츠의 보조 Detail M / jung456@gmail.com",
+    children: "주요 콘텐츠의 보조 Detail M / jung456@email.com",
   },
 };
