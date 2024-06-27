@@ -21,6 +21,7 @@ export const GridContainer = ({
   const StyledGridContainer = styled.div`
     ${layout.grid({ justify, align, spacing })}
     background-color: ${bgColor && color.surface[bgColor]?.hex};
+    font-family: "Pretendard400";
   `;
   return (
     <StyledGridContainer className="grid-container" style={props.style}>
@@ -38,6 +39,7 @@ export const FlexContainer = ({
   const StyledFlexContainer = styled.div`
     ${layout.flex({ justify, align, spacing })}
     background-color: ${bgColor && color.surface[bgColor]?.hex};
+    font-family: "Pretendard400";
   `;
   return (
     <StyledFlexContainer className="flex-container" style={props.style}>

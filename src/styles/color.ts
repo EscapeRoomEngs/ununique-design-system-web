@@ -182,7 +182,7 @@ const divider = {
     description: "기본 구분선 색상입니다.",
   },
   strong: {
-    styleNm: "Stron",
+    styleNm: "Strong",
     palette: "gray",
     depth: 400,
     hex: gray[400],
