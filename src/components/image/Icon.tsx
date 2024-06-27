@@ -1,13 +1,21 @@
 import styled from "styled-components";
 import { ReactComponent as IconConfirm } from "../../assets/icon/check_circle.svg";
+import { ReactComponent as IconNoti } from "../../assets/icon/notifications.svg";
 import { color } from "../../styles/color";
 
 interface IconProps {
-  iconSize?: string;
+  iconNm: string;
+  iconSize: string;
   iconColor?: "default" | "sub" | "tertiary" | "disabled" | "invert";
   style?: React.CSSProperties;
 }
-export const Icon = ({ iconSize = "20px", iconColor = "default", ...props }: IconProps) => {
+export const Icon = ({
+  iconNm = "confirm",
+  iconSize = "24px",
+  iconColor = "default",
+  ...props
+}: IconProps) => {
+  const IconComponent = iconNm === "confirm" ? IconConfirm : IconNoti;
   const StyledIconWrapper = styled.div`
     width: ${iconSize};
     height: ${iconSize};
@@ -15,7 +23,7 @@ export const Icon = ({ iconSize = "20px", iconColor = "default", ...props }: Ico
       fill: ${color.icon[iconColor]?.hex};
     }
   `;
-  const StyledIcon = styled(IconConfirm)`
+  const StyledIcon = styled(IconComponent)`
     width: ${iconSize};
     height: ${iconSize};
   `;
