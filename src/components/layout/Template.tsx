@@ -4,17 +4,18 @@ import { layout } from "../../styles/layout";
 import { Body, Heading, Title, TypographyProps } from "./Typography";
 
 interface ContainerProps {
+  direction?: "row" | "column";
   justify?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "stretch";
   align?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "stretch";
   spacing?: string;
   bgColor?: "primary" | "secondary" | "tertiary" | "invert" | "brand";
-  style?: React.CSSProperties;
+  borderColor?: "default" | "hover" | "focused" | "disabled" | "error";
   children?: any;
 }
 export const GridContainer = ({
   justify = "flex-start",
   align = "center",
-  spacing,
+  spacing = "16px",
   bgColor,
   ...props
 }: ContainerProps) => {
@@ -24,42 +25,41 @@ export const GridContainer = ({
     font-family: "Pretendard400";
   `;
   return (
-    <StyledGridContainer className="grid-container" style={props.style}>
+    <StyledGridContainer className="grid-container" {...props}>
       {props.children}
     </StyledGridContainer>
   );
 };
 export const FlexContainer = ({
+  direction,
   justify = "flex-start",
   align = "center",
-  spacing,
+  spacing = "16px",
   bgColor,
   ...props
 }: ContainerProps) => {
   const StyledFlexContainer = styled.div`
-    ${layout.flex({ justify, align, spacing })}
+    ${layout.flex({ direction, justify, align, spacing })}
     background-color: ${bgColor && color.surface[bgColor]?.hex};
     font-family: "Pretendard400";
   `;
   return (
-    <StyledFlexContainer className="flex-container" style={props.style}>
+    <StyledFlexContainer className="flex-container" {...props}>
       {props.children}
     </StyledFlexContainer>
   );
 };
 
-export interface CardProps {
+export interface CardProps extends ContainerProps {
   heading?: TypographyProps;
   title?: TypographyProps;
   subTitle?: TypographyProps;
   body?: TypographyProps;
-  containerStyle?: ContainerProps;
-  style?: React.CSSProperties;
   children?: any;
 }
 export const CardTemplate = ({ heading, title, subTitle, body, ...props }: CardProps) => {
   return (
-    <GridContainer {...props.containerStyle} style={props.style} spacing="80px">
+    <GridContainer spacing="80px" {...props}>
       <Heading>{heading?.children}</Heading>
       <GridContainer spacing="40px">
         <Heading fontStyle={title?.fontStyle}>{title?.children}</Heading>

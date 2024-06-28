@@ -10,8 +10,8 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
       <thead>
         <tr>
           <th style={{ width: "100px" }}>-</th>
-          <th>Color Style Name</th>
-          <th>Color Palette</th>
+          <th>Style Name</th>
+          <th>Palette/Depth</th>
           <th>Hex</th>
           <th style={{ width: "42%" }}>Description</th>
         </tr>
@@ -21,7 +21,9 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
           const colorObj = usageObj[styleNm] || {};
           return (
             <tr key={index}>
-              <td style={{ height: "100px" }}>{getStyleExample(styleNm, colorObj.hex)}</td>
+              <td style={{ width: "100px", height: "100px" }}>
+                {getStyleExample(styleNm, colorObj.hex)}
+              </td>
               <td className="bold">{colorObj.styleNm}</td>
               <td>{`${colorObj.palette}/${colorObj.depth}`}</td>
               <td>{colorObj.hex}</td>
@@ -36,15 +38,15 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
   );
 }
 
-<Meta title="Design System/Guide/Color" />
+<Meta title="Design System/Foundation/Color" />
 
 # Color Palette
 
 <ColorPalette>
-  <ColorItem title="Gray" subtitle="theme.palette.gray" colors={palette?.gray} />
-  <ColorItem title="Navy" subtitle="theme.palette.navy" colors={palette?.navy} />
-  <ColorItem title="Red" subtitle="theme.palette.red" colors={palette?.red} />
-  <ColorItem title="Blue" subtitle="theme.palette.blue" colors={palette?.blue} />
+  <ColorItem title="Gray" subtitle="palette.gray" colors={palette?.gray} />
+  <ColorItem title="Navy" subtitle="palette.navy" colors={palette?.navy} />
+  <ColorItem title="Red" subtitle="palette.red" colors={palette?.red} />
+  <ColorItem title="Blue" subtitle="palette.blue" colors={palette?.blue} />
 </ColorPalette>
 
 <hr />
@@ -60,6 +62,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
       style={{
         backgroundColor: hex,
         borderRadius: "8px",
+        width: "100px",
         height: "100px",
       }}
     />
@@ -75,6 +78,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
       className="bold"
       style={{
         backgroundColor: styleNm === "invert" ? color.surface.invert.hex : undefined,
+        width: "100px",
         height: "100px",
         borderRadius: "8px",
         fontSize: "64px",
@@ -98,6 +102,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
       style={{
         backgroundColor: styleNm === "invert" ? color.surface.invert.hex : "white",
         borderRadius: "8px",
+        width: "100px",
         height: "100px",
       }}
     />
@@ -107,9 +112,11 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 ### 4. Border
 
 <ColorUsageTable
-  usageObj={color?.icon}
+  usageObj={color?.border}
   getStyleExample={(_, hex) => (
-    <div style={{ border: `${hex} solid 1px`, borderRadius: "8px", height: "100px" }} />
+    <div
+      style={{ border: `${hex} solid 1px`, borderRadius: "8px", width: "100px", height: "100px" }}
+    />
   )}
 />
 

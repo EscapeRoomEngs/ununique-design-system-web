@@ -15,7 +15,7 @@ export const spacing = {
 export const layout = {
   flex: (obj: object | any) => `
       display: flex;
-      flex-direction: ${obj?.direction ?? "column"};
+      flex-direction: ${obj?.direction ?? "row"};
       justify-content: ${obj?.justify ?? "center"}; 
       align-items: ${obj?.align ?? "center"}; 
       gap: ${obj?.spacing ?? "16px"};

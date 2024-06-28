@@ -1,7 +1,13 @@
 import styled from "styled-components";
-import { color as palette } from "../../styles/color";
+import { color } from "../../styles/color";
 
-type fontColor = "primary" | "secondary" | "placeholder" | "invert" | "negative" | "positive";
+export type fontColor =
+  | "primary"
+  | "secondary"
+  | "placeholder"
+  | "invert"
+  | "negative"
+  | "positive";
 export interface TypographyProps {
   weight?: 400 | 600;
   fontStyle?: "Large" | "Medium" | "Small" | "ExtraSmall";
@@ -12,7 +18,7 @@ export interface TypographyProps {
 const getTypoStyleProps = (props: { fontSize: string; weight: number; fontColor?: fontColor }) =>
   `font-size: ${props.fontSize};
     font-family: "Pretendard${props.weight}";
-    color: ${props.fontColor ? palette.text[props.fontColor]?.hex : "inherit"};
+    color: ${props.fontColor ? color.text[props.fontColor]?.hex : "inherit"};
     margin: 0;`;
 
 export const Display = ({
@@ -80,17 +86,25 @@ export const Body = ({
   return (
     <div>
       {typeof children === "string"
-        ? children?.split("\n")?.map((line) => <BodyContainer>{line}</BodyContainer> || <br />)
+        ? children
+            ?.split("\n")
+            ?.map(
+              (line) => <BodyContainer className={String(weight)}>{line}</BodyContainer> || <br />
+            )
         : children}
     </div>
   );
 };
+export interface LableProps extends TypographyProps {
+  required?: boolean;
+}
 export const Lable = ({
   weight = 600,
   fontStyle: style = "Medium",
   fontColor,
   children: value,
-}: TypographyProps) => {
+  required = false,
+}: LableProps) => {
   const getLabelFontSize = () => {
     switch (style) {
       case "Large":
@@ -102,8 +116,19 @@ export const Lable = ({
         return "17px";
     }
   };
-  const LableContainer = styled.label`
-    ${getTypoStyleProps({ fontSize: getLabelFontSize(), weight, fontColor })}
+  const LableContainer = styled.div`
+    > label {
+      ${getTypoStyleProps({ fontSize: getLabelFontSize(), weight, fontColor })}
+    }
+    label.essential::after {
+      content: "*";
+      color: ${color.text.negative.hex};
+      padding-left: 2px;
+    }
   `;
-  return <LableContainer>{value}</LableContainer>;
+  return (
+    <LableContainer className="label-container">
+      <label className={required ? "essential" : ""}>{value}</label>
+    </LableContainer>
+  );
 };

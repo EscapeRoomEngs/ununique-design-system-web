@@ -4,7 +4,7 @@ import { color } from "../../styles/color";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta = {
-  title: "Design System/Guide/Example/CardTemplate",
+  title: "Design System/Foundation/Example/CardTemplate",
   component: CardTemplate,
   parameters: {
     layout: "centered",
@@ -35,8 +35,8 @@ export const InvertCardTemplate: Story = {
       children:
         "주요 콘텐츠 Body M / 색상과 디자인이 사진과 정확히 일치해요. 품질도 좋고, 가격 대비 만족스러워요.\n주요 콘텐츠 Body M / 색상과 디자인이 사진과 정확히 일치해요. 품질도 좋고, 가격 대비 만족스러워요.\n주요 콘텐츠 Body M / 색상과 디자인이 사진과 정확히 일치해요. 품질도 좋고, 가격 대비 만족스러워요.\n주요 콘텐츠 Body M / 색상과 디자인이 사진과 정확히 일치해요. 품질도 좋고, 가격 대비 만족스러워요.",
     },
-    containerStyle: { bgColor: "invert" },
-    style: { padding: "40px", borderRadius: "20px", color: color.text.invert.hex },
     children: "주요 콘텐츠의 보조 Detail M / jung456@email.com",
+    style: { padding: "40px", borderRadius: "20px", color: color.text.invert.hex },
+    bgColor: "invert",
   },
 };

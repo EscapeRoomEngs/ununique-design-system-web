@@ -1,12 +1,14 @@
 # Ununique Design System Web 🌎
 
-Web, Android App 기반 유통 사업 공통 디자인 시스템 프로젝트입니다.
+Web, Android App 기반 유통 사업 공통 디자인 시스템 프로젝트입니다.<br/>
 React.js를 기반으로 디자인 시스템을 따라 UI 컴포넌트를 구현합니다.
 
 ## Goals 💡
 
 - Design System 적용한 CDD(Component-Driven Development)
 - Storybook 활용한 UI 컴포넌트 문서화
+- React App의 Atomic Design Patter 구조화
+- - (Atomic -> Component -> Template -> Page)
 
 ## Updates 📝
 
@@ -14,7 +16,7 @@ React.js를 기반으로 디자인 시스템을 따라 UI 컴포넌트를 구현
 - 240626 Storybook - Color Guide 문서화
 - 240627 Storybook - Chromatic 연동
 - - [디자인 시스템 가이드 문서 (Storybook)](https://667cc5b39b0826f0a57d0da5-ubsrekksct.chromatic.com/)
-- - [Chromatic to review published Storybook Components](https://www.chromatic.com/builds?appId=667cc5b39b0826f0a57d0da5)
+- - [Chromatic to review published UI components](https://www.chromatic.com/builds?appId=667cc5b39b0826f0a57d0da5)
 
 ## Installation 🚀
 
