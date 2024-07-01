@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CardTemplate } from "../../components/layout/Template";
-import { color } from "../../styles/color";
+import { CardTemplate } from "../../atom/Container";
+import { color } from "../../foundation/color";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta = {
-  title: "Design System/Foundation/Example/CardTemplate",
+  title: "Design System/1_Foundation/Example/CardTemplate",
   component: CardTemplate,
   parameters: {
     layout: "centered",

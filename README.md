@@ -1,22 +1,71 @@
 # Ununique Design System Web 🌎
 
 Web, Android App 기반 유통 사업 공통 디자인 시스템 프로젝트입니다.<br/>
-React.js를 기반으로 디자인 시스템을 따라 UI 컴포넌트를 구현합니다.
+React with Typescript 기반으로 디자인 시스템을 따라 UI 컴포넌트를 구현합니다.
 
 ## Goals 💡
 
-- Design System 적용한 CDD(Component-Driven Development)
-- Storybook 활용한 UI 컴포넌트 문서화
-- React App의 Atomic Design Patter 구조화
-- - (Atomic -> Component -> Template -> Page)
+- Atomic Design Pattern React App 구현<br />
+  (Foundation -> Atomic -> Component -> Template -> Page)
+- Design System 적용한 컴포넌트 주도 개발 (Component-Driven Development)
+- Storybook 활용한 UI Component 문서화
 
 ## Updates 📝
 
 - 240522 React with Storybook 프로젝트 생성
 - 240626 Storybook - Color Guide 문서화
 - 240627 Storybook - Chromatic 연동
-- - [디자인 시스템 가이드 문서 (Storybook)](https://667cc5b39b0826f0a57d0da5-ubsrekksct.chromatic.com/)
+- - [Component Guide Docs (Storybook)](https://667cc5b39b0826f0a57d0da5-ubsrekksct.chromatic.com/)
 - - [Chromatic to review published UI components](https://www.chromatic.com/builds?appId=667cc5b39b0826f0a57d0da5)
+
+## Folder Structure 📁
+
+```
+src/
+
++-- assets/
+|   +-- font/
+|   +-- icon/ (.svg files for icon)
+|   +-- background/
+
++-- foundation/ (definitions of design attributes and values)
+|   +-- layout.ts : align, padding, margin, corner radius
+|   +-- color.ts : color palette, color theme (surface/text/border/icon/divider)
+|   +-- icon.ts : icon size, icon name
+|   +-- spacing.ts : spacing sizes (px)
+|   +-- typography.ts : font size, font weight, line height
+
++-- atom/ (default & smallest UI Component)
+|   +-- Text.tsx (Display, Heading, Title, Body, Lable)
+|   +-- Input.tsx (Text Field, Dropdown, Radio, Checkbox...)
+|   +-- Icon.tsx
+
++-- component/ (reusable UI Components having atoms combined)
+|   +-- Button.tsx
+|   +-- Toggle.tsx
+|   +-- Tab.tsx
+|   +-- ListItem.tsx
+|   +-- CardItem.tsx
+
++-- template/ (UI Componets for specific context)
+|   +-- main
+|   |   +-- CardSlider.tsx
+|   |   +-- RankList.tsx
+|   +-- product
+|   |   +-- ProductInfo.tsx
+|   |   +-- ProductIngredient.tsx
+|   |   +-- OptionList.tsx
+|   +-- order
+|   |   +-- OrderForm.tsx
+
++-- pages/
+|   +-- myorder
+|   |   +-- MyOrderDetail.tsx
+|   |   +-- MyOrderList.tsx
+.
+.
+.
+```
 
 ## Installation 🚀
 

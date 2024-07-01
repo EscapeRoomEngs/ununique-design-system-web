@@ -1,0 +1,113 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import {
+  DefaultColorIcon,
+  DisabledColorIcon,
+  InvertColorIcon,
+  SubColorIcon,
+  TertiaryColorIcon,
+} from "./Icon.stories";
+
+export const iconSizes = [12, 16, 20, 24, 36, 40, 48, 56, 64];
+
+<Meta title="Design System/2_Atom/Icon" />
+
+<div style={{display:"grid", gap:"24px"}}>
+
+<div>
+# Icon
+
+아이콘은 기능, 행동, 사물의 상징을 기호로 만든 시각 언어로 한정된 공간에서 효율적으로 정보를 전달하는 역할을 합니다.<br/>
+기본 단위는 24\*24이며 4와 8의 배수에 기반한 단위로 맞춰 조정할 수 있습니다.
+
+<table id="guide" >
+  <tbody>
+    <tr style={{ border:"0" }}>
+      {iconSizes?.map((size, idx) => (
+        <td key={idx} style={{ verticalAlign: "bottom", border:"0" }}>
+        <div style={{display:"grid", gap:"8px", alignItems:"center", justifyItems: "center"}}>
+          <div style={{ width: `${size}px`, height: `${size}px`, backgroundColor: "#BDDDFF" }} />
+          <p>
+            {size}*{size}
+          </p>
+          </div>
+        </td>
+      ))}
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div>
+## Padding
+
+그리드는 모든 면에 2픽셀의 패딩을 포함합니다. 패딩을 제외한 영역에 아이콘을 그려야 합니다.
+
+</div>
+
+<div>
+## Touch Area
+
+터치 영역의 최소 사이즈는 48 x 48 사이즈의 사용하면 좋습니다. (물리적으로 약 9mm) <br />
+권장하는 터치 영역의 사이즈는 7-10mm입니다.
+
+</div>
+
+<div>
+## Stroke Weight
+
+24 사이즈 아이콘 기준, 선 굵기는 1.5를 권장합니다.
+
+</div>
+
+<div>
+## Stroke Alignment
+
+선의 정렬 옵션은 Center로 설정합니다.<br />
+이 설정은 기본 크기로 제작된 선 아이콘의 굵기를 변경하여 사용할 때 아이콘의 형태를 유지해주고 내부 모서리 표현에 영향을 줍니다.
+
+</div>
+
+<div>
+## Cap Design
+
+선 아이콘을 제작할 때 부드러운 인상을 주기 위해 끝모양(Endcaps)과 꺾임(Join)을 둥글게 설정하여 사용합니다.<br />
+
+<ul>
+  <li>Endcaps : 선의 끝모양을 Round로 적용한 모습</li>
+  <li>Join : 선의 꺾인 부분을 Round로 적용한 모습</li>
+</ul>
+
+</div>
+
+<div>
+## Corner Radius
+
+모서리는 부드러운 인상을 만들기 위해 둥글게 표현합니다. 기본값은 2를 사용하며, 아이콘의 의미를 더 명확히 표현할 수 있는 값을 사용하여 형태가 크게 왜곡되지 않는 선에서 알맞게 사용합니다.
+
+</div>
+
+<div>
+## Cap Design
+
+아이콘은 Line, Fill의 2가지 타입의 표현을 사용하며, 맥락에 따라 적절하게 사용합니다.
+
+<ul>
+  <li>Line : 일반적으로 많이 사용하는 타입입니다.</li>
+  <li>
+    Fill : 아이콘의 크기가 작을 경우, 주목도를 높이기 위해 사용하거나 행동에 대한 피드백으로
+    사용합니다.
+  </li>
+</ul>
+
+</div>
+
+<div>
+  ## Example
+  <Canvas of={DefaultColorIcon} />
+  <Canvas of={SubColorIcon} />
+  <Canvas of={TertiaryColorIcon} />
+  <Canvas of={DisabledColorIcon} />
+  <Canvas of={InvertColorIcon} />
+</div>
+
+</div>

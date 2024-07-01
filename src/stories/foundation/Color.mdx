@@ -1,7 +1,7 @@
 import { ColorItem, ColorPalette, Meta } from "@storybook/blocks";
-import { Icon } from "../../components/image/Icon";
-import { color, palette } from "../../styles/color";
-import { spacing } from "../../styles/layout";
+import { Icon } from "../../components/Icon";
+import { color, palette } from "../../foundation/color";
+import { spacing } from "../../foundation/layout";
 import "../globalStyles.css";
 
 export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
@@ -9,7 +9,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
     <table id="guide" style={{ width: "100%", tableLayout: "fixed", margin: "40px 0" }}>
       <thead>
         <tr>
-          <th style={{ width: "100px" }}>-</th>
+          <th style={{ width: "126px" }}>-</th>
           <th>Style Name</th>
           <th>Palette/Depth</th>
           <th>Hex</th>
@@ -21,9 +21,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
           const colorObj = usageObj[styleNm] || {};
           return (
             <tr key={index}>
-              <td style={{ width: "100px", height: "100px" }}>
-                {getStyleExample(styleNm, colorObj.hex)}
-              </td>
+              <td style={{ height: "100px" }}>{getStyleExample(styleNm, colorObj.hex)}</td>
               <td className="bold">{colorObj.styleNm}</td>
               <td>{`${colorObj.palette}/${colorObj.depth}`}</td>
               <td>{colorObj.hex}</td>
@@ -38,7 +36,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
   );
 }
 
-<Meta title="Design System/Foundation/Color" />
+<Meta title="Design System/1_Foundation/Color" />
 
 # Color Palette
 
@@ -62,7 +60,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
       style={{
         backgroundColor: hex,
         borderRadius: "8px",
-        width: "100px",
+        width: "100%",
         height: "100px",
       }}
     />
@@ -78,7 +76,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
       className="bold"
       style={{
         backgroundColor: styleNm === "invert" ? color.surface.invert.hex : undefined,
-        width: "100px",
+        width: "100%",
         height: "100px",
         borderRadius: "8px",
         fontSize: "64px",

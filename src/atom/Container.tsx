@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { color } from "../../styles/color";
-import { layout } from "../../styles/layout";
-import { Body, Heading, Title, TypographyProps } from "./Typography";
+import { color } from "../foundation/color";
+import { layout } from "../foundation/layout";
+import { Body, Heading, Title, TypographyProps } from "./Text";
 
 interface ContainerProps {
   direction?: "row" | "column";

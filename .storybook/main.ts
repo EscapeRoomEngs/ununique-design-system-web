@@ -17,7 +17,6 @@ const config: StorybookConfig = {
   staticDirs: ["../public"],
   previewHead: (head) => `
   ${head}
-  <link rel="stylesheet" href="../src/stories/_reset.css" />
   <style type="text/css">
 		html, body, div, span, applet, object, iframe,
 		h1, h2, h3, h4, h5, h6, p, blockquote, pre,

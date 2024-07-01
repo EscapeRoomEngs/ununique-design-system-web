@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { color } from "../../styles/color";
-import { layout } from "../../styles/layout";
-import { Icon, IconProps } from "../image/Icon";
-import { Body, fontColor } from "../layout/Typography";
+import { Body, fontColor } from "../atom/Text";
+import { color } from "../foundation/color";
+import { layout } from "../foundation/layout";
+import { Icon, IconProps } from "./Icon";
 
 interface ButtonProps {
   /**
