@@ -12,6 +12,8 @@ export const spacing = {
   0: "0px",
 };
 
+export const radius = { XS: 4, S: 8, M: 12, L: 16 };
+
 export const layout = {
   flex: (obj: object | any) => `
       display: flex;

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Icon } from "../../components/Icon";
+import { Icon } from "../../atom/Icon";
 import { color } from "../../foundation/color";
 import "../globalStyles.css";
 
@@ -9,6 +9,9 @@ const meta: Meta = {
   component: Icon,
   parameters: {
     layout: "centered",
+  },
+  argTypes: {
+    iconSize: { control: "select", options: [12, 16, 20, 24, 36, 40, 48, 56, 64] },
   },
   tags: ["autodocs"],
 };

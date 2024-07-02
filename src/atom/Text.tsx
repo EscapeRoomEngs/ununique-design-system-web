@@ -86,11 +86,14 @@ export const Body = ({
   return (
     <div>
       {typeof children === "string"
-        ? children
-            ?.split("\n")
-            ?.map(
-              (line) => <BodyContainer className={String(weight)}>{line}</BodyContainer> || <br />
-            )
+        ? children?.split("\n")?.map(
+            (line, idx) =>
+              (
+                <BodyContainer key={idx} className={`body ${weight}`}>
+                  {line}
+                </BodyContainer>
+              ) || <br />
+          )
         : children}
     </div>
   );

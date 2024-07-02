@@ -12,6 +12,21 @@ import { ReactComponent as IconUpload } from "../assets/icon/upload.svg";
 import { color } from "../foundation/color";
 import { layout } from "../foundation/layout";
 
+export type IconNmType =
+  | "chevronLess"
+  | "chevronRight"
+  | "chevronMore"
+  | "chevronRight"
+  | "chevronLeft"
+  | "add"
+  | "remove"
+  | "refresh"
+  | "search"
+  | "close"
+  | "upload"
+  | "download"
+  | "noti"
+  | "confirm";
 /**
  * 아이콘명에 따른 아이콘 컴포넌트 및 회전 각도 지정
  */
@@ -35,13 +50,13 @@ export interface IconProps {
   /**
    * 아이콘 명을 지정합니다.
    */
-  iconNm: string;
+  iconNm?: IconNmType;
   /**
-   * 아이콘의 크기를 지정합니다. (기본값: "24px")
+   * 아이콘의 크기를 지정합니다.
    */
-  iconSize: string;
+  iconSize: number;
   /**
-   * 아이콘 색상을 지정합니다. (기본값: "default")
+   * 아이콘 색상을 지정합니다.
    */
   iconColor?: "default" | "sub" | "tertiary" | "disabled" | "invert";
   /**
@@ -51,23 +66,23 @@ export interface IconProps {
 }
 export const Icon = ({
   iconNm = "confirm",
-  iconSize = "24px",
+  iconSize = 24,
   iconColor = "default",
   ...props
 }: IconProps) => {
   const IconProps = Object(IconObj)[iconNm];
   const StyledIconWrapper = styled.div`
     ${layout.flex({ justify: "center", align: "center" })};
-    width: ${iconSize};
-    height: ${iconSize};
+    width: ${iconSize}px;
+    height: ${iconSize}px;
     svg {
-      fill: ${color.icon[iconColor]?.hex};
+      fill: ${color.icon[iconColor]?.hex || "#292929"};
     }
   `;
   const StyledIcon = styled(IconProps.component || IconConfirm)`
     transform: rotate(${IconProps.rotate || 0}deg);
-    width: ${iconSize};
-    height: ${iconSize};
+    width: ${iconSize}px;
+    height: ${iconSize}px;
   `;
   return (
     <StyledIconWrapper {...props}>

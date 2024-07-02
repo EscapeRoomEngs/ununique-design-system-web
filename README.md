@@ -36,6 +36,7 @@ src/
 |   +-- typography.ts : font size, font weight, line height
 
 +-- atom/ (default & smallest UI Component)
+|   +-- Container.tsx (body container for aligning with grid or flex)
 |   +-- Text.tsx (Display, Heading, Title, Body, Lable)
 |   +-- Input.tsx (Text Field, Dropdown, Radio, Checkbox...)
 |   +-- Icon.tsx
