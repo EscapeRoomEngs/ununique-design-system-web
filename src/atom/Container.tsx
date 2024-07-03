@@ -4,25 +4,56 @@ import { layout } from "../foundation/layout";
 import { Body, Heading, Title, TypographyProps } from "./Text";
 
 interface ContainerProps {
+  /**
+   * 정렬 방식을 설정합니다 (vertical or horizontal)
+   */
   display?: "grid" | "flex";
+  /**
+   * 정렬 방향을 설정합니다. (display "flex" 한정)
+   */
   direction?: "row" | "column";
+  /**
+   * 자식 요소 간 좌우 정렬 방식을 설정합니다.
+   */
   justify?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "stretch";
+  /**
+   * 자식 요소 간 상하 정렬 방식을 설정합니다.
+   */
   align?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "stretch";
-  spacing?: string;
+  /**
+   * 자식 요소 간 간격을 설정합니다.
+   */
+  spacing?: number;
+  /**
+   * 컨테이너의 corner radius를 지정합니다.
+   */
   radius?: number;
+  /**
+   * 컨테이너의 배경색을 지정합니다.
+   */
   bgColor?: "primary" | "secondary" | "tertiary" | "invert" | "brand";
+  /**
+   * 컨테이너의 테두리 색상을 지정합니다.
+   */
   borderColor?: "default" | "hover" | "focused" | "disabled" | "error";
+  /**
+   * 기타 스타일을 지정하고 싶을 때 사용합니다. (ex. padding, margin...)
+   */
+  style?: React.CSSProperties;
   children?: any;
 }
-
+/**
+ * 배경색 및 테두리 색상을 쉽게 지정하고, 자식 요소간 정렬을 돕습니다.
+ */
 export const Container = ({
   display = "grid",
   direction,
   justify = "flex-start",
   align = "center",
-  spacing = "16px",
+  spacing = 16,
   radius,
   bgColor,
+  borderColor,
   ...props
 }: ContainerProps) => {
   const StyledContainer = styled.div`
@@ -30,6 +61,7 @@ export const Container = ({
       ? layout.grid({ justify, align, spacing })
       : layout.flex({ justify, align, spacing, direction })}
     background-color: ${bgColor ? color.surface[bgColor]?.hex : "transparent"};
+    ${borderColor ? `border: 1px solid ${color.border[borderColor]?.hex}` : ""};
     border-radius: ${radius || 0}px;
     font-family: "Pretendard400";
   `;
@@ -49,13 +81,13 @@ export interface CardProps extends ContainerProps {
 }
 export const CardTemplate = ({ heading, title, subTitle, body, ...props }: CardProps) => {
   return (
-    <Container spacing="80px" {...props}>
+    <Container spacing={80} {...props}>
       <Heading>{heading?.children}</Heading>
-      <Container spacing="40px">
+      <Container spacing={40}>
         <Heading fontStyle={title?.fontStyle}>{title?.children}</Heading>
-        <Container spacing="32px">
+        <Container spacing={32}>
           <Title fontStyle={subTitle?.fontStyle}>{subTitle?.children}</Title>
-          <Container spacing="24px">
+          <Container spacing={24}>
             <Body fontStyle={body?.fontStyle}>{body?.children}</Body>
             {props.children}
           </Container>

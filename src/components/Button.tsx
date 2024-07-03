@@ -17,19 +17,19 @@ interface ButtonProps {
   /**
    * 버튼의 size를 지정합니다.
    */
-  size: "S" | "M" | "L";
+  size?: "S" | "M" | "L";
   /**
    * 버튼의 radius를 지정합니다. (단위 px)
    */
-  radius: 0 | 4 | 8;
+  radius?: 0 | 4 | 8;
   /**
    * 버튼 속성을 지정합니다.
    */
-  property: "Contained" | "Outlined" | "Text";
+  property?: "Contained" | "Outlined" | "Text";
   /**
    * 버튼 속성 스타일을 지정합니다.
    */
-  propertyStyle: Omit<ButtonPropertyStyle, "Contained" | "Outlined" | "Text">;
+  propertyStyle?: Omit<ButtonPropertyStyle, "Contained" | "Outlined" | "Text">;
   /**
    * 버튼 내 아이콘 옵션을 지정합니다.
    */
@@ -40,7 +40,7 @@ interface ButtonProps {
   /**
    * 버튼 상호작용 비활성화 여부를 지정합니다.
    */
-  disabled: boolean;
+  disabled?: boolean;
   /**
    * 버튼의 상호작용 이벤트를 지정합니다.
    */
@@ -87,7 +87,7 @@ export function Button({
     ${BTN_SIZES[size]}
     ${BTN_STYLES[property]}
     border-radius: ${radius}px;
-    ${layout.flex({ justify: "center", align: "center", spacing: "8px" })}
+    ${layout.flex({ justify: "center", align: "center", spacing: 8 })}
   `;
   return (
     <StyledButton type="button" {...props} disabled>

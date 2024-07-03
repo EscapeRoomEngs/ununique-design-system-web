@@ -1,18 +1,6 @@
-export const spacing = {
-  10: "56px",
-  9: "40px",
-  8: "32px",
-  7: "24px",
-  6: "20px",
-  5: "16px",
-  4: "12px",
-  3: "8px",
-  2: "4px",
-  1: "2px",
-  0: "0px",
-};
+export const spacing = [0, 2, 4, 8, 12, 16, 20, 24, 32, 40, 56];
 
-export const radius = { XS: 4, S: 8, M: 12, L: 16 };
+export const radius = [0, 4, 8, 12, 16];
 
 export const layout = {
   flex: (obj: object | any) => `
@@ -20,12 +8,12 @@ export const layout = {
       flex-direction: ${obj?.direction ?? "row"};
       justify-content: ${obj?.justify ?? "center"}; 
       align-items: ${obj?.align ?? "center"}; 
-      gap: ${obj?.spacing ?? "16px"};
-    `,
+      gap: ${obj?.spacing ?? 16}px;
+      `,
   grid: (obj: object | any) => `
       display: grid;
       justify-content: ${obj?.justify ?? "center"}; 
       align-items: ${obj?.align ?? "center"}; 
-      gap: ${obj?.spacing ?? "16px"};
+      gap: ${obj?.spacing ?? 16}px;
     `,
 };

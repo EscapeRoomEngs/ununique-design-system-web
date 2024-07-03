@@ -16,7 +16,6 @@ React with Typescript 기반으로 디자인 시스템을 따라 UI 컴포넌트
 - 240626 Storybook - Color Guide 문서화
 - 240627 Storybook - Chromatic 연동
 - - [Component Guide Docs (Storybook)](https://667cc5b39b0826f0a57d0da5-ubsrekksct.chromatic.com/)
-- - [Chromatic to review published UI components](https://www.chromatic.com/builds?appId=667cc5b39b0826f0a57d0da5)
 
 ## Folder Structure 📁
 
