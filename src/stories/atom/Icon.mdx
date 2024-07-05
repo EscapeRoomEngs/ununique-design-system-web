@@ -6,10 +6,11 @@ import {
   SubColorIcon,
   TertiaryColorIcon,
 } from "./Icon.stories";
+import "../globalStyles.css";
 
 export const iconSizes = [12, 16, 20, 24, 36, 40, 48, 56, 64];
 
-<Meta title="Design System/2_Atom/Icon" />
+<Meta title="Design System/Atom/Icon" />
 
 <div style={{display:"grid", gap:"24px"}}>
 
@@ -103,11 +104,10 @@ export const iconSizes = [12, 16, 20, 24, 36, 40, 48, 56, 64];
 
 <div>
   ## Example
-  <Canvas of={DefaultColorIcon} />
+  <Canvas of={DefaultColorIcon} style={{ minWidth: "120px" }} />
   <Canvas of={SubColorIcon} />
   <Canvas of={TertiaryColorIcon} />
   <Canvas of={DisabledColorIcon} />
   <Canvas of={InvertColorIcon} />
 </div>
-
 </div>

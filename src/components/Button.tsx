@@ -44,7 +44,7 @@ interface ButtonProps {
   /**
    * 버튼의 상호작용 이벤트를 지정합니다.
    */
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 /**
@@ -63,24 +63,41 @@ export function Button({
   ...props
 }: ButtonProps) {
   const BTN_STYLES = {
-    Contained: `
-        background-color: ${disabled ? palette.gray[200] : color.surface[propertyStyle === "Brand" ? "brand" : "invert"].hex};
-        > div > .body { color: ${disabled ? color.text.placeholder.hex : color.text.invert.hex}; }
+    Contained: disabled
+      ? `background-color: ${palette.gray[200]};`
+      : `
+      background-color: ${color.surface[propertyStyle === "Brand" ? "brand" : "invert"].hex};
+      > .body { color: ${color.text.invert.hex}; }
+      &:hover {
+        background-color: ${propertyStyle === "Brand" ? palette.blue[600] : palette.gray[700]};
+      }
+      &:active {
+        background-color: ${propertyStyle === "Brand" ? palette.blue[700] : palette.gray[500]};
+      }
       `,
-    Outlined: `
-        background-color: ${propertyStyle === "GrayLine" ? color.surface.primary.hex : disabled ? color.surface.secondary.hex : color.surface.tertiary.hex};
-        border: ${propertyStyle === "GrayLine" ? `1px solid ${disabled ? color.border.disabled.hex : color.border.default.hex}` : ""};
-        > div > .body { color: ${disabled ? color.text.placeholder.hex : color.text.secondary.hex}; }
-        `,
+    Outlined: disabled
+      ? `background-color: ${color.surface.secondary.hex}; border: 1px solid ${color.border.disabled.hex};`
+      : `
+      background-color: ${propertyStyle === "GrayLine" ? color.surface.primary.hex : color.surface.secondary.hex};
+      border: ${propertyStyle === "GrayLine" ? `1px solid ${color.border.default.hex}` : ""};
+      > .body { color: ${color.text.secondary.hex}; }
+      &:hover {
+        background-color: ${propertyStyle === "GrayLine" ? palette.gray[50] : palette.gray[100]};
+        border: ${propertyStyle === "GrayLine" ? `1px solid ${color.border.hover.hex}` : ""};
+      }
+      &:active {
+        background-color: ${propertyStyle === "GrayLine" ? palette.gray[100] : palette.gray[200]};
+      }
+      `,
     Text: `
         background-color: ${color.surface.primary.hex};
-        > div > .body { color: ${propertyStyle === "Brand" ? color.text.positive.hex : color.text.secondary.hex}; }
-      `,
+        > .body { color: ${propertyStyle === "Brand" ? color.text.positive.hex : color.text.secondary.hex}; }
+        `,
   };
   const BTN_SIZES = {
-    S: "padding: 7px 24px; height: 40px; > div > .body { font-size: 14px; }",
-    M: "padding: 14px 32px; height: 48px; > div > .body { font-size: 16px; }",
-    L: "padding: 16px 32px; height: 54px; > div > .body { font-size: 18px; }",
+    S: "padding: 7px 24px; height: 40px; > .body { font-size: 14px; }",
+    M: "padding: 14px 32px; height: 48px; > .body { font-size: 16px; }",
+    L: "padding: 16px 32px; height: 54px; > .body { font-size: 18px; }",
   };
   const StyledButton = styled.button`
     cursor: pointer;
@@ -88,9 +105,10 @@ export function Button({
     ${BTN_STYLES[property]}
     border-radius: ${radius}px;
     ${layout.flex({ justify: "center", align: "center", spacing: 8 })}
+    ${disabled ? `cursor: not-allowed; > .body { color: ${color.text.placeholder.hex}; }` : ""}
   `;
   return (
-    <StyledButton type="button" {...props} disabled>
+    <StyledButton type="button" {...props} onClick={props.onClick} disabled>
       {iconOption?.iconNm && (
         <Icon
           {...iconOption}

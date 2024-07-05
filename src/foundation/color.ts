@@ -3,7 +3,7 @@
  */
 const gray = {
   0: "#FFFFFF",
-  50: "#FAFAFA",
+  50: "#F8F8F8",
   100: "#F5F5F5",
   200: "#E6E6E6",
   300: "#D1D1D1",

@@ -10,7 +10,6 @@ import { ReactComponent as IconRemove } from "../assets/icon/remove.svg";
 import { ReactComponent as IconSearch } from "../assets/icon/search.svg";
 import { ReactComponent as IconUpload } from "../assets/icon/upload.svg";
 import { color } from "../foundation/color";
-import { layout } from "../foundation/layout";
 
 export type IconNmType =
   | "chevronLess"
@@ -71,22 +70,11 @@ export const Icon = ({
   ...props
 }: IconProps) => {
   const IconProps = Object(IconObj)[iconNm];
-  const StyledIconWrapper = styled.div`
-    ${layout.flex({ justify: "center", align: "center" })};
-    width: ${iconSize}px;
-    height: ${iconSize}px;
-    svg {
-      fill: ${color.icon[iconColor]?.hex || "#292929"};
-    }
-  `;
   const StyledIcon = styled(IconProps.component || IconConfirm)`
     transform: rotate(${IconProps.rotate || 0}deg);
     width: ${iconSize}px;
     height: ${iconSize}px;
+    fill: ${color.icon[iconColor]?.hex || "#292929"};
   `;
-  return (
-    <StyledIconWrapper {...props}>
-      <StyledIcon className={iconNm} />
-    </StyledIconWrapper>
-  );
+  return <StyledIcon className={iconNm} {...props} />;
 };

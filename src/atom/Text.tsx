@@ -28,10 +28,10 @@ export const Display = ({
   children: value,
 }: TypographyProps) => {
   const fontSize = style === "Large" ? "48px" : style === "Medium" ? "44px" : "40px";
-  const DisplayContainer = styled.p`
+  const StyledDisplay = styled.p`
     ${getTypoStyleProps({ fontSize, weight, fontColor })}
   `;
-  return <DisplayContainer className="display">{value}</DisplayContainer>;
+  return <StyledDisplay className="display">{value}</StyledDisplay>;
 };
 export const Heading = ({
   weight = 600,
@@ -40,12 +40,12 @@ export const Heading = ({
   children: value,
 }: TypographyProps) => {
   const fontSize = style === "Large" ? "36px" : style === "Medium" ? "33px" : "30px";
-  const HeadingContainer = (style === "Large"
+  const StyledHeading = (style === "Large"
     ? styled.h1
     : style === "Medium"
       ? styled.h2
       : styled.h3)`${getTypoStyleProps({ fontSize, weight, fontColor })}`;
-  return <HeadingContainer className="heading">{value}</HeadingContainer>;
+  return <StyledHeading className="heading">{value}</StyledHeading>;
 };
 export const Title = ({
   weight = 600,
@@ -54,12 +54,12 @@ export const Title = ({
   children: value,
 }: TypographyProps) => {
   const fontSize = style === "Large" ? "27px" : style === "Medium" ? "24px" : "21px";
-  const TitleContainer = (style === "Large"
+  const StyledTitle = (style === "Large"
     ? styled.h4
     : style === "Medium"
       ? styled.h5
       : styled.h6)`${getTypoStyleProps({ fontSize, weight, fontColor })}`;
-  return <TitleContainer className="title">{value}</TitleContainer>;
+  return <StyledTitle className="title">{value}</StyledTitle>;
 };
 export const Body = ({
   weight = 400,
@@ -80,23 +80,10 @@ export const Body = ({
         return "15px";
     }
   };
-  const BodyContainer = styled.p`
+  const StyledBody = styled.p`
     ${getTypoStyleProps({ fontSize: getBodyFontSize(), weight, fontColor })}
   `;
-  return (
-    <div>
-      {typeof children === "string"
-        ? children?.split("\n")?.map(
-            (line, idx) =>
-              (
-                <BodyContainer key={idx} className={`body ${weight}`}>
-                  {line}
-                </BodyContainer>
-              ) || <br />
-          )
-        : children}
-    </div>
-  );
+  return <StyledBody className={`body ${weight}`}>{children}</StyledBody>;
 };
 export interface LableProps extends TypographyProps {
   required?: boolean;
@@ -119,7 +106,7 @@ export const Lable = ({
         return "17px";
     }
   };
-  const LableContainer = styled.div`
+  const StyledLable = styled.div`
     > label {
       ${getTypoStyleProps({ fontSize: getLabelFontSize(), weight, fontColor })}
     }
@@ -130,8 +117,8 @@ export const Lable = ({
     }
   `;
   return (
-    <LableContainer className="label-container">
+    <StyledLable className="label-container">
       <label className={required ? "essential" : ""}>{value}</label>
-    </LableContainer>
+    </StyledLable>
   );
 };

@@ -4,11 +4,9 @@ import { Button } from "../../components/Button";
 import "../globalStyles.css";
 
 const meta: Meta<typeof Container> = {
-  title: "Design System/2_Atom/Container",
+  title: "Design System/Atom/Container",
   component: Container,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: { layout: "centered" },
   argTypes: {
     display: { control: "radio", options: ["grid", "flex"] },
     direction: {
@@ -18,21 +16,37 @@ const meta: Meta<typeof Container> = {
     },
     justify: {
       control: "select",
-      options: ["flex-start", "center", "flex-end", "space-between", "space-evenly", "stretch"],
+      options: [
+        undefined,
+        "flex-start",
+        "center",
+        "flex-end",
+        "space-between",
+        "space-evenly",
+        "stretch",
+      ],
     },
     align: {
       control: "select",
-      options: ["flex-start", "center", "flex-end", "space-between", "space-evenly", "stretch"],
+      options: [
+        undefined,
+        "flex-start",
+        "center",
+        "flex-end",
+        "space-between",
+        "space-evenly",
+        "stretch",
+      ],
     },
     spacing: { control: "select", options: [0, 2, 4, 8, 12, 16, 20, 24, 32, 40, 56] },
     radius: { control: "select", options: [0, 4, 8, 12, 16] },
     bgColor: {
       control: "select",
-      options: ["primary", "secondary", "tertiary", "invert", "brand"],
+      options: [undefined, "primary", "secondary", "tertiary", "invert", "brand"],
     },
     borderColor: {
       control: "select",
-      options: ["default", "hover", "focused", "disabled", "error"],
+      options: [undefined, "default", "hover", "focused", "disabled", "error"],
     },
     style: { control: "object" },
   },
