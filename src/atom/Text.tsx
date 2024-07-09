@@ -9,7 +9,7 @@ export type fontColor =
   | "negative"
   | "positive";
 export interface TypographyProps {
-  weight?: 400 | 600;
+  weight?: 300 | 400 | 500 | 600;
   fontStyle?: "Large" | "Medium" | "Small" | "ExtraSmall";
   fontColor?: fontColor;
   style?: React.CSSProperties;
@@ -22,7 +22,7 @@ const getTypoStyleProps = (props: { fontSize: string; weight: number; fontColor?
     margin: 0;`;
 
 export const Display = ({
-  weight = 600,
+  weight = 500,
   fontStyle: style = "Medium",
   fontColor,
   children: value,
@@ -34,7 +34,7 @@ export const Display = ({
   return <StyledDisplay className="display">{value}</StyledDisplay>;
 };
 export const Heading = ({
-  weight = 600,
+  weight = 500,
   fontStyle: style = "Large",
   fontColor,
   children: value,
@@ -48,7 +48,7 @@ export const Heading = ({
   return <StyledHeading className="heading">{value}</StyledHeading>;
 };
 export const Title = ({
-  weight = 600,
+  weight = 500,
   fontStyle: style = "Medium",
   fontColor,
   children: value,
@@ -89,7 +89,7 @@ export interface LableProps extends TypographyProps {
   required?: boolean;
 }
 export const Lable = ({
-  weight = 600,
+  weight = 500,
   fontStyle: style = "Medium",
   fontColor,
   children: value,

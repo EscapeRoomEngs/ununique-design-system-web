@@ -1,9 +1,23 @@
 @font-face {
+  /* font-weight: 300 */
+  font-style: normal;
+  src: local("Pretendard300"), local("Pretendard300");
+  font-family: "Pretendard300";
+  src: url("./assets/fonts/Pretendard-Light.woff2") format("woff2");
+}
+@font-face {
   /* font-weight: 400 */
   font-style: normal;
   src: local("Pretendard400"), local("Pretendard400");
   font-family: "Pretendard400";
   src: url("./assets/fonts/Pretendard-Regular.woff2") format("woff2");
+}
+@font-face {
+  /* font-weight: 500 */
+  font-style: normal;
+  src: local("Pretendard500"), local("Pretendard500");
+  font-family: "Pretendard500";
+  src: url("./assets/fonts/Pretendard-Medium.woff2") format("woff2");
 }
 @font-face {
   /* font-weight: 600 */
@@ -26,47 +40,47 @@ html {
 }
 p.display1 {
   /* display1 */
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 48px;
 }
 p.display2 {
   /* display2 */
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 44px;
 }
 p.display3 {
   /* display3 */
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 40px;
 }
 h1,
 .heading1 {
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 36px;
 }
 h2,
 .heading2 {
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 33px;
 }
 h3,
 .heading3 {
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 30px;
 }
 h4,
 .title1 {
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 27px;
 }
 h5,
 .title2 {
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 24px;
 }
 h6,
 .title3 {
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 21px;
 }
 p.large,
@@ -92,17 +106,17 @@ p.small,
 }
 label.large {
   /* label1 */
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 19px;
 }
 label {
   /* default (label2, labelMedium) */
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 17px;
 }
 label.small {
   /* label3 */
-  font-family: "Pretendard600";
+  font-family: "Pretendard500";
   font-size: 15px;
 }
 /* body {

@@ -1,16 +1,30 @@
 @font-face {
+  /* font-weight: 300 */
+  font-style: normal;
+  src: local("Pretendard300"), local("Pretendard300");
+  font-family: "Pretendard300";
+  src: url("../assets/fonts/Pretendard-Light.woff2") format("woff2");
+}
+@font-face {
   /* font-weight: 400 */
   font-style: normal;
   src: local("Pretendard400"), local("Pretendard400");
   font-family: "Pretendard400";
-  src: url("../../src/assets/fonts/Pretendard-Regular.woff2") format("woff2");
+  src: url("../assets/fonts/Pretendard-Regular.woff2") format("woff2");
+}
+@font-face {
+  /* font-weight: 500 */
+  font-style: normal;
+  src: local("Pretendard500"), local("Pretendard500");
+  font-family: "Pretendard500";
+  src: url("../assets/fonts/Pretendard-Medium.woff2") format("woff2");
 }
 @font-face {
   /* font-weight: 600 */
   font-style: normal;
   src: local("Pretendard600"), local("Pretendard600");
   font-family: "Pretendard600";
-  src: url("../../src/assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+  src: url("../assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
 }
 
 html,
@@ -181,6 +195,6 @@ a {
   h5,
   h6,
   .bold {
-    font-family: "Pretendard600";
+    font-family: "Pretendard500";
   }
 }
