@@ -24,7 +24,15 @@ export const CheckboxExample: Story = {
   render: (args) => {
     const [isChecked, setIsChecked] = useState(args.checked);
     useEffect(() => setIsChecked(args.checked), [args.checked]);
-    return <Checkbox {...args} checked={isChecked} onChange={() => setIsChecked(!isChecked)} />;
+    return (
+      <Checkbox
+        id="checkbox-button-ex"
+        value="Option Text Lable"
+        {...args}
+        checked={isChecked}
+        onChange={() => setIsChecked(!isChecked)}
+      />
+    );
   },
 };
 export const CheckboxGroupExample: Story = {
