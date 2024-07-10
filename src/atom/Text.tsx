@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { color } from "../foundation/color";
+import { typography } from "../foundation/typography";
 
 export type fontColor =
   | "primary"
@@ -15,50 +16,58 @@ export interface TypographyProps {
   style?: React.CSSProperties;
   children?: any;
 }
-const getTypoStyleProps = (props: { fontSize: string; weight: number; fontColor?: fontColor }) =>
-  `font-size: ${props.fontSize};
+const getTypoStyleProps = (props: {
+  webSize: number;
+  mobileSize: number;
+  weight: number;
+  fontColor?: fontColor;
+}) =>
+  `font-size: ${props.webSize}px;
+    @media (width < 800) {
+      font-size: ${props.mobileSize}px;
+    }
     font-family: "Pretendard${props.weight}";
     color: ${props.fontColor ? color.text[props.fontColor]?.hex : "inherit"};
     margin: 0;`;
 
 export const Display = ({
-  weight = 500,
+  weight = 600,
   fontStyle: style = "Medium",
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSize = style === "Large" ? "48px" : style === "Medium" ? "44px" : "40px";
+  const fontSizes = Object(typography.display.style)[style];
   const StyledDisplay = styled.p`
-    ${getTypoStyleProps({ fontSize, weight, fontColor })}
+    ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
   return <StyledDisplay className="display">{value}</StyledDisplay>;
 };
 export const Heading = ({
-  weight = 500,
+  weight = 600,
   fontStyle: style = "Large",
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSize = style === "Large" ? "36px" : style === "Medium" ? "33px" : "30px";
+  const fontSizes = Object(typography.heading.style)[style];
   const StyledHeading = (style === "Large"
     ? styled.h1
     : style === "Medium"
       ? styled.h2
-      : styled.h3)`${getTypoStyleProps({ fontSize, weight, fontColor })}`;
+      : styled.h3)`${getTypoStyleProps({ ...fontSizes, weight, fontColor })}`;
   return <StyledHeading className="heading">{value}</StyledHeading>;
 };
 export const Title = ({
-  weight = 500,
+  weight = 600,
   fontStyle: style = "Medium",
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSize = style === "Large" ? "27px" : style === "Medium" ? "24px" : "21px";
-  const StyledTitle = (style === "Large"
-    ? styled.h4
-    : style === "Medium"
-      ? styled.h5
-      : styled.h6)`${getTypoStyleProps({ fontSize, weight, fontColor })}`;
+  const fontSizes = Object(typography.title.style)[style];
+  const StyledTitle = (style === "Medium"
+    ? styled.h5
+    : style === "Large"
+      ? styled.h4
+      : styled.h6)`${getTypoStyleProps({ ...fontSizes, weight, fontColor })}`;
   return <StyledTitle className="title">{value}</StyledTitle>;
 };
 export const Body = ({
@@ -67,21 +76,9 @@ export const Body = ({
   fontColor,
   children,
 }: TypographyProps) => {
-  const getBodyFontSize = () => {
-    switch (style) {
-      case "Large":
-        return "19px";
-      case "Medium":
-        return "17px";
-      case "ExtraSmall":
-        return "13px";
-      case "Small":
-      default:
-        return "15px";
-    }
-  };
+  const fontSizes = Object(typography.body.style)[style];
   const StyledBody = styled.p`
-    ${getTypoStyleProps({ fontSize: getBodyFontSize(), weight, fontColor })}
+    ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
   return <StyledBody className={`body ${weight}`}>{children}</StyledBody>;
 };
@@ -89,26 +86,16 @@ export interface LableProps extends TypographyProps {
   required?: boolean;
 }
 export const Lable = ({
-  weight = 500,
+  weight = 600,
   fontStyle: style = "Medium",
   fontColor,
   children: value,
   required = false,
 }: LableProps) => {
-  const getLabelFontSize = () => {
-    switch (style) {
-      case "Large":
-        return "19px";
-      case "Small":
-        return "15px";
-      case "Medium":
-      default:
-        return "17px";
-    }
-  };
+  const fontSizes = Object(typography.lable.style)[style];
   const StyledLable = styled.div`
     > label {
-      ${getTypoStyleProps({ fontSize: getLabelFontSize(), weight, fontColor })}
+      ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
     }
     label.essential::after {
       content: "*";

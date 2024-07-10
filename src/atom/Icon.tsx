@@ -9,6 +9,8 @@ import { ReactComponent as IconRefresh } from "../assets/icon/refresh.svg";
 import { ReactComponent as IconRemove } from "../assets/icon/remove.svg";
 import { ReactComponent as IconSearch } from "../assets/icon/search.svg";
 import { ReactComponent as IconUpload } from "../assets/icon/upload.svg";
+import { ReactComponent as IconVisible } from "../assets/icon/visibility.svg";
+import { ReactComponent as IconInvisible } from "../assets/icon/visibility_off.svg";
 import { color } from "../foundation/color";
 
 export type IconNmType =
@@ -25,7 +27,9 @@ export type IconNmType =
   | "upload"
   | "download"
   | "noti"
-  | "confirm";
+  | "confirm"
+  | "visible"
+  | "invisible";
 /**
  * 아이콘명에 따른 아이콘 컴포넌트 및 회전 각도 지정
  */
@@ -43,6 +47,8 @@ export const IconObj = {
   download: { component: IconDownload },
   noti: { component: IconNoti },
   confirm: { component: IconConfirm },
+  visible: { component: IconVisible },
+  invisible: { component: IconInvisible },
 };
 
 export interface IconProps {

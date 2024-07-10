@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const RadioExample: Story = {
-  args: { id: "radio-button-ex", value: "Option Text Lable", checked: true },
+  args: { id: "radio-button-ex", value: "Option Text Lable", checked: true, disabled: false },
   render: (args) => {
     const [isChecked, setIsChecked] = useState(args.checked);
     useEffect(() => setIsChecked(args.checked), [args.checked]);

@@ -1,9 +1,9 @@
+import { HTMLAttributes } from "react";
 import styled from "styled-components";
 import { color } from "../foundation/color";
 import { layout } from "../foundation/layout";
-import { Body, Heading, Title, TypographyProps } from "./Text";
 
-interface ContainerProps {
+interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * 정렬 방식을 설정합니다 (vertical or horizontal)
    */
@@ -69,30 +69,5 @@ export const Container = ({
     <StyledContainer className="grid-container" {...props}>
       {props.children}
     </StyledContainer>
-  );
-};
-// TODO: Example 삭제 예정
-export interface CardProps extends ContainerProps {
-  heading?: TypographyProps;
-  title?: TypographyProps;
-  subTitle?: TypographyProps;
-  body?: TypographyProps;
-  children?: any;
-}
-export const CardTemplate = ({ heading, title, subTitle, body, ...props }: CardProps) => {
-  return (
-    <Container spacing={80} {...props}>
-      <Heading>{heading?.children}</Heading>
-      <Container spacing={40}>
-        <Heading fontStyle={title?.fontStyle}>{title?.children}</Heading>
-        <Container spacing={32}>
-          <Title fontStyle={subTitle?.fontStyle}>{subTitle?.children}</Title>
-          <Container spacing={24}>
-            <Body fontStyle={body?.fontStyle}>{body?.children}</Body>
-            {props.children}
-          </Container>
-        </Container>
-      </Container>
-    </Container>
   );
 };

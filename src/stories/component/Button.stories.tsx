@@ -6,15 +6,14 @@ import "../globalStyles.css";
 const meta: Meta = {
   title: "Design System/Component/Button",
   component: Button,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: { layout: "centered" },
   // args: {
   //   // 👇 Create an action that appears when the onClick event is fired
   //   onClick: action("on-click"),
   // },
   argTypes: {
-    propertyStyle: { control: "radio", options: ["Gray", "Brand", "GrayLine", "GrayFill"] },
+    property: { control: "select", options: ["Contained", "Outlined", "Text"] },
+    propertyStyle: { control: "select", options: ["Gray", "Brand", "GrayLine", "GrayFill"] },
     iconOption: { control: { type: "object" } },
     // onClick: { action: "onClick" },
   },
@@ -38,7 +37,7 @@ export const ContainedStyleButton: Story = {
     size: "M",
     radius: 4,
   },
-  render: (args) => <Button {...args} onClick={console.log}></Button>,
+  render: (args) => <Button {...args} onClick={() => console.log("btn clicked")}></Button>,
 };
 /**
  * [Medium emphasis]

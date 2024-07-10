@@ -3,13 +3,14 @@ import { Icon, IconNmType } from "../atom/Icon";
 import { Body } from "../atom/Text";
 import { color, palette } from "../foundation/color";
 import { layout } from "../foundation/layout";
+import { ButtonHTMLAttributes } from "react";
 
 export type ButtonPropertyStyle = {
   Contained: "Gray" | "Brand";
   Outlined: "GrayLine" | "GrayFill";
   Text: "Gray" | "Brand";
 };
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * 버튼 텍스트를 지정합니다.
    */
@@ -44,7 +45,7 @@ interface ButtonProps {
   /**
    * 버튼의 상호작용 이벤트를 지정합니다.
    */
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: () => void;
 }
 
 /**
@@ -108,7 +109,7 @@ export function Button({
     ${disabled ? `cursor: not-allowed; > .body { color: ${color.text.placeholder.hex}; }` : ""}
   `;
   return (
-    <StyledButton type="button" {...props} onClick={props.onClick} disabled>
+    <StyledButton type="button" disabled={disabled} {...props}>
       {iconOption?.iconNm && (
         <Icon
           {...iconOption}
