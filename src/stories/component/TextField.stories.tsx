@@ -15,7 +15,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const TextExample: Story = {
+export const TextFieldExample: Story = {
   args: { value: "", type: "text", disabled: false, placeholder: "Placeholder" },
   render: (args) => {
     const [textValue, setValue] = useState("");

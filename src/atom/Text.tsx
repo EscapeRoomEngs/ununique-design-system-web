@@ -32,11 +32,11 @@ const getTypoStyleProps = (props: {
 
 export const Display = ({
   weight = 600,
-  fontStyle: style = "Medium",
+  fontStyle = "Medium",
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSizes = Object(typography.display.style)[style];
+  const fontSizes = Object(typography.display.style)[fontStyle];
   const StyledDisplay = styled.p`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
@@ -44,39 +44,39 @@ export const Display = ({
 };
 export const Heading = ({
   weight = 600,
-  fontStyle: style = "Large",
+  fontStyle = "Large",
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSizes = Object(typography.heading.style)[style];
-  const StyledHeading = (style === "Large"
+  const fontSizes = Object(typography.heading.style)[fontStyle];
+  const StyledHeading = (fontStyle === "Large"
     ? styled.h1
-    : style === "Medium"
+    : fontStyle === "Medium"
       ? styled.h2
       : styled.h3)`${getTypoStyleProps({ ...fontSizes, weight, fontColor })}`;
   return <StyledHeading className="heading">{value}</StyledHeading>;
 };
 export const Title = ({
   weight = 600,
-  fontStyle: style = "Medium",
+  fontStyle = "Medium",
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSizes = Object(typography.title.style)[style];
-  const StyledTitle = (style === "Medium"
+  const fontSizes = Object(typography.title.style)[fontStyle];
+  const StyledTitle = (fontStyle === "Medium"
     ? styled.h5
-    : style === "Large"
+    : fontStyle === "Large"
       ? styled.h4
       : styled.h6)`${getTypoStyleProps({ ...fontSizes, weight, fontColor })}`;
   return <StyledTitle className="title">{value}</StyledTitle>;
 };
 export const Body = ({
   weight = 400,
-  fontStyle: style = "Small",
+  fontStyle = "Small",
   fontColor,
   children,
 }: TypographyProps) => {
-  const fontSizes = Object(typography.body.style)[style];
+  const fontSizes = Object(typography.body.style)[fontStyle];
   const StyledBody = styled.p`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
@@ -87,12 +87,12 @@ export interface LableProps extends TypographyProps {
 }
 export const Lable = ({
   weight = 600,
-  fontStyle: style = "Medium",
+  fontStyle = "Medium",
   fontColor,
   children: value,
   required = false,
 }: LableProps) => {
-  const fontSizes = Object(typography.lable.style)[style];
+  const fontSizes = Object(typography.lable.style)[fontStyle];
   const StyledLable = styled.div`
     > label {
       ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
