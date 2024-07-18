@@ -17,28 +17,49 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const DefaultColorIcon: Story = {
-  args: { iconNm: "upload", iconColor: "default", iconSize: 24 },
+export const PrimaryColorIcon: Story = {
+  args: { iconNm: "upload", iconColor: "primary", iconSize: 24 },
 };
-export const SubColorIcon: Story = {
-  args: { iconNm: "download", iconColor: "sub", iconSize: 24 },
+export const SecondaryColorIcon: Story = {
+  args: { iconNm: "download", iconColor: "secondary", iconSize: 24 },
 };
 export const TertiaryColorIcon: Story = {
-  args: { iconNm: "refresh", iconColor: "tertiary", iconSize: 24 },
-};
-export const DisabledColorIcon: Story = {
   args: {
-    iconNm: "add",
-    iconColor: "disabled",
+    iconNm: "close",
+    iconColor: "tertiary",
     iconSize: 24,
-    style: { border: `1px solid ${color.border.disabled.hex}`, borderRadius: "8px" },
+    style: { border: `1px solid ${color.border.invert.hex}`, borderRadius: "8px" },
   },
 };
 export const InvertColorIcon: Story = {
   args: {
-    iconNm: "remove",
+    iconNm: "add",
     iconColor: "invert",
     iconSize: 24,
     style: { backgroundColor: color.surface.invert.hex, borderRadius: "8px" },
+  },
+};
+export const PositiveColorIcon: Story = {
+  args: {
+    iconNm: "add",
+    iconColor: "positive",
+    iconSize: 24,
+    style: { backgroundColor: color.surface.positive.hex, borderRadius: "8px" },
+  },
+};
+export const NegativeColorIcon: Story = {
+  args: {
+    iconNm: "remove",
+    iconColor: "negative",
+    iconSize: 24,
+    style: { backgroundColor: color.surface.negative.hex, borderRadius: "8px" },
+  },
+};
+export const InfoColorIcon: Story = {
+  args: {
+    iconNm: "noti",
+    iconColor: "info",
+    iconSize: 24,
+    style: { backgroundColor: color.surface.info.hex, borderRadius: "8px" },
   },
 };

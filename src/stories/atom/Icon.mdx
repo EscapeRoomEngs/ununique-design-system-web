@@ -1,10 +1,12 @@
 import { Canvas, Meta } from "@storybook/blocks";
 import {
-  DefaultColorIcon,
-  DisabledColorIcon,
-  InvertColorIcon,
-  SubColorIcon,
+  PrimaryColorIcon,
+  SecondaryColorIcon,
   TertiaryColorIcon,
+  InvertColorIcon,
+  PositiveColorIcon,
+  NegativeColorIcon,
+  InfoColorIcon,
 } from "./Icon.stories";
 import "../globalStyles.css";
 
@@ -104,10 +106,12 @@ export const iconSizes = [12, 16, 20, 24, 36, 40, 48, 56, 64];
 
 <div>
   ## Example
-  <Canvas of={DefaultColorIcon} style={{ minWidth: "120px" }} />
-  <Canvas of={SubColorIcon} />
+  <Canvas of={PrimaryColorIcon} style={{ minWidth: "120px" }} />
+  <Canvas of={SecondaryColorIcon} />
   <Canvas of={TertiaryColorIcon} />
-  <Canvas of={DisabledColorIcon} />
   <Canvas of={InvertColorIcon} />
+  <Canvas of={PositiveColorIcon} />
+  <Canvas of={NegativeColorIcon} />
+  <Canvas of={InfoColorIcon} />
 </div>
 </div>

@@ -83,10 +83,10 @@ export function TextField({
       color: ${color.text.primary.hex};
     }
     &:has(input:focus) {
-      border-color: ${color.border.focused.hex};
+      border-color: ${color.border.tertiary.hex};
     }
     &:has(input.error) {
-      border-color: ${color.border.error.hex};
+      border-color: ${color.border.negative.hex};
     }
     ${disabled
       ? `background-color: ${color.surface.tertiary.hex}; 
@@ -130,12 +130,12 @@ export function TextField({
               <Icon
                 iconNm={textType === "text" ? "invisible" : "visible"}
                 iconSize={16}
-                iconColor="sub"
+                iconColor="secondary"
               />
             </StyledIconContainer>
           )}
           <StyledIconContainer type="reset" onClick={() => onChange && onChange("")}>
-            <Icon iconNm="close" iconSize={16} iconColor="sub" />
+            <Icon iconNm="close" iconSize={16} iconColor="secondary" />
           </StyledIconContainer>
         </Container>
       )}
@@ -203,7 +203,7 @@ export function Dropdown({
     height: 44px;
     padding: 12px 15px;
     border-radius: ${radius[1]}px;
-    border: 1px solid ${color.border[disabled ? "disabled" : isOpen ? "focused" : "default"].hex};
+    border: 1px solid ${color.border[disabled ? "invert" : isOpen ? "tertiary" : "default"].hex};
     background-color: ${color.surface.primary.hex};
     ${layout.flex({ justify: "space-between", spacing: 16 })}
     ${disabled
@@ -232,9 +232,12 @@ export function Dropdown({
   `;
   return (
     <Wrapper onSubmit={(e) => e.preventDefault()} ref={dropdownRef}>
-      {Object(value)[keyValue.name] || <Body fontColor="placeholder">{placeholder}</Body>}
-      <StyledIconContainer type="button" onClick={() => setIsOpen(!isOpen)}>
-        <Icon iconNm={isOpen ? "chevronLess" : "chevronMore"} iconSize={16} iconColor="sub" />
+      {Object(value)[keyValue.name] || <Body fontColor="tertiary">{placeholder}</Body>}
+      <StyledIconContainer
+        type="button"
+        onClick={() => optionList?.length > 0 && setIsOpen(!isOpen)}
+      >
+        <Icon iconNm={isOpen ? "chevronLess" : "chevronMore"} iconSize={16} iconColor="secondary" />
       </StyledIconContainer>
     </Wrapper>
   );
@@ -292,7 +295,7 @@ export function Radio({
     }
   `;
   const StyledLabel = styled.label`
-    color: ${disabled ? color.text.placeholder.hex : color.text.primary.hex};
+    color: ${disabled ? color.text.tertiary.hex : color.text.primary.hex};
     font-family: Pretendard400;
     font-size: 16px;
     line-height: 22px; /* 137.5% */
@@ -346,7 +349,7 @@ export function Checkbox({
     }
   `;
   const StyledLabel = styled.label`
-    color: ${disabled ? color.text.placeholder.hex : color.text.primary.hex};
+    color: ${disabled ? color.text.tertiary.hex : color.text.primary.hex};
     font-family: Pretendard400;
     font-size: 16px;
     line-height: 22px; /* 137.5% */

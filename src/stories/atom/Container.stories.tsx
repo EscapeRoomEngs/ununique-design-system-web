@@ -42,11 +42,9 @@ const meta: Meta<typeof Container> = {
     radius: { control: "select", options: [0, 4, 8, 12, 16] },
     bgColor: {
       control: "select",
-      options: [undefined, "primary", "secondary", "tertiary", "invert", "brand"],
     },
     borderColor: {
       control: "select",
-      options: [undefined, "default", "hover", "focused", "disabled", "error"],
     },
     style: { control: "object" },
   },

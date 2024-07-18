@@ -40,10 +40,14 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 # Color Palette
 
 <ColorPalette>
-  <ColorItem title="Gray" subtitle="palette.gray" colors={palette?.gray} />
-  <ColorItem title="Navy" subtitle="palette.navy" colors={palette?.navy} />
-  <ColorItem title="Red" subtitle="palette.red" colors={palette?.red} />
-  <ColorItem title="Blue" subtitle="palette.blue" colors={palette?.blue} />
+  {Object.keys(palette).map((colorNm, idx) => (
+    <ColorItem
+      key={idx}
+      title={colorNm}
+      subtitle={`palette.${colorNm}`}
+      colors={palette[colorNm]}
+    />
+  ))}
 </ColorPalette>
 
 <hr />

@@ -5,10 +5,11 @@ import { typography } from "../foundation/typography";
 export type fontColor =
   | "primary"
   | "secondary"
-  | "placeholder"
+  | "tertiary"
   | "invert"
   | "negative"
-  | "positive";
+  | "positive"
+  | "info";
 export interface TypographyProps {
   weight?: 300 | 400 | 500 | 600;
   fontStyle?: "Large" | "Medium" | "Small" | "ExtraSmall";

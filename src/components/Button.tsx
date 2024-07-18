@@ -36,7 +36,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    */
   iconOption?: {
     iconNm?: IconNmType;
-    iconColor?: "default" | "sub" | "tertiary" | "disabled" | "invert";
+    iconColor?: "primary" | "secondary" | "tertiary" | "invert" | "negative" | "positive" | "info";
   };
   /**
    * 버튼 상호작용 비활성화 여부를 지정합니다.
@@ -70,14 +70,14 @@ export function Button({
       background-color: ${color.surface[propertyStyle === "Brand" ? "brand" : "invert"].hex};
       > .body { color: ${color.text.invert.hex}; }
       &:hover {
-        background-color: ${propertyStyle === "Brand" ? palette.blue[600] : palette.gray[700]};
+        background-color: ${propertyStyle === "Brand" ? palette.red[600] : palette.gray[700]};
       }
       &:active {
-        background-color: ${propertyStyle === "Brand" ? palette.blue[700] : palette.gray[500]};
+        background-color: ${propertyStyle === "Brand" ? palette.red[700] : palette.gray[500]};
       }
       `,
     Outlined: disabled
-      ? `background-color: ${color.surface.secondary.hex}; border: 1px solid ${color.border.disabled.hex};`
+      ? `background-color: ${color.surface.secondary.hex}; border: 1px solid ${color.border.invert.hex};`
       : `
       background-color: ${propertyStyle === "GrayLine" ? color.surface.primary.hex : color.surface.secondary.hex};
       border: ${propertyStyle === "GrayLine" ? `1px solid ${color.border.default.hex}` : ""};
@@ -106,14 +106,14 @@ export function Button({
     ${BTN_STYLES[property]}
     border-radius: ${radius}px;
     ${layout.flex({ justify: "center", align: "center", spacing: 8 })}
-    ${disabled ? `cursor: not-allowed; > .body { color: ${color.text.placeholder.hex}; }` : ""}
+    ${disabled ? `cursor: not-allowed; > .body { color: ${color.text.tertiary.hex}; }` : ""}
   `;
   return (
     <StyledButton type="button" disabled={disabled} {...props}>
       {iconOption?.iconNm && (
         <Icon
           {...iconOption}
-          iconColor={disabled ? "disabled" : iconOption.iconColor}
+          iconColor={disabled ? "tertiary" : iconOption.iconColor}
           iconSize={20}
         />
       )}

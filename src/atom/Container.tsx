@@ -31,11 +31,19 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * 컨테이너의 배경색을 지정합니다.
    */
-  bgColor?: "primary" | "secondary" | "tertiary" | "invert" | "brand";
+  bgColor?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "invert"
+    | "brand"
+    | "negative"
+    | "positive"
+    | "info";
   /**
    * 컨테이너의 테두리 색상을 지정합니다.
    */
-  borderColor?: "default" | "hover" | "focused" | "disabled" | "error";
+  borderColor?: "default" | "hover" | "tertiary" | "invert" | "negative";
   /**
    * 기타 스타일을 지정하고 싶을 때 사용합니다. (ex. padding, margin...)
    */

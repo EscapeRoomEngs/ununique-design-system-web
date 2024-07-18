@@ -63,7 +63,7 @@ export interface IconProps {
   /**
    * 아이콘 색상을 지정합니다.
    */
-  iconColor?: "default" | "sub" | "tertiary" | "disabled" | "invert";
+  iconColor?: "primary" | "secondary" | "tertiary" | "invert" | "negative" | "positive" | "info";
   /**
    * 기타 아이콘 스타일을 특정하는 경우 사용합니다. (ex. border 등)
    */
@@ -72,7 +72,7 @@ export interface IconProps {
 export const Icon = ({
   iconNm = "confirm",
   iconSize = 24,
-  iconColor = "default",
+  iconColor = "primary",
   ...props
 }: IconProps) => {
   const IconProps = Object(IconObj)[iconNm];
