@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Icon } from "../../atom/Icon";
-import { color } from "../../foundation/color";
+import { token } from "../../foundation/color";
 import "../globalStyles.css";
 
 const meta: Meta = {
@@ -28,7 +28,7 @@ export const TertiaryColorIcon: Story = {
     iconNm: "close",
     iconColor: "tertiary",
     iconSize: 24,
-    style: { border: `1px solid ${color.border.invert.hex}`, borderRadius: "8px" },
+    style: { border: `1px solid ${token.border.invert.hex}`, borderRadius: "8px" },
   },
 };
 export const InvertColorIcon: Story = {
@@ -36,7 +36,7 @@ export const InvertColorIcon: Story = {
     iconNm: "add",
     iconColor: "invert",
     iconSize: 24,
-    style: { backgroundColor: color.surface.invert.hex, borderRadius: "8px" },
+    style: { backgroundColor: token.surface.invert.hex, borderRadius: "8px" },
   },
 };
 export const PositiveColorIcon: Story = {
@@ -44,7 +44,7 @@ export const PositiveColorIcon: Story = {
     iconNm: "add",
     iconColor: "positive",
     iconSize: 24,
-    style: { backgroundColor: color.surface.positive.hex, borderRadius: "8px" },
+    style: { backgroundColor: token.surface.positive.hex, borderRadius: "8px" },
   },
 };
 export const NegativeColorIcon: Story = {
@@ -52,7 +52,7 @@ export const NegativeColorIcon: Story = {
     iconNm: "remove",
     iconColor: "negative",
     iconSize: 24,
-    style: { backgroundColor: color.surface.negative.hex, borderRadius: "8px" },
+    style: { backgroundColor: token.surface.negative.hex, borderRadius: "8px" },
   },
 };
 export const InfoColorIcon: Story = {
@@ -60,6 +60,6 @@ export const InfoColorIcon: Story = {
     iconNm: "noti",
     iconColor: "info",
     iconSize: 24,
-    style: { backgroundColor: color.surface.info.hex, borderRadius: "8px" },
+    style: { backgroundColor: token.surface.info.hex, borderRadius: "8px" },
   },
 };

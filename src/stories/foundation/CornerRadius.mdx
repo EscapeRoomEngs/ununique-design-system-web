@@ -1,0 +1,49 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import { radius } from "../../foundation/layout";
+import { primitives } from "../../foundation/color";
+import "../globalStyles.css";
+
+export const sizes = ["Full-bleed", "XS", "S", "M", "L"];
+
+<Meta title="Design System/Foundation/Corner Radius" />
+
+<div style={{display:"grid", gap:"24px"}}>
+
+  <div>
+  
+    # Corner Radius
+
+    기본값은 4이며 4의 배수에 기반한 단위로 맞춰 조정할 수 있습니다.
+
+    <table id="guide" >
+      <thead>
+        <tr>
+          <th>Style</th>
+          <th>Value</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        {radius.map((r, idx) => (
+          <tr style={{ border:"0" }} key={idx}>
+            <td>
+              <div className="flex-upper-lower surface-primary border-default" style={{ width: "200px", height: "100px", borderWidth: "1px", borderRadius: `${r}px` }}>
+                <div className="flex-sides">
+                  <div style={{ width: `${(r * 2) || 8}px`, height: `${(r * 2) || 8}px`, borderRadius: `${r}px`, border: `1px dashed ${primitives.blue[400]}`, backgroundColor: primitives.blue[50] }} />
+                  <div style={{ width: `${(r * 2) || 8}px`, height: `${(r * 2) || 8}px`, borderRadius: `${r}px`, border: `1px dashed ${primitives.blue[400]}`, backgroundColor: primitives.blue[50] }} />
+                </div>
+                <div className="flex-sides">
+                  <div style={{ width: `${(r * 2) || 8}px`, height: `${(r * 2) || 8}px`, borderRadius: `${r}px`, border: `1px dashed ${primitives.blue[400]}`, backgroundColor: primitives.blue[50] }} />
+                  <div style={{ width: `${(r * 2) || 8}px`, height: `${(r * 2) || 8}px`, borderRadius: `${r}px`, border: `1px dashed ${primitives.blue[400]}`, backgroundColor: primitives.blue[50] }} />
+                </div>
+              </div>
+            </td>
+            <td>{r}px</td>
+            <td>{sizes[idx]}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+  </div>
+</div>

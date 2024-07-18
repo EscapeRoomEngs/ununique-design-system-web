@@ -84,7 +84,7 @@ const yellow = {
   800: "#874D00",
   900: "#613400",
 };
-export const palette = { gray, navy, red, blue, green, yellow, purple };
+export const primitives = { gray, navy, red, blue, green, yellow, purple };
 
 const surface = {
   primary: {
@@ -303,4 +303,4 @@ const divider = {
     description: "특정 부분을 강조하기 위한 구분선 색상입니다.",
   },
 };
-export const color = { surface, text, icon, border, divider };
+export const token = { surface, text, icon, border, divider };

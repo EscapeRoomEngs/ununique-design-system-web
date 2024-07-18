@@ -7,6 +7,7 @@ const meta: Meta = {
   title: "Design System/Component/Radio",
   component: Radio,
   parameters: { layout: "centered" },
+  argTypes: { color: { control: "text" } },
   tags: ["autodocs"],
 };
 export default meta;

@@ -1,6 +1,7 @@
+import { HTMLAttributes, LabelHTMLAttributes } from "react";
 import styled from "styled-components";
-import { color } from "../foundation/color";
-import { typography } from "../foundation/typography";
+import { token } from "../foundation/color";
+import { usage } from "../foundation/typography";
 
 export type fontColor =
   | "primary"
@@ -10,7 +11,7 @@ export type fontColor =
   | "negative"
   | "positive"
   | "info";
-export interface TypographyProps {
+export interface TypographyProps extends HTMLAttributes<Element> {
   weight?: 300 | 400 | 500 | 600;
   fontStyle?: "Large" | "Medium" | "Small" | "ExtraSmall";
   fontColor?: fontColor;
@@ -18,8 +19,8 @@ export interface TypographyProps {
   children?: any;
 }
 const getTypoStyleProps = (props: {
-  webSize: number;
-  mobileSize: number;
+  webSize?: number;
+  mobileSize?: number;
   weight: number;
   fontColor?: fontColor;
 }) =>
@@ -28,7 +29,7 @@ const getTypoStyleProps = (props: {
       font-size: ${props.mobileSize}px;
     }
     font-family: "Pretendard${props.weight}";
-    color: ${props.fontColor ? color.text[props.fontColor]?.hex : "inherit"};
+    color: ${props.fontColor ? token.text[props.fontColor]?.hex : "inherit"};
     margin: 0;`;
 
 export const Display = ({
@@ -37,7 +38,10 @@ export const Display = ({
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSizes = Object(typography.display.style)[fontStyle];
+  const fontSizes: object =
+    Object.values(usage)?.find(
+      (el) => el.styleNm === fontStyle && el.usageWeb?.startsWith("display")
+    ) || {};
   const StyledDisplay = styled.p`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
@@ -49,7 +53,10 @@ export const Heading = ({
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSizes = Object(typography.heading.style)[fontStyle];
+  const fontSizes: object =
+    Object.values(usage)?.find(
+      (el) => el.styleNm === fontStyle && el.usageMobile?.startsWith("headline")
+    ) || {};
   const StyledHeading = (fontStyle === "Large"
     ? styled.h1
     : fontStyle === "Medium"
@@ -63,7 +70,10 @@ export const Title = ({
   fontColor,
   children: value,
 }: TypographyProps) => {
-  const fontSizes = Object(typography.title.style)[fontStyle];
+  const fontSizes: object =
+    Object.values(usage)?.find(
+      (el) => el.styleNm === fontStyle && el.usageMobile?.startsWith("title")
+    ) || {};
   const StyledTitle = (fontStyle === "Medium"
     ? styled.h5
     : fontStyle === "Large"
@@ -77,14 +87,22 @@ export const Body = ({
   fontColor,
   children,
 }: TypographyProps) => {
-  const fontSizes = Object(typography.body.style)[fontStyle];
+  const fontSizes: object =
+    Object.values(usage)?.find(
+      (el) => el.styleNm === fontStyle && el.usageMobile?.startsWith("body")
+    ) || {};
   const StyledBody = styled.p`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
   return <StyledBody className={`body ${weight}`}>{children}</StyledBody>;
 };
-export interface LableProps extends TypographyProps {
+export interface LableProps extends LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean;
+  weight?: 300 | 400 | 500 | 600;
+  fontStyle?: "Large" | "Medium" | "Small" | "ExtraSmall";
+  fontColor?: fontColor;
+  style?: React.CSSProperties;
+  children?: any;
 }
 export const Lable = ({
   weight = 600,
@@ -93,20 +111,17 @@ export const Lable = ({
   children: value,
   required = false,
 }: LableProps) => {
-  const fontSizes = Object(typography.lable.style)[fontStyle];
-  const StyledLable = styled.div`
-    > label {
-      ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
-    }
-    label.essential::after {
+  const fontSizes: object =
+    Object.values(usage)?.find(
+      (el) => el.styleNm === fontStyle && el.usageMobile?.startsWith("label")
+    ) || {};
+  const StyledLable = styled.label`
+    ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
+    &.essential::after {
       content: "*";
-      color: ${color.text.negative.hex};
+      color: ${token.text.negative.hex};
       padding-left: 2px;
     }
   `;
-  return (
-    <StyledLable className="label-container">
-      <label className={required ? "essential" : ""}>{value}</label>
-    </StyledLable>
-  );
+  return <StyledLable className={required ? "essential" : ""}>{value}</StyledLable>;
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Icon, IconNmType } from "../atom/Icon";
+import { Icon } from "../atom/Icon";
 import { Body } from "../atom/Text";
-import { color, palette } from "../foundation/color";
+import { token, primitives } from "../foundation/color";
 import { layout } from "../foundation/layout";
 import { ButtonHTMLAttributes } from "react";
 
@@ -35,7 +35,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * 버튼 내 아이콘 옵션을 지정합니다.
    */
   iconOption?: {
-    iconNm?: IconNmType;
+    iconNm?: string;
     iconColor?: "primary" | "secondary" | "tertiary" | "invert" | "negative" | "positive" | "info";
   };
   /**
@@ -65,34 +65,34 @@ export function Button({
 }: ButtonProps) {
   const BTN_STYLES = {
     Contained: disabled
-      ? `background-color: ${palette.gray[200]};`
+      ? `background-color: ${primitives.gray[200]};`
       : `
-      background-color: ${color.surface[propertyStyle === "Brand" ? "brand" : "invert"].hex};
-      > .body { color: ${color.text.invert.hex}; }
+      background-color: ${token.surface[propertyStyle === "Brand" ? "brand" : "invert"].hex};
+      > .body { color: ${token.text.invert.hex}; }
       &:hover {
-        background-color: ${propertyStyle === "Brand" ? palette.red[600] : palette.gray[700]};
+        background-color: ${propertyStyle === "Brand" ? primitives.red[600] : primitives.gray[700]};
       }
       &:active {
-        background-color: ${propertyStyle === "Brand" ? palette.red[700] : palette.gray[500]};
+        background-color: ${propertyStyle === "Brand" ? primitives.red[700] : primitives.gray[500]};
       }
       `,
     Outlined: disabled
-      ? `background-color: ${color.surface.secondary.hex}; border: 1px solid ${color.border.invert.hex};`
+      ? `background-color: ${token.surface.secondary.hex}; border: 1px solid ${token.border.invert.hex};`
       : `
-      background-color: ${propertyStyle === "GrayLine" ? color.surface.primary.hex : color.surface.secondary.hex};
-      border: ${propertyStyle === "GrayLine" ? `1px solid ${color.border.default.hex}` : ""};
-      > .body { color: ${color.text.secondary.hex}; }
+      background-color: ${propertyStyle === "GrayLine" ? token.surface.primary.hex : token.surface.secondary.hex};
+      border: ${propertyStyle === "GrayLine" ? `1px solid ${token.border.default.hex}` : ""};
+      > .body { color: ${token.text.secondary.hex}; }
       &:hover {
-        background-color: ${propertyStyle === "GrayLine" ? palette.gray[50] : palette.gray[100]};
-        border: ${propertyStyle === "GrayLine" ? `1px solid ${color.border.hover.hex}` : ""};
+        background-color: ${propertyStyle === "GrayLine" ? primitives.gray[50] : primitives.gray[100]};
+        border: ${propertyStyle === "GrayLine" ? `1px solid ${token.border.hover.hex}` : ""};
       }
       &:active {
-        background-color: ${propertyStyle === "GrayLine" ? palette.gray[100] : palette.gray[200]};
+        background-color: ${propertyStyle === "GrayLine" ? primitives.gray[100] : primitives.gray[200]};
       }
       `,
     Text: `
-        background-color: ${color.surface.primary.hex};
-        > .body { color: ${propertyStyle === "Brand" ? color.text.positive.hex : color.text.secondary.hex}; }
+        background-color: ${token.surface.primary.hex};
+        > .body { color: ${propertyStyle === "Brand" ? token.text.positive.hex : token.text.secondary.hex}; }
         `,
   };
   const BTN_SIZES = {
@@ -106,7 +106,7 @@ export function Button({
     ${BTN_STYLES[property]}
     border-radius: ${radius}px;
     ${layout.flex({ justify: "center", align: "center", spacing: 8 })}
-    ${disabled ? `cursor: not-allowed; > .body { color: ${color.text.tertiary.hex}; }` : ""}
+    ${disabled ? `cursor: not-allowed; > .body { color: ${token.text.tertiary.hex}; }` : ""}
   `;
   return (
     <StyledButton type="button" disabled={disabled} {...props}>

@@ -7,6 +7,7 @@ const meta: Meta = {
   title: "Design System/Component/Checkbox",
   component: Checkbox,
   parameters: { layout: "centered" },
+  argTypes: { color: { control: "text" } },
   tags: ["autodocs"],
 };
 export default meta;

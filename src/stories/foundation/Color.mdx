@@ -1,6 +1,6 @@
 import { ColorItem, ColorPalette, Meta } from "@storybook/blocks";
 import { Icon } from "../../atom/Icon";
-import { color, palette } from "../../foundation/color";
+import { token, primitives } from "../../foundation/color";
 import "../globalStyles.css";
 
 export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
@@ -21,7 +21,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
           return (
             <tr key={index}>
               <td style={{ height: "100px" }}>{getStyleExample(styleNm, colorObj.hex)}</td>
-              <td className="bold">{colorObj.styleNm}</td>
+              <td className="weight-600">{colorObj.styleNm}</td>
               <td>{`${colorObj.palette}/${colorObj.depth}`}</td>
               <td>{colorObj.hex}</td>
               <td style={{ textAlign: "left" }}>
@@ -40,12 +40,12 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 # Color Palette
 
 <ColorPalette>
-  {Object.keys(palette).map((colorNm, idx) => (
+  {Object.keys(primitives).map((colorNm, idx) => (
     <ColorItem
       key={idx}
       title={colorNm}
-      subtitle={`palette.${colorNm}`}
-      colors={palette[colorNm]}
+      subtitle={`primitives.${colorNm}`}
+      colors={primitives[colorNm]}
     />
   ))}
 </ColorPalette>
@@ -57,7 +57,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 ### 1. Surface
 
 <ColorUsageTable
-  usageObj={color?.surface}
+  usageObj={token?.surface}
   getStyleExample={(_, hex) => (
     <div
       style={{
@@ -73,12 +73,12 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 ### 2. Text
 
 <ColorUsageTable
-  usageObj={color?.text}
+  usageObj={token?.text}
   getStyleExample={(styleNm, hex) => (
     <div
-      className="bold"
+      className="weight-600"
       style={{
-        backgroundColor: styleNm === "invert" ? color.surface.invert.hex : undefined,
+        backgroundColor: styleNm === "invert" ? token.surface.invert.hex : undefined,
         width: "100%",
         height: "100px",
         borderRadius: "8px",
@@ -95,13 +95,13 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 ### 3. Icon
 
 <ColorUsageTable
-  usageObj={color?.icon}
+  usageObj={token?.icon}
   getStyleExample={(styleNm, _) => (
     <Icon
       iconSize="100px"
       iconColor={styleNm}
       style={{
-        backgroundColor: styleNm === "invert" ? color.surface.invert.hex : "white",
+        backgroundColor: styleNm === "invert" ? token.surface.invert.hex : "white",
         borderRadius: "8px",
         width: "100px",
         height: "100px",
@@ -113,7 +113,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 ### 4. Border
 
 <ColorUsageTable
-  usageObj={color?.border}
+  usageObj={token?.border}
   getStyleExample={(_, hex) => (
     <div
       style={{ border: `${hex} solid 1px`, borderRadius: "8px", width: "100px", height: "100px" }}
@@ -124,7 +124,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 ### 5. Divider
 
 <ColorUsageTable
-  usageObj={color?.divider}
+  usageObj={token?.divider}
   getStyleExample={(_, hex) => (
     <hr style={{ backgroundColor: hex, height: "6px", border: "none" }} />
   )}

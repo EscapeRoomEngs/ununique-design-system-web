@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react/*";
 import { useEffect, useState } from "react";
 import { TextField } from "../../components/Input";
+import { Container } from "../../atom/Container";
+import { Body, Lable } from "../../atom/Text";
 
 const meta: Meta = {
   title: "Design System/Component/TextField",
@@ -27,6 +29,30 @@ export const TextFieldExample: Story = {
         onChange={setValue}
         isError={() => textValue.length > 0 && textValue.length < 3}
       />
+    );
+  },
+};
+
+export const PasswordFieldExample: Story = {
+  args: { value: "", type: "password", disabled: false, placeholder: "비밀번호 입력" },
+  render: (args) => {
+    const [textValue, setValue] = useState("");
+    useEffect(() => setValue(args.value), [args.value]);
+    return (
+      <Container spacing={8}>
+        <Lable>비밀번호</Lable>
+        <TextField
+          {...args}
+          value={textValue}
+          onChange={setValue}
+          isError={() => textValue.length < 8}
+        />
+        {textValue?.length < 8 && (
+          <Body fontStyle="ExtraSmall" fontColor="negative">
+            비밀번호를 8자 이상 입력하세요
+          </Body>
+        )}
+      </Container>
     );
   },
 };

@@ -183,7 +183,8 @@ a {
         border-left: 0;
         border-right: 0;
         > p {
-          font-size: inherit;
+          margin: 0;
+          font-family: inherit;
         }
       }
     }
@@ -194,7 +195,7 @@ a {
   h4,
   h5,
   h6,
-  .bold {
-    font-family: "Pretendard500";
+  .weight-600 {
+    font-family: "Pretendard600";
   }
 }

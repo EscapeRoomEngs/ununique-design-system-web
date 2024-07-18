@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
-import { color } from "../foundation/color";
+import { token } from "../foundation/color";
 import { layout } from "../foundation/layout";
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
@@ -68,8 +68,8 @@ export const Container = ({
     ${display === "grid"
       ? layout.grid({ justify, align, spacing })
       : layout.flex({ justify, align, spacing, direction })}
-    background-color: ${bgColor ? color.surface[bgColor]?.hex : "transparent"};
-    ${borderColor ? `border: 1px solid ${color.border[borderColor]?.hex}` : ""};
+    background-color: ${bgColor ? token.surface[bgColor]?.hex : "transparent"};
+    ${borderColor ? `border: 1px solid ${token.border[borderColor]?.hex}` : ""};
     border-radius: ${radius || 0}px;
     font-family: "Pretendard300";
   `;

@@ -1,14 +1,9 @@
 import { InputHTMLAttributes, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Unchecked from "../assets/icon/check_false.svg";
-import UncheckedSquare from "../assets/icon/check_square_false.svg";
-import CheckedSquare from "../assets/icon/check_square_true.svg";
-import Checked from "../assets/icon/check_true.svg";
-import RadioActive from "../assets/icon/radio.svg";
 import { Container } from "../atom/Container";
 import { Icon } from "../atom/Icon";
-import { Body } from "../atom/Text";
-import { color } from "../foundation/color";
+import { Body, Lable } from "../atom/Text";
+import { token } from "../foundation/color";
 import { layout, radius } from "../foundation/layout";
 
 interface TextFieldsProps {
@@ -76,33 +71,32 @@ export function TextField({
     height: 44px;
     padding: 12px 15px;
     border-radius: ${radius[1]}px;
-    border: 1px solid ${color.border.default.hex};
-    background-color: ${color.surface.primary.hex};
+    border: 1px solid ${token.border.default.hex};
+    background-color: ${token.surface.primary.hex};
     ${layout.flex({ justify: "space-between", spacing: 16 })}
     &> input {
-      color: ${color.text.primary.hex};
+      color: ${token.text.primary.hex};
     }
     &:has(input:focus) {
-      border-color: ${color.border.tertiary.hex};
+      border-color: ${token.border.tertiary.hex};
     }
     &:has(input.error) {
-      border-color: ${color.border.negative.hex};
+      border-color: ${token.border.negative.hex};
     }
     ${disabled
-      ? `background-color: ${color.surface.tertiary.hex}; 
-      &> input {color: ${color.text.secondary.hex};}`
+      ? `background-color: ${token.surface.tertiary.hex}; 
+      &> input {color: ${token.text.secondary.hex};}`
       : ""}
   `;
   const StyledInput = styled.input`
     background: transparent;
     width: inherit;
-    height: 18px;
     margin: 0;
     padding: 0;
     border: 0;
     outline: 0;
-    font-size: 14px;
-    line-height: 18px; /* 128.571% */
+    font-size: 15px;
+    line-height: 130%;
   `;
   const StyledIconContainer = styled.button`
     ${layout.grid({ justify: "center" })}
@@ -130,12 +124,12 @@ export function TextField({
               <Icon
                 iconNm={textType === "text" ? "invisible" : "visible"}
                 iconSize={16}
-                iconColor="secondary"
+                iconColor="tertiary"
               />
             </StyledIconContainer>
           )}
           <StyledIconContainer type="reset" onClick={() => onChange && onChange("")}>
-            <Icon iconNm="close" iconSize={16} iconColor="secondary" />
+            <Icon iconNm="close" iconSize={16} iconColor="tertiary" />
           </StyledIconContainer>
         </Container>
       )}
@@ -203,12 +197,12 @@ export function Dropdown({
     height: 44px;
     padding: 12px 15px;
     border-radius: ${radius[1]}px;
-    border: 1px solid ${color.border[disabled ? "invert" : isOpen ? "tertiary" : "default"].hex};
-    background-color: ${color.surface.primary.hex};
+    border: 1px solid ${token.border[disabled ? "invert" : isOpen ? "tertiary" : "default"].hex};
+    background-color: ${token.surface.primary.hex};
     ${layout.flex({ justify: "space-between", spacing: 16 })}
     ${disabled
-      ? `background-color: ${color.surface.tertiary.hex}; 
-      color: ${color.text.secondary.hex};`
+      ? `background-color: ${token.surface.tertiary.hex}; 
+      color: ${token.text.secondary.hex};`
       : ""}
   `;
   const StyledSelect = styled.p`
@@ -266,11 +260,19 @@ interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
    * 비활성화 여부를 지정합니다.
    */
   disabled?: boolean;
+  /**
+   * 라디오 버튼 색상을 지정합니다.
+   * - Icon Color Token Name ("primary", "secondary", ...)
+   * - Color Hex Code (ex. "28D46A", "#E163F3", ...)
+   * - Color Name (ex. "white", "black", ...)
+   */
+  color?: string;
 }
 export function Radio({
   value: lable,
   checked = false,
   disabled = false,
+  color = "negative",
   onChange,
   ...props
 }: RadioProps) {
@@ -286,24 +288,19 @@ export function Radio({
   const StyledInput = styled.input`
     appearance: none;
     margin: 0;
-    width: 24px;
-    height: 24px;
-    background-image: url(${(props) => (props.checked ? RadioActive : Unchecked)});
+    width: 0;
     &::after {
       content: "";
       display: block;
     }
   `;
-  const StyledLabel = styled.label`
-    color: ${disabled ? color.text.tertiary.hex : color.text.primary.hex};
-    font-family: Pretendard400;
-    font-size: 16px;
-    line-height: 22px; /* 137.5% */
-  `;
   return (
     <Wrapper onClick={onRadioChange}>
       <StyledInput type="radio" {...{ ...props, checked, disabled }} />
-      <StyledLabel htmlFor={props.id}>{lable}</StyledLabel>
+      <Icon iconNm={checked ? "radio" : "unchecked"} iconColor={color} iconColorHex={color} />
+      <Lable weight={400} htmlFor={props.id}>
+        {lable}
+      </Lable>
     </Wrapper>
   );
 }
@@ -312,6 +309,13 @@ interface CheckboxProps extends RadioProps {
    * 체크박스의 모양을 설정합니다.
    */
   isSquared?: boolean;
+  /**
+   * 체크박스 버튼 색상을 지정합니다.
+   * - Icon Color Token Name ("primary", "secondary", ...)
+   * - Color Hex Code (ex. "28D46A", "#E163F3", ...)
+   * - Color Name (ex. "white", "black", ...)
+   */
+  color?: string;
 }
 export function Checkbox({
   value: lable,
@@ -319,6 +323,7 @@ export function Checkbox({
   isSquared = false,
   disabled = false,
   onChange,
+  color = "negative",
   ...props
 }: CheckboxProps) {
   function onCheckboxChange() {
@@ -333,31 +338,27 @@ export function Checkbox({
   const StyledInput = styled.input`
     appearance: none;
     margin: 0;
-    width: 24px;
-    height: 24px;
-    background-image: url(${(props) =>
-      props.checked
-        ? isSquared
-          ? CheckedSquare
-          : Checked
-        : isSquared
-          ? UncheckedSquare
-          : Unchecked});
+    width: 0;
     &::after {
       content: "";
       display: block;
     }
   `;
-  const StyledLabel = styled.label`
-    color: ${disabled ? color.text.tertiary.hex : color.text.primary.hex};
-    font-family: Pretendard400;
-    font-size: 16px;
-    line-height: 22px; /* 137.5% */
-  `;
   return (
     <Wrapper onClick={onCheckboxChange}>
       <StyledInput type="checkbox" {...{ ...props, checked, disabled }} />
-      <StyledLabel htmlFor={props.id}>{lable}</StyledLabel>
+      {isSquared ? (
+        <Icon
+          iconNm={checked ? "checkedSquare" : "uncheckedSquare"}
+          iconColor={color}
+          iconColorHex={color}
+        />
+      ) : (
+        <Icon iconNm={checked ? "checked" : "unchecked"} iconColor={color} iconColorHex={color} />
+      )}
+      <Lable weight={400} htmlFor={props.id}>
+        {lable}
+      </Lable>
     </Wrapper>
   );
 }

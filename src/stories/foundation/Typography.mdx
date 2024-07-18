@@ -1,6 +1,6 @@
 import { Meta, Typeset } from "@storybook/blocks";
-import { color } from "../../foundation/color";
-import { fontWeights, typography } from "../../foundation/typography";
+import { token } from "../../foundation/color";
+import { usage, weight } from "../../foundation/typography";
 import "../globalStyles.css";
 
 <Meta title="Design System/Foundation/Typography" />
@@ -14,16 +14,16 @@ caption/large)로 정의하고 이를 최소단위의 토큰이라고 여깁니�
 더 작은 원자 단위로 분리합니다. 예를 들어 Font Size와 Font Weight, Line Height은 각각 하나의 토큰이고,
 필요에 따라 조합하여 스타일을 생성합니다.<br />
 
-<span className="bold">Composite Token:</span> 이름이 지정된 여러 개의 자식 값으로 구성된 설계 토큰입니다.
-복합 토큰은 항상 함께 적용되는 밀접하게 관련된 스타일 속성에 유용합니다. 예를 들어, 타이포그래피 스타일은
-글꼴 이름, 글꼴 크기, 줄 높이 및 색상으로 구성될 수 있습니다.
+<span className="weight-600">Composite Token:</span> 이름이 지정된 여러 개의 자식 값으로 구성된 설계
+토큰입니다. 복합 토큰은 항상 함께 적용되는 밀접하게 관련된 스타일 속성에 유용합니다. 예를 들어, 타이포그래피
+스타일은 글꼴 이름, 글꼴 크기, 줄 높이 및 색상으로 구성될 수 있습니다.
 
-<table id="guide" style={{ width: "100%", margin: "40px 0" }}>
+<table id="guide" style={{ width: "100%" }}>
   <thead>
     <tr>
-      <th>Usage(Web)</th>
-      <th style={{ width: "13%" }}>Usage(Mobile)</th>
-      <th>Style</th>
+      <th style={{ width: "12%" }}>Usage(Web)</th>
+      <th style={{ width: "12%" }}>Usage(Mobile)</th>
+      <th style={{ width: "12%" }}>Style</th>
       <th>Web Size</th>
       <th>Mobile Size</th>
       <th>Weight</th>
@@ -33,24 +33,25 @@ caption/large)로 정의하고 이를 최소단위의 토큰이라고 여깁니�
     </tr>
   </thead>
   <tbody>
-    {Object.keys(typography).map((usage) => {
-      const usageObj = typography[usage];
-      return Object.keys(usageObj.style).map((styleNm) => {
-        const styleObj = usageObj.style[styleNm];
-        return (
-          <tr key={`${usage}-${styleNm}`}>
-            <td>{styleObj.usageWeb}</td>
-            <td>{styleObj.usageMobile}</td>
-            <td>{styleNm}</td>
-            <td>{styleObj.webSize}</td>
-            <td>{styleObj.mobileSize}</td>
-            <td>{usageObj.weight}</td>
-            <td>{usageObj.lineHeight}</td>
-            <td>{usageObj.letterSpacing}</td>
-            <td style={{ textAlign: "left" }}>{usageObj.description}</td>
-          </tr>
-        );
-      });
+    {Object.keys(usage).map((usageNm) => {
+      const usageObj = usage[usageNm];
+      return (
+        <tr key={`${usageNm}`}>
+          <td className="weight-600">{usageObj.usageWeb}</td>
+          <td>{usageObj.usageMobile}</td>
+          <td>{usageObj.styleNm}</td>
+          <td>{usageObj.webSize}</td>
+          <td>{usageObj.mobileSize}</td>
+          <td>{usageObj.weight}</td>
+          <td>{usageObj.lineHeight}</td>
+          <td>{usageObj.letterSpacing}</td>
+          <td style={{ textAlign: "left" }}>
+            {usageObj.description?.split("\n")?.map((line, idx) => (
+              <p key={idx}>{line}</p>
+            ))}
+          </td>
+        </tr>
+      );
     })}
   </tbody>
 </table>
@@ -58,39 +59,47 @@ caption/large)로 정의하고 이를 최소단위의 토큰이라고 여깁니�
 ### 1. Display
 
 <Typeset
-  fontFamily={fontWeights[typography.display.weight]}
-  fontSizes={[...Object.values(typography.display.style).map((style) => Number(style.webSize))]}
-  sampleText={typography.display.description}
+  fontFamily="Pretendard600"
+  fontSizes={[
+    ...[usage[".display1"], usage[".display2"], usage[".display3"]].map((style) =>
+      Number(style.webSize)
+    ),
+  ]}
+  sampleText={usage[".display1"].description}
 />
 
 ### 2. Heading
 
 <Typeset
-  fontFamily={fontWeights[typography.heading.weight]}
-  fontSizes={[...Object.values(typography.heading.style).map((style) => Number(style.webSize))]}
-  sampleText={typography.heading.description}
+  fontFamily="Pretendard600"
+  fontSizes={[...[usage.h1, usage.h2, usage.h3].map((style) => Number(style.webSize))]}
+  sampleText={usage.h1.description}
 />
 
 ### 3. Title
 
 <Typeset
-  fontFamily={fontWeights[typography.title.weight]}
-  fontSizes={[...Object.values(typography.title.style).map((style) => Number(style.webSize))]}
-  sampleText={typography.title.description}
+  fontFamily="Pretendard600"
+  fontSizes={[...[usage.h4, usage.h5, usage.h6].map((style) => Number(style.webSize))]}
+  sampleText={usage.h4.description}
 />
 
 ### 4. Body
 
 <Typeset
-  fontFamily={fontWeights[typography.body.weight]}
-  fontSizes={[...Object.values(typography.body.style).map((style) => Number(style.webSize))]}
-  sampleText={typography.body.description}
+  fontFamily="Pretendard400"
+  fontSizes={[
+    ...[usage[".p1"], usage[".p2"], usage.p, usage[".p4"]].map((style) => Number(style.webSize)),
+  ]}
+  sampleText={usage[".p1"].description}
 />
 
 ### 5. Lable
 
 <Typeset
-  fontFamily={fontWeights[typography.lable.weight]}
-  fontSizes={[...Object.values(typography.lable.style).map((style) => Number(style.webSize))]}
-  sampleText={typography.lable.description}
+  fontFamily="Pretendard600"
+  fontSizes={[
+    ...[usage[".label1"], usage.label, usage[".label3"]].map((style) => Number(style.webSize)),
+  ]}
+  sampleText={usage[".label1"].description}
 />

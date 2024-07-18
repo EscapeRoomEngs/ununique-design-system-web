@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Container } from "../../atom/Container";
 import { Body, Heading, Title } from "../../atom/Text";
-import { color } from "../../foundation/color";
+import { token } from "../../foundation/color";
 
 const meta: Meta = {
   tags: ["!dev"],
@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const HierarchyExample: Story = {
   args: {
-    style: { padding: "40px", color: color.text.invert.hex },
+    style: { padding: "40px", color: token.text.invert.hex },
     bgColor: "invert",
     radius: 20,
   },

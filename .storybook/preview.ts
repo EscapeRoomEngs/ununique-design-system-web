@@ -15,7 +15,7 @@ const preview: Preview = {
           "Design System",
           [
             "Foundation",
-            ["Typography", "Spacing", "Hierarchy", "Color"],
+            ["Typography", "Corner Radius", "Spacing", "Hierarchy", "Color"],
             "Atom",
             "Component",
             "Template",
