@@ -50,7 +50,6 @@ export function TextField({
   ...props
 }: TextFieldsProps) {
   const [textType, setTextType] = useState(type);
-
   useEffect(() => setTextType(type), [type]);
 
   const [focused, setFocused] = useState(false);
@@ -60,7 +59,6 @@ export function TextField({
     const handleClick = (e: MouseEvent) => {
       if (inputRef.current) setFocused(inputRef.current.contains(e.target as HTMLElement));
     };
-
     window.addEventListener("mousedown", handleClick);
     return () => window.removeEventListener("mousedown", handleClick);
   }, [inputRef]);
@@ -171,12 +169,17 @@ export function Dropdown({
   selected = {},
   placeholder = "선택",
   keyValue = { id: "id", name: "name" },
-  optionList = [],
+  optionList = [
+    { id: 1, name: "Option 1" },
+    { id: 2, name: "Option 2" },
+    { id: 3, name: "Option 3" },
+    { id: 4, name: "Option 4" },
+    { id: 5, name: "Option 5" },
+  ],
   disabled = false,
   onChange,
 }: DropdownProps) {
   const [value, setValue] = useState(selected);
-
   useEffect(() => setValue(selected), [selected]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -186,7 +189,6 @@ export function Dropdown({
     const handleClick = (e: MouseEvent) => {
       if (dropdownRef.current) setIsOpen(dropdownRef.current.contains(e.target as HTMLElement));
     };
-
     window.addEventListener("mousedown", handleClick);
     return () => window.removeEventListener("mousedown", handleClick);
   }, [dropdownRef]);
@@ -196,6 +198,7 @@ export function Dropdown({
     width: ${Sizes[size]}px;
     height: 44px;
     padding: 12px 15px;
+    position: relative;
     border-radius: ${radius[1]}px;
     border: 1px solid ${token.border[disabled ? "invert" : isOpen ? "tertiary" : "default"].hex};
     background-color: ${token.surface.primary.hex};
@@ -203,20 +206,27 @@ export function Dropdown({
     ${disabled
       ? `background-color: ${token.surface.tertiary.hex}; 
       color: ${token.text.secondary.hex};`
-      : ""}
+      : "cursor: pointer;"}
   `;
-  const StyledSelect = styled.p`
-    background: transparent;
+  const StyledOptions = styled.div`
+    position: absolute;
+    top: 48px;
+    left: 0;
     width: inherit;
-    height: 18px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    font-size: 14px;
-    line-height: 18px; /* 128.571% */
+    max-height: calc(44px * 4.5);
+    overflow-y: auto;
+    background-color: ${token.surface.primary.hex};
+    border: 1px solid ${token.border.tertiary.hex};
+    border-radius: ${radius[1]}px;
+    > .option {
+      padding: 12px 15px;
+      height: 44px;
+    }
+    > .option:hover {
+      background-color: ${token.surface.negative.hex};
+    }
   `;
-  const StyledIconContainer = styled.button`
+  const StyledChevronIcon = styled.button`
     ${layout.grid({ justify: "center" })}
     border-radius: 20px;
     width: 20px;
@@ -224,15 +234,33 @@ export function Dropdown({
     cursor: pointer;
     background-color: transparent;
   `;
+  // TODO: 모바일 접속 시 select tag 사용
   return (
     <Wrapper onSubmit={(e) => e.preventDefault()} ref={dropdownRef}>
-      {Object(value)[keyValue.name] || <Body fontColor="tertiary">{placeholder}</Body>}
-      <StyledIconContainer
-        type="button"
-        onClick={() => optionList?.length > 0 && setIsOpen(!isOpen)}
-      >
+      {Object(value)[keyValue.name] ? (
+        <Body>{Object(value)[keyValue.name]}</Body>
+      ) : (
+        <Body fontColor="tertiary">{placeholder}</Body>
+      )}
+      <StyledChevronIcon type="button" onClick={() => optionList?.length > 0 && setIsOpen(!isOpen)}>
         <Icon iconNm={isOpen ? "chevronLess" : "chevronMore"} iconSize={16} iconColor="secondary" />
-      </StyledIconContainer>
+      </StyledChevronIcon>
+      {isOpen && (
+        <StyledOptions className="options-wrapper">
+          {optionList?.map((option, oidx) => (
+            <div
+              className="option"
+              key={oidx}
+              onClick={() => {
+                onChange && onChange(option);
+                setIsOpen(false);
+              }}
+            >
+              <Body>{Object(option)[keyValue.name] || "-"}</Body>
+            </div>
+          ))}
+        </StyledOptions>
+      )}
     </Wrapper>
   );
 }
@@ -267,12 +295,17 @@ interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
    * - Color Name (ex. "white", "black", ...)
    */
   color?: string;
+  /**
+   * 필수 여부를 지정합니다.
+   */
+  required?: boolean;
 }
 export function Radio({
   value: lable,
   checked = false,
   disabled = false,
   color = "negative",
+  required = false,
   onChange,
   ...props
 }: RadioProps) {
@@ -298,7 +331,7 @@ export function Radio({
     <Wrapper onClick={onRadioChange}>
       <StyledInput type="radio" {...{ ...props, checked, disabled }} />
       <Icon iconNm={checked ? "radio" : "unchecked"} iconColor={color} iconColorHex={color} />
-      <Lable weight={400} htmlFor={props.id}>
+      <Lable weight={400} htmlFor={props.id} required={required}>
         {lable}
       </Lable>
     </Wrapper>
@@ -324,6 +357,7 @@ export function Checkbox({
   disabled = false,
   onChange,
   color = "negative",
+  required = false,
   ...props
 }: CheckboxProps) {
   function onCheckboxChange() {
@@ -356,7 +390,7 @@ export function Checkbox({
       ) : (
         <Icon iconNm={checked ? "checked" : "unchecked"} iconColor={color} iconColorHex={color} />
       )}
-      <Lable weight={400} htmlFor={props.id}>
+      <Lable weight={400} htmlFor={props.id} required={required}>
         {lable}
       </Lable>
     </Wrapper>
