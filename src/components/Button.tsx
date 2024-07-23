@@ -1,9 +1,9 @@
+import { ButtonHTMLAttributes } from "react";
 import styled from "styled-components";
 import { Icon } from "../atom/Icon";
 import { Body } from "../atom/Text";
-import { token, primitives } from "../foundation/color";
+import { primitives, token } from "../foundation/color";
 import { layout } from "../foundation/layout";
-import { ButtonHTMLAttributes } from "react";
 
 export type ButtonPropertyStyle = {
   Contained: "Gray" | "Brand";
@@ -30,7 +30,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * 버튼 속성 스타일을 지정합니다.
    */
-  propertyStyle?: Omit<ButtonPropertyStyle, "Contained" | "Outlined" | "Text">;
+  propertyStyle?: ButtonPropertyStyle["Contained" | "Outlined" | "Text"];
   /**
    * 버튼 내 아이콘 옵션을 지정합니다.
    */
@@ -64,37 +64,73 @@ export function Button({
   ...props
 }: ButtonProps) {
   const BTN_STYLES = {
-    Contained: disabled
-      ? `background-color: ${primitives.gray[200]};`
-      : `
-      background-color: ${token.surface[propertyStyle === "Brand" ? "brand" : "invert"].hex};
-      > .body { color: ${token.text.invert.hex}; }
-      &:hover {
-        background-color: ${propertyStyle === "Brand" ? primitives.red[600] : primitives.gray[700]};
-      }
-      &:active {
-        background-color: ${propertyStyle === "Brand" ? primitives.red[700] : primitives.gray[500]};
-      }
-      `,
-    Outlined: disabled
-      ? `background-color: ${token.surface.secondary.hex}; border: 1px solid ${token.border.invert.hex};`
-      : `
-      background-color: ${propertyStyle === "GrayLine" ? token.surface.primary.hex : token.surface.secondary.hex};
-      border: ${propertyStyle === "GrayLine" ? `1px solid ${token.border.default.hex}` : ""};
-      > .body { color: ${token.text.secondary.hex}; }
-      &:hover {
-        background-color: ${propertyStyle === "GrayLine" ? primitives.gray[50] : primitives.gray[100]};
-        border: ${propertyStyle === "GrayLine" ? `1px solid ${token.border.hover.hex}` : ""};
-      }
-      &:active {
-        background-color: ${propertyStyle === "GrayLine" ? primitives.gray[100] : primitives.gray[200]};
-      }
-      `,
-    Text: `
-        background-color: ${token.surface.primary.hex};
-        > .body { color: ${propertyStyle === "Brand" ? token.text.positive.hex : token.text.secondary.hex}; }
-        `,
+    Contained: {
+      Brand: {
+        backgroundColor: token.surface.brand.hex,
+        color: token.text.invert.hex,
+        disabled: `background-color: ${primitives.gray[200]};`,
+        hover: `background-color: ${primitives.red[600]};`,
+        active: `background-color: ${primitives.red[700]};`,
+      },
+      Gray: {
+        backgroundColor: token.surface.invert.hex,
+        color: token.text.invert.hex,
+        disabled: `background-color: ${primitives.gray[200]};`,
+        hover: `background-color: ${primitives.gray[700]};`,
+        active: `background-color: ${primitives.gray[500]};`,
+      },
+    },
+    Outlined: {
+      GrayLine: {
+        backgroundColor: token.surface.primary.hex,
+        border: token.border.default.hex,
+        color: token.text.secondary.hex,
+        disabled: `background-color: ${token.surface.secondary.hex}; border: 1px solid ${token.border.invert.hex};`,
+        hover: `background-color: ${primitives.gray[50]}; border: 1px solid ${token.border.hover.hex}`,
+        active: `background-color: ${primitives.gray[100]};`,
+      },
+      GrayFill: {
+        backgroundColor: token.surface.secondary.hex,
+        color: token.text.secondary.hex,
+        disabled: token.surface.secondary.hex,
+        hover: `background-color: ${primitives.gray[200]};`,
+        active: `background-color: ${primitives.gray[300]};`,
+      },
+    },
+    Text: {
+      Brand: {
+        backgroundColor: token.surface.primary.hex,
+        color: token.text.negative.hex,
+        disabled: `background-color: ${primitives.gray[200]};`,
+        hover: `background-color: ${primitives.gray[50]};`,
+        active: `background-color: ${primitives.gray[100]};`,
+      },
+      Gray: {
+        backgroundColor: token.surface.primary.hex,
+        color: token.text.secondary.hex,
+        disabled: `background-color: ${primitives.gray[200]};`,
+        hover: `background-color: ${primitives.gray[50]};`,
+        active: `background-color: ${primitives.gray[100]};`,
+      },
+    },
   };
+  const getBtnStyle = (btnStyles: {
+    disabled?: string;
+    backgroundColor: string;
+    border?: string;
+    color?: string;
+    hover?: string;
+    active?: string;
+  }) =>
+    disabled
+      ? btnStyles.disabled || `background-color: ${primitives.gray[200]};`
+      : `
+    background-color: ${btnStyles.backgroundColor};
+    border: ${btnStyles?.border ? `1px solid ${btnStyles.border}` : "0"};
+    > .body { color: ${btnStyles.color}; }
+    ${btnStyles.hover ? `&:hover { ${btnStyles.hover} }` : ""}
+    ${btnStyles.active ? `&:active { ${btnStyles.active} }` : ""}
+  `;
   const BTN_SIZES = {
     S: "padding: 7px 24px; height: 40px; > .body { font-size: 14px; }",
     M: "padding: 14px 32px; height: 48px; > .body { font-size: 16px; }",
@@ -103,7 +139,7 @@ export function Button({
   const StyledButton = styled.button`
     cursor: pointer;
     ${BTN_SIZES[size]}
-    ${BTN_STYLES[property]}
+    ${getBtnStyle(Object(BTN_STYLES[property])[propertyStyle] || BTN_STYLES.Outlined.GrayFill)}
     border-radius: ${radius}px;
     ${layout.flex({ justify: "center", align: "center", spacing: 8 })}
     ${disabled ? `cursor: not-allowed; > .body { color: ${token.text.tertiary.hex}; }` : ""}
@@ -114,6 +150,9 @@ export function Button({
         <Icon
           {...iconOption}
           iconColor={disabled ? "tertiary" : iconOption.iconColor}
+          iconColorHex={
+            (Object(BTN_STYLES[property])[propertyStyle] || BTN_STYLES.Outlined.GrayFill)?.color
+          }
           iconSize={20}
         />
       )}

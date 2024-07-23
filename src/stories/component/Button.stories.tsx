@@ -13,7 +13,10 @@ const meta: Meta = {
   // },
   argTypes: {
     property: { control: "select", options: ["Contained", "Outlined", "Text"] },
-    propertyStyle: { control: "select", options: ["Gray", "Brand", "GrayLine", "GrayFill"] },
+    propertyStyle: {
+      control: "select",
+      options: ["Brand", "Gray", "GrayLine", "GrayFill"],
+    },
     iconOption: { control: { type: "object" } },
     // onClick: { action: "onClick" },
   },
@@ -33,7 +36,7 @@ export const ContainedStyleButton: Story = {
     text: "신규 등록",
     property: "Contained",
     propertyStyle: "Brand",
-    iconOption: { iconNm: "add", iconColor: "invert" },
+    iconOption: { iconNm: "add" },
     size: "M",
     radius: 4,
   },
@@ -70,7 +73,7 @@ export const TextStyleButton: Story = {
  */
 export const IconStyleButton: Story = {
   args: {
-    iconOption: { iconNm: "download", iconColor: "sub" },
+    iconOption: { iconNm: "download" },
     property: "Outlined",
     propertyStyle: "GrayFill",
     text: "다운로드",

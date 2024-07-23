@@ -1,7 +1,7 @@
 import type { StorybookConfig } from "@storybook/react-webpack5";
-import { primitives, token } from "../src/foundation/color";
-import { layout } from "../src/foundation/layout";
-import { usage, weight } from "../src/foundation/typography";
+import { COLOR } from "../src/styles/color";
+import { LAYOUT } from "../src/styles/layout";
+import { TYPOGRAPHY } from "../src/styles/typography";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -23,13 +23,9 @@ const config: StorybookConfig = {
   previewHead: (head) => `
   ${head}
   <style type="text/css">
-    :root {
-      ${Object.keys(primitives).map((colorNm) =>
-        Object.keys(Object(primitives)[colorNm]).map(
-          (depth) => `--${colorNm}-${depth}: ${Object(primitives)[colorNm][depth]};`
-        )
-      )}
-    }
+    ${TYPOGRAPHY}
+    ${COLOR}
+    ${LAYOUT}
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
@@ -61,6 +57,28 @@ const config: StorybookConfig = {
     }
     body {
       line-height: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      /* 스크롤바 커스텀 */
+      ::-webkit-scrollbar {
+        width: 20px;
+        height: 20px;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: white;
+      }
+      ::-webkit-scrollbar-thumb {
+        display: block;
+        background: #d1d1d1;
+        background-clip: padding-box;
+        border-radius: 16px;
+        border: 8px solid transparent;
+      }
+      .surface-invert::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
     }
     ol, ul {
       list-style: none;
@@ -84,71 +102,6 @@ const config: StorybookConfig = {
     a {
       text-decoration: none;
       color: inherit;
-    }
-    /* Typography */
-    ${Object.keys(usage).map(
-      (styleNm) => `
-      ${styleNm}, .${Object(usage)[styleNm].usageWeb} {
-        font-family: "Pretendard${Object(usage)[styleNm].weight}";
-        font-size: ${Object(usage)[styleNm].webSize}px;
-        line-height: 130%;
-        letter-spacing: 0%;
-        @media (width < 800px) {
-          font-size: ${Object(usage)[styleNm].mobileSize}px;
-        }
-      }
-    `
-    )}
-    /* Font Weight */
-    ${Object.keys(weight).map(
-      (weightNm) => `
-      .weight-${Object(weight)[weightNm]} {
-        font-family: "${Object(weight)[weightNm]}";
-      }
-    `
-    )}
-    /* Color Token - 1. Text */
-    ${Object.keys(token.text).map(
-      (tokenColor) => `
-      .text-${tokenColor} { color: ${Object(token.text)[tokenColor].hex}; }
-    `
-    )}
-    /* Color Token - 2. Surface */
-    ${Object.keys(token.surface).map(
-      (tokenColor) => `
-      .surface-${tokenColor} { background: ${Object(token.surface)[tokenColor].hex}; }
-    `
-    )}
-    /* Color Token - 3. Border */
-    ${Object.keys(token.border).map(
-      (tokenColor) => `
-      .border-${tokenColor} { 
-        border-style: solid;
-        border-color: ${Object(token.border)[tokenColor].hex}; 
-      }
-    `
-    )}
-    /* Color Token - 4. Icon */
-    ${Object.keys(token.icon).map(
-      (tokenColor) => `
-      .icon-${tokenColor} > svg{ fill: ${Object(token.icon)[tokenColor].hex}; }
-    `
-    )}
-    /* Layout */
-    .grid { ${layout.grid({})} }
-    .flex-center { ${layout.flex({})} }
-    .flex-sides { ${layout.flex({ justify: "space-between" })} }
-    .flex-left { ${layout.flex({ justify: "flex-start" })} }
-    .flex-right { ${layout.flex({ justify: "flex-end" })} }
-    .flex-upper-lower { ${layout.flex({ justify: "space-between", align: "space-between", direction: "column" })} }
-    .layout-upper {
-      alight-items: start;
-    }
-    .layout-lower {
-      alight-items: end;
-    }
-    .layout-sides {
-      alight-items: space-between;
     }
   </style>
   `,

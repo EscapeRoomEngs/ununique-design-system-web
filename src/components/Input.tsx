@@ -169,13 +169,7 @@ export function Dropdown({
   selected = {},
   placeholder = "선택",
   keyValue = { id: "id", name: "name" },
-  optionList = [
-    { id: 1, name: "Option 1" },
-    { id: 2, name: "Option 2" },
-    { id: 3, name: "Option 3" },
-    { id: 4, name: "Option 4" },
-    { id: 5, name: "Option 5" },
-  ],
+  optionList = [],
   disabled = false,
   onChange,
 }: DropdownProps) {
@@ -203,7 +197,7 @@ export function Dropdown({
     border: 1px solid ${token.border[disabled ? "invert" : isOpen ? "tertiary" : "default"].hex};
     background-color: ${token.surface.primary.hex};
     ${layout.flex({ justify: "space-between", spacing: 16 })}
-    ${disabled
+    ${disabled || optionList?.length <= 0
       ? `background-color: ${token.surface.tertiary.hex}; 
       color: ${token.text.secondary.hex};`
       : "cursor: pointer;"}
