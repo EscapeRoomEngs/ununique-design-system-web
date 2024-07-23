@@ -2,14 +2,9 @@ import { ButtonHTMLAttributes } from "react";
 import styled from "styled-components";
 import { Icon } from "../atom/Icon";
 import { Body } from "../atom/Text";
-import { primitives, token } from "../foundation/color";
+import { token } from "../foundation/color";
 import { layout } from "../foundation/layout";
 
-export type ButtonPropertyStyle = {
-  Contained: "Gray" | "Brand";
-  Outlined: "GrayLine" | "GrayFill";
-  Text: "Gray" | "Brand";
-};
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * 버튼 텍스트를 지정합니다.
@@ -18,26 +13,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * 버튼의 size를 지정합니다.
    */
-  size?: "S" | "M" | "L";
+  size?: "Small" | "Medium" | "Large";
   /**
    * 버튼의 radius를 지정합니다. (단위 px)
    */
   radius?: 0 | 4 | 8;
   /**
-   * 버튼 속성을 지정합니다.
+   * 버튼 색상 속성을 지정합니다.
    */
-  property?: "Contained" | "Outlined" | "Text";
-  /**
-   * 버튼 속성 스타일을 지정합니다.
-   */
-  propertyStyle?: ButtonPropertyStyle["Contained" | "Outlined" | "Text"];
+  property?: "outlined" | "brand" | "negative" | "positive" | "info" | "invert";
   /**
    * 버튼 내 아이콘 옵션을 지정합니다.
    */
-  iconOption?: {
-    iconNm?: string;
-    iconColor?: "primary" | "secondary" | "tertiary" | "invert" | "negative" | "positive" | "info";
-  };
+  icon?: string;
   /**
    * 버튼 상호작용 비활성화 여부를 지정합니다.
    */
@@ -50,113 +38,69 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 /**
  * 버튼은 사용자가 동작을 가능하게 할 때 사용합니다.
- *
- * 물리적 터치가 일어나는 디바이스의 경우 높이는 48px로 고정합니다.
+ * - Icon Size 20px * 20px로 고정
+ * - Medium Size의 경우 높이 48px로 고정
+ * - Radius 4px, 8px 중 자유 지정 (기본값 4px)
  */
 export function Button({
   text,
-  size = "M",
+  size = "Small",
   radius = 4,
   disabled = false,
-  property = "Contained",
-  propertyStyle = "Brand",
-  iconOption = {},
+  property = "outlined",
+  icon,
   ...props
 }: ButtonProps) {
   const BTN_STYLES = {
-    Contained: {
-      Brand: {
-        backgroundColor: token.surface.brand.hex,
-        color: token.text.invert.hex,
-        disabled: `background-color: ${primitives.gray[200]};`,
-        hover: `background-color: ${primitives.red[600]};`,
-        active: `background-color: ${primitives.red[700]};`,
-      },
-      Gray: {
-        backgroundColor: token.surface.invert.hex,
-        color: token.text.invert.hex,
-        disabled: `background-color: ${primitives.gray[200]};`,
-        hover: `background-color: ${primitives.gray[700]};`,
-        active: `background-color: ${primitives.gray[500]};`,
-      },
+    outlined: {
+      backgroundColor: token.surface.primary.hex,
+      borderColor: token.border.default.hex,
+      color: token.text.secondary.hex,
     },
-    Outlined: {
-      GrayLine: {
-        backgroundColor: token.surface.primary.hex,
-        border: token.border.default.hex,
-        color: token.text.secondary.hex,
-        disabled: `background-color: ${token.surface.secondary.hex}; border: 1px solid ${token.border.invert.hex};`,
-        hover: `background-color: ${primitives.gray[50]}; border: 1px solid ${token.border.hover.hex}`,
-        active: `background-color: ${primitives.gray[100]};`,
-      },
-      GrayFill: {
-        backgroundColor: token.surface.secondary.hex,
-        color: token.text.secondary.hex,
-        disabled: token.surface.secondary.hex,
-        hover: `background-color: ${primitives.gray[200]};`,
-        active: `background-color: ${primitives.gray[300]};`,
-      },
-    },
-    Text: {
-      Brand: {
-        backgroundColor: token.surface.primary.hex,
-        color: token.text.negative.hex,
-        disabled: `background-color: ${primitives.gray[200]};`,
-        hover: `background-color: ${primitives.gray[50]};`,
-        active: `background-color: ${primitives.gray[100]};`,
-      },
-      Gray: {
-        backgroundColor: token.surface.primary.hex,
-        color: token.text.secondary.hex,
-        disabled: `background-color: ${primitives.gray[200]};`,
-        hover: `background-color: ${primitives.gray[50]};`,
-        active: `background-color: ${primitives.gray[100]};`,
-      },
-    },
+    brand: { backgroundColor: token.surface.brand.hex, color: token.text.invert.hex },
+    negative: { backgroundColor: token.surface.negative.hex, color: token.text.negative.hex },
+    positive: { backgroundColor: token.surface.positive.hex, color: token.text.positive.hex },
+    info: { backgroundColor: token.surface.info.hex, color: token.text.info.hex },
+    invert: { backgroundColor: token.surface.invert.hex, color: token.text.invert.hex },
+    disabled: { backgroundColor: token.surface.tertiary.hex, color: token.text.tertiary.hex },
   };
   const getBtnStyle = (btnStyles: {
-    disabled?: string;
     backgroundColor: string;
-    border?: string;
+    borderColor?: string;
     color?: string;
-    hover?: string;
-    active?: string;
-  }) =>
-    disabled
-      ? btnStyles.disabled || `background-color: ${primitives.gray[200]};`
-      : `
+  }) => `
     background-color: ${btnStyles.backgroundColor};
-    border: ${btnStyles?.border ? `1px solid ${btnStyles.border}` : "0"};
+    border: ${btnStyles?.borderColor ? `1px solid ${btnStyles.borderColor}` : "0"};
     > .body { color: ${btnStyles.color}; }
-    ${btnStyles.hover ? `&:hover { ${btnStyles.hover} }` : ""}
-    ${btnStyles.active ? `&:active { ${btnStyles.active} }` : ""}
   `;
   const BTN_SIZES = {
-    S: "padding: 7px 24px; height: 40px; > .body { font-size: 14px; }",
-    M: "padding: 14px 32px; height: 48px; > .body { font-size: 16px; }",
-    L: "padding: 16px 32px; height: 54px; > .body { font-size: 18px; }",
+    Small: "padding: 7px 24px; height: 40px;",
+    Medium: "padding: 14px 32px; height: 48px;",
+    Large: "padding: 16px 32px; height: 54px;",
   };
   const StyledButton = styled.button`
     cursor: pointer;
     ${BTN_SIZES[size]}
-    ${getBtnStyle(Object(BTN_STYLES[property])[propertyStyle] || BTN_STYLES.Outlined.GrayFill)}
     border-radius: ${radius}px;
     ${layout.flex({ justify: "center", align: "center", spacing: 8 })}
-    ${disabled ? `cursor: not-allowed; > .body { color: ${token.text.tertiary.hex}; }` : ""}
+    ${disabled
+      ? `${getBtnStyle(BTN_STYLES.disabled)} cursor: not-allowed;`
+      : getBtnStyle(Object(BTN_STYLES[property]))}
   `;
   return (
     <StyledButton type="button" disabled={disabled} {...props}>
-      {iconOption?.iconNm && (
+      {icon && (
         <Icon
-          {...iconOption}
-          iconColor={disabled ? "tertiary" : iconOption.iconColor}
-          iconColorHex={
-            (Object(BTN_STYLES[property])[propertyStyle] || BTN_STYLES.Outlined.GrayFill)?.color
-          }
+          iconNm={icon}
+          iconColorHex={disabled ? "tertiary" : Object(BTN_STYLES[property])?.color}
           iconSize={20}
         />
       )}
-      {text && <Body weight={600}>{text}</Body>}
+      {text && (
+        <Body fontStyle={size} weight={600}>
+          {text}
+        </Body>
+      )}
     </StyledButton>
   );
 }

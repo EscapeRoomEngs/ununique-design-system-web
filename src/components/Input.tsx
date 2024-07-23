@@ -93,8 +93,11 @@ export function TextField({
     padding: 0;
     border: 0;
     outline: 0;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 130%;
+    &::placeholder {
+      color: ${token.text.tertiary.hex};
+    }
   `;
   const StyledIconContainer = styled.button`
     ${layout.grid({ justify: "center" })}
@@ -194,12 +197,11 @@ export function Dropdown({
     padding: 12px 15px;
     position: relative;
     border-radius: ${radius[1]}px;
-    border: 1px solid ${token.border[disabled ? "invert" : isOpen ? "tertiary" : "default"].hex};
+    border: 1px solid ${token.border[isOpen ? "tertiary" : "default"].hex};
     background-color: ${token.surface.primary.hex};
     ${layout.flex({ justify: "space-between", spacing: 16 })}
     ${disabled || optionList?.length <= 0
-      ? `background-color: ${token.surface.tertiary.hex}; 
-      color: ${token.text.secondary.hex};`
+      ? `background-color: ${token.surface.tertiary.hex}; color: ${token.text.secondary.hex};`
       : "cursor: pointer;"}
   `;
   const StyledOptions = styled.div`
