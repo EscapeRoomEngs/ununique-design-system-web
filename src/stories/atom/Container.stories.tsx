@@ -72,8 +72,8 @@ export const VerticalLayout: Story = {
   },
   render: (args) => (
     <Container {...args}>
-      <Button text="버튼" property="Outlined" propertyStyle="GrayLine" />
-      <Button text="버튼" propertyStyle="Gray" />
+      <Button text="버튼" property="outlined" />
+      <Button text="버튼" property="brand" />
     </Container>
   ),
 };
@@ -95,8 +95,8 @@ export const HorizontalLayout: Story = {
   },
   render: (args) => (
     <Container {...args}>
-      <Button text="버튼" property="Outlined" propertyStyle="GrayLine" />
-      <Button text="버튼" propertyStyle="Gray" />
+      <Button text="버튼" property="outlined" />
+      <Button text="버튼" property="brand" />
     </Container>
   ),
 };
