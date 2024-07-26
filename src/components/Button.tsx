@@ -5,7 +5,7 @@ import { Body } from "../atom/Text";
 import { token } from "../foundation/color";
 import { layout } from "../foundation/layout";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * 버튼 텍스트를 지정합니다.
    */

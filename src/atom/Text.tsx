@@ -11,7 +11,7 @@ export type fontColor =
   | "negative"
   | "positive"
   | "info";
-export interface TypographyProps extends HTMLAttributes<Element> {
+interface TypographyProps extends HTMLAttributes<Element> {
   weight?: 300 | 400 | 500 | 600;
   fontStyle?: "Large" | "Medium" | "Small" | "ExtraSmall";
   fontColor?: fontColor;
@@ -30,7 +30,8 @@ const getTypoStyleProps = (props: {
     }
     font-family: "Pretendard${props.weight}";
     color: ${props.fontColor ? token.text[props.fontColor]?.hex : "inherit"};
-    margin: 0;`;
+    margin: 0;
+  `;
 
 export const Display = ({
   weight = 600,
@@ -41,7 +42,7 @@ export const Display = ({
   const fontSizes: object =
     Object.values(usage)?.find(
       (el) => el.styleNm === fontStyle && el.usageWeb?.startsWith("display")
-    ) || {};
+    ) || usage[".display2"];
   const StyledDisplay = styled.p`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
@@ -56,7 +57,7 @@ export const Heading = ({
   const fontSizes: object =
     Object.values(usage)?.find(
       (el) => el.styleNm === fontStyle && el.usageMobile?.startsWith("headline")
-    ) || {};
+    ) || usage.h1;
   const StyledHeading = (fontStyle === "Large"
     ? styled.h1
     : fontStyle === "Medium"
@@ -73,7 +74,7 @@ export const Title = ({
   const fontSizes: object =
     Object.values(usage)?.find(
       (el) => el.styleNm === fontStyle && el.usageMobile?.startsWith("title")
-    ) || {};
+    ) || usage.h5;
   const StyledTitle = (fontStyle === "Medium"
     ? styled.h5
     : fontStyle === "Large"
@@ -90,13 +91,13 @@ export const Body = ({
   const fontSizes: object =
     Object.values(usage)?.find(
       (el) => el.styleNm === fontStyle && el.usageMobile?.startsWith("body")
-    ) || {};
+    ) || usage.p;
   const StyledBody = styled.p`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
   return <StyledBody className={`body ${weight}`}>{children}</StyledBody>;
 };
-export interface LableProps extends LabelHTMLAttributes<HTMLLabelElement> {
+interface LableProps extends LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean;
   weight?: 300 | 400 | 500 | 600;
   fontStyle?: "Large" | "Medium" | "Small" | "ExtraSmall";
@@ -114,7 +115,7 @@ export const Lable = ({
   const fontSizes: object =
     Object.values(usage)?.find(
       (el) => el.styleNm === fontStyle && el.usageMobile?.startsWith("label")
-    ) || {};
+    ) || usage.label;
   const StyledLable = styled.label`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
     &.essential::after {
@@ -124,4 +125,42 @@ export const Lable = ({
     }
   `;
   return <StyledLable className={required ? "essential" : ""}>{value}</StyledLable>;
+};
+interface TextProps {
+  /**
+   * 텍스트 용도를 지정합니다.
+   */
+  usage?: "display" | "headline" | "title" | "body" | "lable";
+  /**
+   * Label 필수 표시를 지정합니다.
+   */
+  required?: boolean;
+  /**
+   * font weight를 지정합니다.
+   */
+  weight?: 300 | 400 | 500 | 600;
+  /**
+   * font style(size)를 지정합니다.
+   */
+  fontStyle?: "Large" | "Medium" | "Small" | "ExtraSmall";
+  /**
+   * font color를 지정합니다.
+   */
+  fontColor?: fontColor;
+  style?: React.CSSProperties;
+  children?: any;
+}
+export const Text = ({ usage = "body", ...props }: TextProps) => {
+  switch (usage) {
+    case "display":
+      return <Display {...props} />;
+    case "headline":
+      return <Heading {...props} />;
+    case "title":
+      return <Title {...props} />;
+    case "lable":
+      return <Lable {...props} />;
+    default:
+      return <Body {...props} />;
+  }
 };
