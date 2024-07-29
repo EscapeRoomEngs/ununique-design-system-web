@@ -38,6 +38,7 @@ export const Display = ({
   fontStyle = "Medium",
   fontColor,
   children: value,
+  ...props
 }: TypographyProps) => {
   const fontSizes: object =
     Object.values(usage)?.find(
@@ -46,13 +47,18 @@ export const Display = ({
   const StyledDisplay = styled.p`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
-  return <StyledDisplay className="display">{value}</StyledDisplay>;
+  return (
+    <StyledDisplay className="display" {...props}>
+      {value}
+    </StyledDisplay>
+  );
 };
 export const Heading = ({
   weight = 600,
   fontStyle = "Large",
   fontColor,
   children: value,
+  ...props
 }: TypographyProps) => {
   const fontSizes: object =
     Object.values(usage)?.find(
@@ -63,13 +69,18 @@ export const Heading = ({
     : fontStyle === "Medium"
       ? styled.h2
       : styled.h3)`${getTypoStyleProps({ ...fontSizes, weight, fontColor })}`;
-  return <StyledHeading className="heading">{value}</StyledHeading>;
+  return (
+    <StyledHeading className="heading" {...props}>
+      {value}
+    </StyledHeading>
+  );
 };
 export const Title = ({
   weight = 600,
   fontStyle = "Medium",
   fontColor,
   children: value,
+  ...props
 }: TypographyProps) => {
   const fontSizes: object =
     Object.values(usage)?.find(
@@ -80,13 +91,18 @@ export const Title = ({
     : fontStyle === "Large"
       ? styled.h4
       : styled.h6)`${getTypoStyleProps({ ...fontSizes, weight, fontColor })}`;
-  return <StyledTitle className="title">{value}</StyledTitle>;
+  return (
+    <StyledTitle className="title" {...props}>
+      {value}
+    </StyledTitle>
+  );
 };
 export const Body = ({
   weight = 400,
   fontStyle = "Small",
   fontColor,
   children,
+  ...props
 }: TypographyProps) => {
   const fontSizes: object =
     Object.values(usage)?.find(
@@ -95,7 +111,11 @@ export const Body = ({
   const StyledBody = styled.p`
     ${getTypoStyleProps({ ...fontSizes, weight, fontColor })}
   `;
-  return <StyledBody className={`body ${weight}`}>{children}</StyledBody>;
+  return (
+    <StyledBody className={`body ${weight}`} {...props}>
+      {children}
+    </StyledBody>
+  );
 };
 interface LableProps extends LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean;
@@ -111,6 +131,7 @@ export const Lable = ({
   fontColor,
   children: value,
   required = false,
+  ...props
 }: LableProps) => {
   const fontSizes: object =
     Object.values(usage)?.find(
@@ -124,7 +145,11 @@ export const Lable = ({
       padding-left: 2px;
     }
   `;
-  return <StyledLable className={required ? "essential" : ""}>{value}</StyledLable>;
+  return (
+    <StyledLable className={required ? "essential" : ""} {...props}>
+      {value}
+    </StyledLable>
+  );
 };
 interface TextProps {
   /**
