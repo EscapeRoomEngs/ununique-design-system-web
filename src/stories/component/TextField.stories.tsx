@@ -22,14 +22,7 @@ export const TextFieldExample: Story = {
   render: (args) => {
     const [textValue, setValue] = useState("");
     useEffect(() => setValue(args.value), [args.value]);
-    return (
-      <TextField
-        {...args}
-        value={textValue}
-        onChange={setValue}
-        isError={() => textValue.length > 0 && textValue.length < 3}
-      />
-    );
+    return <TextField {...args} value={textValue} onChange={setValue} />;
   },
 };
 
@@ -39,7 +32,7 @@ export const PasswordFieldExample: Story = {
     const [textValue, setValue] = useState("");
     useEffect(() => setValue(args.value), [args.value]);
     return (
-      <Container spacing={8}>
+      <div className="grid" style={{ gap: "8px" }}>
         <Lable>비밀번호</Lable>
         <TextField
           {...args}
@@ -52,7 +45,7 @@ export const PasswordFieldExample: Story = {
             비밀번호를 8자 이상 입력하세요
           </Body>
         )}
-      </Container>
+      </div>
     );
   },
 };

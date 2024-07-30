@@ -38,6 +38,10 @@ interface TextFieldsProps {
    * Text Field 크기를 지정합니다.
    */
   size?: "Small" | "Medium" | "Large";
+  /**
+   * 입력 제한 길이를 지정합니다.
+   */
+  maxLength?: number;
 }
 export function TextField({
   size = "Small",
@@ -45,6 +49,7 @@ export function TextField({
   placeholder = "입력",
   disabled = false,
   value = "",
+  maxLength = 1000,
   onChange,
   isError,
   ...props
@@ -53,7 +58,7 @@ export function TextField({
   useEffect(() => setTextType(type), [type]);
 
   const [focused, setFocused] = useState(false);
-  const inputRef = useRef<HTMLFormElement>(null);
+  const inputRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -64,7 +69,7 @@ export function TextField({
   }, [inputRef]);
 
   const Sizes = { Small: 328, Medium: 440, Large: 672 };
-  const Wrapper = styled.form`
+  const TextFieldWrapper = `
     width: ${Sizes[size]}px;
     height: 44px;
     padding: 12px 15px;
@@ -72,21 +77,18 @@ export function TextField({
     border: 1px solid ${token.border.default.hex};
     background-color: ${token.surface.primary.hex};
     ${layout.flex({ justify: "space-between", spacing: 16 })}
-    &> input {
-      color: ${token.text.primary.hex};
-    }
     &:has(input:focus) {
       border-color: ${token.border.tertiary.hex};
     }
     &:has(input.error) {
       border-color: ${token.border.negative.hex};
     }
-    ${disabled
-      ? `background-color: ${token.surface.tertiary.hex}; 
-      &> input {color: ${token.text.secondary.hex};}`
-      : ""}
+    &:has(input:disabled) {
+      background-color: ${token.surface.tertiary.hex}; 
+      > input {color: ${token.text.secondary.hex};}
+    }
   `;
-  const StyledInput = styled.input`
+  const InputStyle = `
     background: transparent;
     width: inherit;
     margin: 0;
@@ -95,6 +97,7 @@ export function TextField({
     outline: 0;
     font-size: 14px;
     line-height: 130%;
+    color: ${token.text.primary.hex};
     &::placeholder {
       color: ${token.text.tertiary.hex};
     }
@@ -108,33 +111,47 @@ export function TextField({
     background-color: transparent;
   `;
   return (
-    <Wrapper onSubmit={(e) => e.preventDefault()} ref={inputRef}>
-      <StyledInput
-        className={isError && isError() ? "error" : ""}
-        {...{ ...props, type: textType, value, placeholder, disabled }}
-        onChange={(e) => onChange && onChange(e.target.value)}
-        onClick={() => setFocused(true)}
-      />
-      {!disabled && focused && value?.length > 0 && (
-        <Container display="flex">
-          {type === "password" && (
-            <StyledIconContainer
-              type="button"
-              onClick={() => setTextType(textType === "text" ? "password" : "text")}
-            >
-              <Icon
-                iconNm={textType === "text" ? "invisible" : "visible"}
-                iconSize={16}
-                iconColor="tertiary"
-              />
+    <>
+      <style type="text/css">{`.text-field {
+        ${TextFieldWrapper}
+        > input {
+          ${InputStyle}
+          }
+      }`}</style>
+      <div className="text-field" ref={inputRef}>
+        <input
+          className={isError && isError() ? "error" : ""}
+          {...{ ...props, value, disabled, placeholder, type: textType }}
+          onChange={(e) => onChange && onChange(e.target.value.slice(0, maxLength))}
+          onFocus={(e) =>
+            e.currentTarget.setSelectionRange(
+              e.currentTarget.value.length,
+              e.currentTarget.value.length
+            )
+          }
+          onClick={() => setFocused(true)}
+        />
+        {!disabled && focused && value?.length > 0 && (
+          <Container display="flex">
+            {type === "password" && (
+              <StyledIconContainer
+                type="button"
+                onClick={() => setTextType(textType === "text" ? "password" : "text")}
+              >
+                <Icon
+                  iconNm={textType === "text" ? "invisible" : "visible"}
+                  iconSize={16}
+                  iconColor="tertiary"
+                />
+              </StyledIconContainer>
+            )}
+            <StyledIconContainer type="reset" onClick={() => onChange && onChange("")}>
+              <Icon iconNm="close" iconSize={16} iconColor="tertiary" />
             </StyledIconContainer>
-          )}
-          <StyledIconContainer type="reset" onClick={() => onChange && onChange("")}>
-            <Icon iconNm="close" iconSize={16} iconColor="tertiary" />
-          </StyledIconContainer>
-        </Container>
-      )}
-    </Wrapper>
+          </Container>
+        )}
+      </div>
+    </>
   );
 }
 interface DropdownProps {
