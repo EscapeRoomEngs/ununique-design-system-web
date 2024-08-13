@@ -99,7 +99,7 @@ export const usage = {
     description: "Title은 템블릿 단위의 역할 및 기능을 강조할 때 사용합니다.\n(예: 카드타이틀)",
   },
   h6: {
-    usageWeb: "h5",
+    usageWeb: "h6",
     usageMobile: "titleSmall",
     styleNm: "Small",
     webSize: 21,
@@ -113,7 +113,7 @@ export const usage = {
   // #region Body
   ".p1": {
     usageWeb: "p1",
-    usageMobile: "bodySmall",
+    usageMobile: "bodyLarge",
     styleNm: "Large",
     webSize: 18,
     mobileSize: 17,

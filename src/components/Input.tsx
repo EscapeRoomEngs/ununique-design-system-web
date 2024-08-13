@@ -132,7 +132,7 @@ export function TextField({
           onClick={() => setFocused(true)}
         />
         {!disabled && focused && value?.length > 0 && (
-          <Container display="flex">
+          <Container display="flex" justify="flex-end">
             {type === "password" && (
               <StyledIconContainer
                 type="button"
@@ -304,7 +304,7 @@ interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * 라디오 버튼 색상을 지정합니다.
    * - Icon Color Token Name ("primary", "secondary", ...)
-   * - Color Hex Code (ex. "28D46A", "#E163F3", ...)
+   * - Color Hex Code (ex. "#28D46A", "#E163F3", ...)
    * - Color Name (ex. "white", "black", ...)
    */
   color?: string;
@@ -358,7 +358,7 @@ interface CheckboxProps extends RadioProps {
   /**
    * 체크박스 버튼 색상을 지정합니다.
    * - Icon Color Token Name ("primary", "secondary", ...)
-   * - Color Hex Code (ex. "28D46A", "#E163F3", ...)
+   * - Color Hex Code (ex. "#28D46A", "#E163F3", ...)
    * - Color Name (ex. "white", "black", ...)
    */
   color?: string;
