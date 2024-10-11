@@ -18,6 +18,7 @@ const preview: Preview = {
             ["Typography", "Corner Radius", "Spacing", "Hierarchy", "Color"],
             "Atom",
             "Component",
+            ["Button", "Checkbox", "Radio", "TextField", "Dropdown", "Dialog", "Tab"],
             "Template",
             "Page",
           ],
