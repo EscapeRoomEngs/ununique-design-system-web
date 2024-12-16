@@ -68,7 +68,7 @@ export default function Pagination({
                 Number((e.target as HTMLInputElement).value.replaceAll(/[^0-9]/g, ""))
               )
             }
-            onKeyUp={(e) => e.key === "Enter" && onChangePageIdx(inputValue - 1)}
+            onKeyUp={(e) => e.key === "Enter" && onChangePageIdx(inputValue)}
           />
         </div>
         <p>/</p>
