@@ -69,7 +69,8 @@ export function TextField({
   }, [inputRef]);
 
   const Sizes = { Small: 328, Medium: 440, Large: 672 };
-  const TextFieldWrapper = `
+  const TextFieldWrapperStyle = `
+  .text-field {
     width: ${Sizes[size]}px;
     height: 44px;
     padding: 12px 15px;
@@ -87,8 +88,10 @@ export function TextField({
       background-color: ${token.surface.tertiary.hex}; 
       > input {color: ${token.text.secondary.hex};}
     }
+  }
   `;
   const InputStyle = `
+  .text-field > input {
     background: transparent;
     width: inherit;
     margin: 0;
@@ -101,6 +104,7 @@ export function TextField({
     &::placeholder {
       color: ${token.text.tertiary.hex};
     }
+  }
   `;
   const StyledIconContainer = styled.button`
     ${layout.grid({ justify: "center" })}
@@ -112,12 +116,10 @@ export function TextField({
   `;
   return (
     <>
-      <style type="text/css">{`.text-field {
-        ${TextFieldWrapper}
-        > input {
-          ${InputStyle}
-          }
-      }`}</style>
+      <style type="text/css">
+        {TextFieldWrapperStyle}
+        {InputStyle}
+      </style>
       <div className="text-field" ref={inputRef}>
         <input
           className={isError && isError() ? "error" : ""}

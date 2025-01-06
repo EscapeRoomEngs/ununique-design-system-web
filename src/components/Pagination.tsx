@@ -14,6 +14,7 @@ export default function Pagination({
   onPageChange,
 }: PaginationProps) {
   const PageInputWrapperStyle = `
+  .pagination-input-wrapper {
     border-radius: 8px;
     border: 1px solid var(--gray-300, #d1d1d1);
     :focus-within {
@@ -28,47 +29,51 @@ export default function Pagination({
       width: 68px;
       outline: 0;
     }
+  }
   `;
   const IconWrapper = styled(Container)`
     cursor: pointer;
   `;
-  const inputRef = useRef<HTMLDivElement>(null);
+
+  const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setValue] = useState(currentPageIndex + 1);
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (inputRef.current && !inputRef.current.contains(e.target as HTMLElement))
+        setValue(currentPageIndex + 1);
+    };
+    window.addEventListener("mousedown", handleClick);
+    return () => window.removeEventListener("mousedown", handleClick);
+  }, [inputValue, inputRef]);
+
+  useEffect(() => {
+    setValue(currentPageIndex + 1);
+  }, [currentPageIndex]);
+
   function onChangePageIdx(newIdx: any) {
-    if (isNaN(newIdx) || !onPageChange) return;
+    if (isNaN(newIdx)) return;
     let result = newIdx;
     if (newIdx < 1) result = 1;
     else if (newIdx > totalPageCnt) result = totalPageCnt;
     setValue(result);
-    onPageChange(result - 1);
+    onPageChange && onPageChange(result - 1);
   }
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (!inputRef.current?.contains(e.target as HTMLElement))
-        onChangePageIdx(Number((e.target as HTMLInputElement).value));
-    };
-    window.addEventListener("mousedown", handleClick);
-    return () => window.removeEventListener("mousedown", handleClick);
-  }, [inputRef]);
   return (
     <>
-      <style type="text/css">{`.pagination-input-wrapper {
-        ${PageInputWrapperStyle}
-      }`}</style>
+      <style type="text/css">{PageInputWrapperStyle}</style>
       <div className="flex-center gap-16">
         <IconWrapper display="flex" align="center" onClick={() => onChangePageIdx(inputValue - 1)}>
           <Icon iconNm="chevronLeft" iconColor={currentPageIndex > 0 ? "primary" : "tertiary"} />
         </IconWrapper>
-        <div className="pagination-input-wrapper" ref={inputRef}>
+        <div className="pagination-input-wrapper">
           <input
             type="text"
+            ref={inputRef}
             value={inputValue}
             onChange={(e: ChangeEvent) =>
-              onChangePageIdx(
-                Number((e.target as HTMLInputElement).value.replaceAll(/[^0-9]/g, ""))
-              )
+              setValue(Number((e.target as HTMLInputElement).value.replaceAll(/[^0-9]/g, "")))
             }
-            onKeyUp={(e) => e.key === "Enter" && onChangePageIdx(inputValue)}
+            onKeyDown={(e) => e.key === "Enter" && onChangePageIdx(inputValue)}
           />
         </div>
         <p>/</p>
