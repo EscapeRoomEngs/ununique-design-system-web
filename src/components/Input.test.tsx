@@ -31,6 +31,12 @@ describe("TextField", () => {
 
     expect(screen.getByLabelText("오류 입력").parentElement).toHaveClass("border-uui-border-negative");
   });
+
+  it("preserves the legacy field dimensions and padding", () => {
+    render(<TextField aria-label="입력" value="" />);
+
+    expect(screen.getByLabelText("입력").parentElement).toHaveClass("w-[328px]", "h-11", "px-[15px]", "py-3", "rounded", "gap-4");
+  });
 });
 
 describe("Dropdown", () => {
@@ -53,6 +59,17 @@ describe("Dropdown", () => {
     await user.click(screen.getByRole("button", { name: "옵션 목록 열기" }));
     expect(screen.getByRole("button", { name: "서울" })).toHaveClass("hover:bg-uui-surface-negative");
   });
+
+  it("preserves the legacy trigger and option padding", async () => {
+    const user = userEvent.setup();
+    render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
+
+    const trigger = screen.getByRole("button", { name: "옵션 목록 열기" });
+    expect(trigger.parentElement).toHaveClass("w-[328px]", "h-11", "px-[15px]", "py-3", "cursor-pointer");
+
+    await user.click(trigger);
+    expect(screen.getByRole("button", { name: "서울" })).toHaveClass("h-11", "px-[15px]", "py-3");
+  });
 });
 
 describe("Radio and Checkbox", () => {
@@ -65,5 +82,12 @@ describe("Radio and Checkbox", () => {
 
     expect(onRadioChange).toHaveBeenCalledWith("동의");
     expect(screen.getByRole("checkbox", { name: "선택" })).toBeDisabled();
+  });
+
+  it("keeps disabled choices opaque like the legacy controls", () => {
+    render(<Checkbox id="checkbox" value="선택" checked={false} disabled onChange={vi.fn()} />);
+
+    expect(screen.getByRole("checkbox", { name: "선택" }).closest("label")).toHaveClass("cursor-not-allowed");
+    expect(screen.getByRole("checkbox", { name: "선택" }).closest("label")).not.toHaveClass("opacity-60");
   });
 });
