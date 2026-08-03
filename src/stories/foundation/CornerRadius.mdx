@@ -26,12 +26,12 @@ export const sizes = ["Full-bleed", "XS", "S", "M", "L"];
         {radius.map((r, idx) => (
           <tr style={{ border:"0" }} key={idx}>
             <td>
-              <div className="flex-upper-lower surface-primary border-default" style={{ width: "200px", height: "100px", borderWidth: "1px", borderRadius: `${r}px` }}>
-                <div className="flex-sides">
+              <div className="uui-legacy-layout-upper-lower uui-legacy-surface-primary uui-legacy-border-default" style={{ width: "200px", height: "100px", borderWidth: "1px", borderRadius: `${r}px` }}>
+                <div className="uui-legacy-layout-sides">
                   <div style={{ width: `${(r * 2) || 8}px`, height: `${(r * 2) || 8}px`, borderRadius: `${r}px`, border: `1px dashed ${primitives.blue[400]}`, backgroundColor: primitives.blue[50] }} />
                   <div style={{ width: `${(r * 2) || 8}px`, height: `${(r * 2) || 8}px`, borderRadius: `${r}px`, border: `1px dashed ${primitives.blue[400]}`, backgroundColor: primitives.blue[50] }} />
                 </div>
-                <div className="flex-sides">
+                <div className="uui-legacy-layout-sides">
                   <div style={{ width: `${(r * 2) || 8}px`, height: `${(r * 2) || 8}px`, borderRadius: `${r}px`, border: `1px dashed ${primitives.blue[400]}`, backgroundColor: primitives.blue[50] }} />
                   <div style={{ width: `${(r * 2) || 8}px`, height: `${(r * 2) || 8}px`, borderRadius: `${r}px`, border: `1px dashed ${primitives.blue[400]}`, backgroundColor: primitives.blue[50] }} />
                 </div>

@@ -20,7 +20,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
           return (
             <tr key={index}>
               <td style={{ height: "100px" }}>{getStyleExample(styleNm, colorObj.hex)}</td>
-              <td className="weight-600">{colorObj.styleNm}</td>
+              <td className="uui-legacy-weight-600">{colorObj.styleNm}</td>
               <td>{`${colorObj.palette}/${colorObj.depth}`}</td>
               <td>{colorObj.hex}</td>
               <td style={{ textAlign: "left" }}>
@@ -75,7 +75,7 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
   usageObj={token?.text}
   getStyleExample={(styleNm, hex) => (
     <div
-      className="weight-600"
+      className="uui-legacy-weight-600"
       style={{
         backgroundColor: styleNm === "invert" ? token.surface.invert.hex : undefined,
         width: "100%",

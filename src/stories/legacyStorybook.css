@@ -143,42 +143,14 @@ a {
   text-decoration: none;
 }
 
-.grid {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-
-.flex-sides {
+.uui-legacy-layout-sides {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
 
-.flex-left {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
-}
-
-.flex-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 16px;
-}
-
-.flex-upper-lower {
+.uui-legacy-layout-upper-lower {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -186,41 +158,9 @@ a {
   gap: 16px;
 }
 
-.surface-primary { background-color: var(--color-uui-surface-primary); }
-.surface-secondary { background-color: var(--color-uui-surface-secondary); }
-.surface-tertiary { background-color: var(--color-uui-surface-tertiary); }
-.surface-invert { background-color: var(--color-uui-surface-invert); }
-.surface-brand { background-color: var(--color-uui-surface-brand); }
-.surface-negative { background-color: var(--color-uui-surface-negative); }
-.surface-positive { background-color: var(--color-uui-surface-positive); }
-.surface-info { background-color: var(--color-uui-surface-info); }
-
-.text-primary { color: var(--color-uui-text-primary); }
-.text-secondary { color: var(--color-uui-text-secondary); }
-.text-tertiary { color: var(--color-uui-text-tertiary); }
-.text-invert { color: var(--color-uui-text-invert); }
-.text-negative { color: var(--color-uui-text-negative); }
-.text-positive { color: var(--color-uui-text-positive); }
-.text-info { color: var(--color-uui-text-info); }
-
-.border-default { border-style: solid; border-color: var(--color-uui-border-default); }
-.border-hover { border-style: solid; border-color: var(--color-uui-border-hover); }
-.border-tertiary { border-style: solid; border-color: var(--color-uui-border-tertiary); }
-.border-invert { border-style: solid; border-color: var(--color-uui-border-invert); }
-.border-negative { border-style: solid; border-color: var(--color-uui-border-negative); }
-
-.icon-primary > svg { fill: var(--color-uui-icon-primary); }
-.icon-secondary > svg { fill: var(--color-uui-icon-secondary); }
-.icon-tertiary > svg { fill: var(--color-uui-icon-tertiary); }
-.icon-invert > svg { fill: var(--color-uui-icon-invert); }
-.icon-negative > svg { fill: var(--color-uui-icon-negative); }
-.icon-positive > svg { fill: var(--color-uui-icon-positive); }
-.icon-info > svg { fill: var(--color-uui-icon-info); }
-
-.weight-300 { font-family: var(--uui-font-sans); font-weight: 300; }
-.weight-400 { font-family: var(--uui-font-sans); font-weight: 400; }
-.weight-500 { font-family: var(--uui-font-sans); font-weight: 500; }
-.weight-600 { font-family: var(--uui-font-sans); font-weight: 600; }
+.uui-legacy-surface-primary { background-color: var(--color-uui-surface-primary); }
+.uui-legacy-border-default { border-style: solid; border-color: var(--color-uui-border-default); }
+.uui-legacy-weight-600 { font-family: var(--uui-font-sans); font-weight: 600; }
 
 #storybook-docs > .sbdocs-wrapper > .sbdocs-content > * {
   margin: 16px 0;
@@ -263,6 +203,6 @@ a {
 #storybook-docs h4,
 #storybook-docs h5,
 #storybook-docs h6,
-#storybook-docs .weight-600 {
+#storybook-docs .uui-legacy-weight-600 {
   font-weight: 600;
 }
