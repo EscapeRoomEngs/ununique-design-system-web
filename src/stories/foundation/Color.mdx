@@ -38,6 +38,10 @@ export function ColorUsageTable({ usageObj = {}, getStyleExample }) {
 
 # Color Palette
 
+## Orange scale
+
+Waiting RN의 확정 기준값은 `orange100` (`#FFF2E9`), `orange300` (`#FB974B`), `orange500` (`#FF3D00`)이며, pressed 상태는 `orange600` (`#E63600`)입니다. 나머지 단계는 이 기준값을 연결해 Web 디자인 시스템용으로 정의한 확장 팔레트입니다.
+
 <ColorPalette>
   {Object.keys(primitives).map((colorNm, idx) => (
     <ColorItem
