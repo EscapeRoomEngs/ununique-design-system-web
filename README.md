@@ -1,131 +1,60 @@
-# Ununique Design System Web 🌎
+# Ununique Design System Web
 
-Web, Android App 기반 유통 사업 공통 디자인 시스템 프로젝트입니다.<br/>
-React with Typescript 기반으로 디자인 시스템을 따라 UI 컴포넌트를 구현합니다.
+React 기반 개인 디자인 시스템 PoC입니다. CRA와 `styled-components`를 제거하고, Vite · Tailwind CSS v4 · Storybook 기반의 배포 가능한 컴포넌트 패키지로 구성합니다.
 
-## Goals 💡
+## 개발
 
-- Atomic Design Pattern React App 구현<br />
-  (Foundation -> Atomic -> Component -> Template -> Page)
-- Design System 적용한 컴포넌트 주도 개발 (Component-Driven Development)
-- Storybook 활용한 UI Component 문서화
+Node.js 20.19 이상이 필요합니다.
 
-## Updates 📝
-
-- 240522 React with Storybook 프로젝트 생성
-- 240626 Storybook - Color Guide 문서화
-- 240627 Storybook - Chromatic 연동
-- - [Component Guide Docs (Storybook)](https://667cc5b39b0826f0a57d0da5-ubsrekksct.chromatic.com/)
-
-## Folder Structure 📁
-
-```
-src/
-
-+-- assets/
-|   +-- font/
-|   +-- icon/ (.svg files for icon)
-|   +-- background/
-
-+-- foundation/ (definitions of design attributes and values)
-|   +-- layout.ts : align, padding, margin, corner radius
-|   +-- color.ts : color palette, color theme (surface/text/border/icon/divider)
-|   +-- icon.ts : icon size, icon name
-|   +-- spacing.ts : spacing sizes (px)
-|   +-- typography.ts : font size, font weight, line height
-
-+-- atom/ (default & smallest UI Component)
-|   +-- Container.tsx (body container for aligning with grid or flex)
-|   +-- Text.tsx (Display, Heading, Title, Body, Lable)
-|   +-- Input.tsx (Text Field, Dropdown, Radio, Checkbox...)
-|   +-- Icon.tsx
-
-+-- component/ (reusable UI Components having atoms combined)
-|   +-- Button.tsx
-|   +-- Toggle.tsx
-|   +-- Tab.tsx
-|   +-- ListItem.tsx
-|   +-- CardItem.tsx
-
-+-- template/ (UI Componets for specific context)
-|   +-- main
-|   |   +-- CardSlider.tsx
-|   |   +-- RankList.tsx
-|   +-- product
-|   |   +-- ProductInfo.tsx
-|   |   +-- ProductIngredient.tsx
-|   |   +-- OptionList.tsx
-|   +-- order
-|   |   +-- OrderForm.tsx
-
-+-- pages/
-|   +-- myorder
-|   |   +-- MyOrderDetail.tsx
-|   |   +-- MyOrderList.tsx
-.
-.
-.
-```
-
-## Installation 🚀
-
-This project was bootstrapped with [Create React App(CRA)](https://github.com/facebook/create-react-app).
-
-**Node.js 설치 필수**
-
-```
-npm install npx -g
-npx create-react-app ununique-design-system-web --template typescript
-npx -p @storybook/cli sb init
-npm i styled-components
-```
-
-## Quick Start 🚀
-
-### 1. clone project & install modules
-
-```
-git clone https://github.com/LotteRsp/RSP_2.0_DesignSystem.git
+```bash
 npm install
-```
-
-### 2-1. start storybook (design components docs)
-
-```
+npm run dev
 npm run storybook
 ```
 
-Runs Storybook Docs in the development mode.\
-Open [http://localhost:6006](http://localhost:6006) to view Stories in the browser.
+`npm run build`는 배포용 ESM/CJS 번들, 타입 선언 파일, `styles.css`를 `dist/`에 생성합니다. 데모 앱 정적 빌드는 `npm run build:demo`입니다.
 
-** storybook 실행 시 preset-create-react-app 관련 오류 처리 가이드 **
+## 패키지 사용
 
-```
-npx -p @storybook/cli sb init
-npm install --dev @storybook/preset-create-react-app @storybook/addon-docs
-```
+조직 전용 GitHub Packages로 배포한 뒤에는 소비자 저장소의 `.npmrc`에 registry를 연결합니다.
 
-[참고 링크](https://velog.io/@velopert/storybook-tips-and-tutorial-conclusion)
-
-### 2-2. start react app (web app)
-
-```
-npm start
+```ini
+@escaperoomengs:registry=https://npm.pkg.github.com
 ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+GitHub personal access token 또는 GitHub Actions token에 해당 패키지의 `read:packages` 권한을 부여한 뒤 설치합니다.
 
-### 3. build
-
+```bash
+npm install @escaperoomengs/ununique-design-system-web
 ```
+
+```tsx
+import { Button, Container, Title } from "@escaperoomengs/ununique-design-system-web";
+import "@escaperoomengs/ununique-design-system-web/styles.css";
+
+export function Example() {
+  return (
+    <Container display="flex" direction="column" spacing={16}>
+      <Title>주문 확인</Title>
+      <Button text="계속" property="contained" />
+    </Container>
+  );
+}
+```
+
+`react`와 `react-dom`은 peer dependency이므로 사용하는 앱에 React 18.3 이상 또는 React 19가 설치되어 있어야 합니다. 패키지 CSS는 폰트를 포함하지 않아 번들 크기를 작게 유지합니다. 앱의 기본 폰트는 소비자 프로젝트에서 설정하세요.
+
+`npm run release:package`는 `https://npm.pkg.github.com`으로 배포합니다. 패키지의 visibility와 접근 권한은 GitHub Packages 설정에서 `EscapeRoomEngs` 조직 및 이 저장소에만 부여합니다. 공개 npm registry에는 배포하지 않습니다.
+
+## 버전 관리
+
+Changesets를 사용합니다. 컴포넌트·토큰의 사용자 영향 변경마다 `npm run changeset`을 실행하고, 배포할 때 `npm run version-packages`로 버전과 변경 이력을 갱신합니다. `patch`는 수정, `minor`는 호환 가능한 추가, `major`는 호환성 파괴 변경입니다. 이번 현대화는 첫 패키지 릴리스로 v1.0.0 메이저 변경으로 기록합니다.
+
+## 검증
+
+```bash
+npm run test
 npm run build
+npm run build-storybook
+npm audit --omit=dev --audit-level=high
 ```
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.

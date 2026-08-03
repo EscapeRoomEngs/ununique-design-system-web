@@ -30,3 +30,11 @@ export const DialogExample: Story = {
     </Container>
   ),
 };
+
+export const SingleActionDialog: Story = {
+  args: {
+    title: "완료",
+    messages: "저장되었습니다",
+    btns: [{ text: "확인", property: "brand" }],
+  },
+};

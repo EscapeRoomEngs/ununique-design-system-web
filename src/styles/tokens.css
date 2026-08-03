@@ -1,0 +1,19 @@
+@theme {
+  --color-uui-surface-primary: #ffffff;
+  --color-uui-surface-secondary: #f5f5f5;
+  --color-uui-surface-tertiary: #e6e6e6;
+  --color-uui-surface-brand: #ff4053;
+  --color-uui-text-primary: #232527;
+  --color-uui-text-secondary: #636363;
+  --color-uui-text-tertiary: #a0a0a0;
+  --color-uui-text-invert: #ffffff;
+  --color-uui-border-default: #d1d1d1;
+  --color-uui-border-strong: #636363;
+}
+
+:root {
+  --uui-font-sans: "Pretendard", sans-serif;
+  --uui-radius-sm: 4px;
+  --uui-radius-md: 8px;
+  --uui-radius-lg: 16px;
+}

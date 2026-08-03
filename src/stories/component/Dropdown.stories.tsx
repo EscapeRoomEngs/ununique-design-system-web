@@ -61,3 +61,11 @@ export const SelectFieldExample: Story = {
     );
   },
 };
+
+export const DisabledDropdown: Story = {
+  args: {
+    selected: { id: "all", name: "전체 보기" },
+    optionList: [{ id: "all", name: "전체 보기" }],
+    disabled: true,
+  },
+};

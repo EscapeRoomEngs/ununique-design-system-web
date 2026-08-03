@@ -31,3 +31,11 @@ export const TabExample: Story = {
     return <TabBar {...args} {...{ tabList, selected }} onSelect={setSelected} />;
   },
 };
+
+export const ReviewSelected: Story = {
+  args: {
+    tabList,
+    selected: { text: "리뷰", href: "/review" },
+    style: { width: "800px" },
+  },
+};

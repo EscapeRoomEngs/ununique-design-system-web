@@ -36,3 +36,12 @@ export const OutlinedStyleButton: Story = {
     radius: 4,
   },
 };
+
+export const DisabledButton: Story = {
+  args: {
+    text: "비활성 버튼",
+    property: "brand",
+    size: "Medium",
+    disabled: true,
+  },
+};

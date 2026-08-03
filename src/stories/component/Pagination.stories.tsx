@@ -28,3 +28,11 @@ export const PaginationExample: Story = {
     );
   },
 };
+
+export const FirstPage: Story = {
+  args: { currentPageIndex: 0, totalPageCnt: 5 },
+};
+
+export const LastPage: Story = {
+  args: { currentPageIndex: 4, totalPageCnt: 5 },
+};

@@ -1,33 +1,25 @@
 import { HTMLAttributes } from "react";
 import { Container } from "../atom/Container";
-import { Lable } from "../atom/Text";
-import { token } from "../foundation/color";
 
-interface TabProps extends HTMLAttributes<Element> {
-  tabList: any[];
-  selected: any;
-  onSelect: (value: any) => void;
+export interface TabItem { text: string; [key: string]: unknown }
+export interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
+  tabList?: TabItem[];
+  selected?: TabItem;
+  onSelect?: (value: TabItem) => void;
 }
-export function TabBar({ tabList = [], selected = {}, onSelect, ...props }: TabProps) {
+export function TabBar({ tabList = [], selected, onSelect, ...props }: TabProps) {
   return (
     <Container display="flex" spacing={0} {...props}>
       {tabList.map((tab, tidx) => (
-        <Lable
+        <button
           key={tidx}
-          fontStyle="Large"
-          fontColor={tab.text === selected.text ? "primary" : "tertiary"}
-          onClick={() => onSelect(tab)}
-          style={{
-            cursor: "pointer",
-            textAlign: "center",
-            padding: "14px 24px",
-            width: "100%",
-            backgroundColor: token.surface.primary.hex,
-            borderBottom: `2px solid ${token.border[tab.text === selected.text ? "tertiary" : "default"].hex}`,
-          }}
+          type="button"
+          aria-pressed={tab.text === selected?.text}
+          onClick={() => onSelect?.(tab)}
+          className={`w-full cursor-pointer border-b-2 bg-uui-surface-primary px-6 py-3.5 text-center text-lg font-semibold ${tab.text === selected?.text ? "border-uui-border-strong text-uui-text-primary" : "border-uui-border-default text-uui-text-tertiary"}`}
         >
-          {tab?.text}
-        </Lable>
+          {tab.text}
+        </button>
       ))}
     </Container>
   );
