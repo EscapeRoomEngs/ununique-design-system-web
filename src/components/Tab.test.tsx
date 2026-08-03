@@ -14,4 +14,10 @@ describe("TabBar", () => {
 
     expect(onSelect).toHaveBeenCalledWith(review);
   });
+
+  it("uses the legacy typography line height", () => {
+    render(<TabBar tabList={[{ text: "상품" }]} selected={{ text: "상품" }} />);
+
+    expect(screen.getByRole("button", { name: "상품" })).toHaveClass("leading-[1.3]");
+  });
 });

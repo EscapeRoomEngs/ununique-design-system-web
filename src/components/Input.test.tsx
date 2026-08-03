@@ -25,6 +25,12 @@ describe("TextField", () => {
     await user.click(screen.getByRole("button", { name: "입력 지우기" }));
     expect(input).toHaveValue("");
   });
+
+  it("uses the negative border token for errors", () => {
+    render(<TextField aria-label="오류 입력" value="" isError={() => true} />);
+
+    expect(screen.getByLabelText("오류 입력").parentElement).toHaveClass("border-uui-border-negative");
+  });
 });
 
 describe("Dropdown", () => {
@@ -38,6 +44,14 @@ describe("Dropdown", () => {
     await user.click(screen.getByRole("button", { name: "서울" }));
 
     expect(onChange).toHaveBeenCalledWith(option);
+  });
+
+  it("uses the negative surface token for option hover", async () => {
+    const user = userEvent.setup();
+    render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
+
+    await user.click(screen.getByRole("button", { name: "옵션 목록 열기" }));
+    expect(screen.getByRole("button", { name: "서울" })).toHaveClass("hover:bg-uui-surface-negative");
   });
 });
 

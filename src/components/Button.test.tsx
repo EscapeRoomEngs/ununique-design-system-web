@@ -7,4 +7,10 @@ describe("Button", () => {
     render(<Button property="brand" text="확인" />);
     expect(screen.getByRole("button", { name: "확인" })).toHaveClass("bg-uui-surface-brand");
   });
+
+  it("uses legacy disabled colors", () => {
+    render(<Button disabled property="brand" text="확인" />);
+
+    expect(screen.getByRole("button", { name: "확인" })).toHaveClass("bg-uui-surface-tertiary", "text-uui-text-tertiary");
+  });
 });

@@ -13,13 +13,15 @@ const buttonVariants = cva(
       property: {
         outlined: "border border-uui-border-default bg-uui-surface-primary text-uui-text-secondary",
         brand: "bg-uui-surface-brand text-uui-text-invert",
-        negative: "bg-red-50 text-red-500", positive: "bg-blue-50 text-blue-500",
-        info: "bg-slate-50 text-slate-500", invert: "bg-[#232527] text-uui-text-invert",
+        negative: "bg-uui-surface-negative text-uui-text-negative", positive: "bg-uui-surface-positive text-uui-text-positive",
+        info: "bg-uui-surface-info text-uui-text-info", invert: "bg-uui-surface-invert text-uui-text-invert",
       },
     },
     defaultVariants: { size: "Small", radius: 4, property: "outlined" },
   }
 );
+
+const iconColors = { outlined: "secondary", brand: "invert", negative: "negative", positive: "positive", info: "info", invert: "invert" } as const;
 
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "property">, VariantProps<typeof buttonVariants> {
   text?: string;
@@ -27,8 +29,9 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 }
 
 export function Button({ text, size = "Small", radius = 4, property = "outlined", icon, className, type = "button", ...props }: ButtonProps) {
-  return <button type={type} className={cn(buttonVariants({ size, radius, property }), className)} {...props}>
-    {icon && <Icon iconNm={icon} iconSize={20} iconColor={props.disabled ? "tertiary" : "invert"} />}
+  const iconColor = props.disabled ? "tertiary" : iconColors[property ?? "outlined"];
+  return <button type={type} className={cn(buttonVariants({ size, radius, property }), props.disabled && "bg-uui-surface-tertiary text-uui-text-tertiary", className)} {...props}>
+    {icon && <Icon iconNm={icon} iconSize={20} iconColor={iconColor} />}
     {text && <Body fontStyle={(size ?? "Small") as "Small" | "Medium" | "Large"} weight={600}>{text}</Body>}
   </button>;
 }

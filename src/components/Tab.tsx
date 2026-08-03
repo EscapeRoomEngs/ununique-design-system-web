@@ -16,7 +16,7 @@ export function TabBar({ tabList = [], selected, onSelect, ...props }: TabProps)
           type="button"
           aria-pressed={tab.text === selected?.text}
           onClick={() => onSelect?.(tab)}
-          className={`w-full cursor-pointer border-b-2 bg-uui-surface-primary px-6 py-3.5 text-center text-lg font-semibold ${tab.text === selected?.text ? "border-uui-border-strong text-uui-text-primary" : "border-uui-border-default text-uui-text-tertiary"}`}
+          className={`w-full cursor-pointer border-b-2 bg-uui-surface-primary px-6 py-3.5 text-center font-[family-name:var(--uui-font-sans)] text-lg font-semibold leading-[1.3] ${tab.text === selected?.text ? "border-uui-border-tertiary text-uui-text-primary" : "border-uui-border-default text-uui-text-tertiary"}`}
         >
           {tab.text}
         </button>

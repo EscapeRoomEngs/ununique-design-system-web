@@ -7,4 +7,10 @@ describe("Container", () => {
     const { getByTestId } = render(<Container data-testid="container" display="flex" justify="center" />);
     expect(getByTestId("container")).toHaveClass("flex", "justify-center");
   });
+
+  it("maps legacy semantic surface and border tokens", () => {
+    const { getByTestId } = render(<Container data-testid="container" bgColor="positive" borderColor="invert" />);
+
+    expect(getByTestId("container")).toHaveClass("bg-uui-surface-positive", "border-uui-border-invert");
+  });
 });
