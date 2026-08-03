@@ -1,54 +1,53 @@
-name: Storybook Deployment
+name: CI
 
 on:
   pull_request:
     paths:
       - "src/**"
-      - ".storybook/**"
       - "public/**"
+      - "scripts/**"
       - "index.html"
       - "package.json"
       - "package-lock.json"
       - "vite.config.ts"
+      - "vitest.config.ts"
       - "tsconfig*.json"
+      - "eslint.config.js"
+      - ".npmrc"
   push:
     branches:
       - main
     paths:
       - "src/**"
-      - ".storybook/**"
       - "public/**"
+      - "scripts/**"
       - "index.html"
       - "package.json"
       - "package-lock.json"
       - "vite.config.ts"
+      - "vitest.config.ts"
       - "tsconfig*.json"
+      - "eslint.config.js"
+      - ".npmrc"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: chromatic-${{ github.event.pull_request.number || github.ref }}
+  group: ci-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  storybook:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
       - run: npm ci
-
-      - uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          onlyChanged: true
+      - run: npm run lint
+      - run: npm run test:coverage
+      - run: npm run build
