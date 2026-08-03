@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Body } from "../../atom/Text";
 import { Button } from "../../components/Button";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -52,6 +53,20 @@ export const SemanticButtonParity: Story = {
         <Button key={property} property={property} text={property} />
       ))}
       <Button disabled property="brand" text="disabled" />
+    </div>
+  ),
+};
+
+export const BrandThemeParity: Story = {
+  render: () => (
+    <div className="flex gap-6">
+      {(["red", "orange"] as const).map((theme) => (
+        <section key={theme} data-uui-theme={theme} className="flex flex-col items-start gap-2">
+          <Body fontColor="brand">{theme} brand</Body>
+          <Button property="brand" text="주요 행동" />
+          <Button property="negative" text="오류 상태" />
+        </section>
+      ))}
     </div>
   ),
 };

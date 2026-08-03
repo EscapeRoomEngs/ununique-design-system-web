@@ -36,6 +36,18 @@ const red = {
   800: "#b30024",
   900: "#8c0021",
 };
+const orange = {
+  50: "#fff8f3",
+  100: "#fff2e9",
+  200: "#ffd8c2",
+  300: "#fb974b",
+  400: "#ff6a21",
+  500: "#ff3d00",
+  600: "#e63600",
+  700: "#bf2e00",
+  800: "#982600",
+  900: "#701d00",
+};
 const blue = {
   50: "#e6f4ff",
   100: "#bae0ff",
@@ -84,7 +96,7 @@ const yellow = {
   800: "#874D00",
   900: "#613400",
 };
-export const primitives = { gray, navy, red, blue, green, yellow, purple };
+export const primitives = { gray, navy, red, orange, blue, green, yellow, purple };
 
 const surface = {
   primary: {
