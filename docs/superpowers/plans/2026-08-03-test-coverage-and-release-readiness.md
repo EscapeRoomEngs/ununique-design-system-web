@@ -13,7 +13,7 @@
 - Keep `styled-components`, CRA and `react-scripts` absent from all source and dependency manifests.
 - Preserve React peer compatibility: `^18.3.1 || ^19.0.0`.
 - `npm run build` must emit ESM, CJS, declarations and `dist/styles.css`.
-- Do not publish or remove `private: true` until the npm package name and account are explicitly chosen.
+- Publish only `@escaperoomengs/ununique-design-system-web` to GitHub Packages; never publish this package to the public npm registry.
 - Test behavior and accessible outcomes; do not assert implementation-specific generated class names except for the Tailwind migration smoke tests that already exist.
 
 ---
@@ -351,7 +351,7 @@ git add src/stories/component
 git commit -m "test: add visual regression states"
 ```
 
-### Task 7: Prepare the first public release without publishing it
+### Task 7: Prepare the first organization-only release without publishing it
 
 **Files:**
 - Modify: `README.md`
@@ -359,16 +359,16 @@ git commit -m "test: add visual regression states"
 - Modify: `.changeset/fresh-otters-refactor.md` only if the release scope changes
 
 **Interfaces:**
-- Consumes the existing Changeset, currently producing version `0.2.0` from `0.1.0`.
-- Produces a documented, human-approved release checklist.
+- Consumes the v1.0.0 package metadata and the GitHub Packages publishing workflow.
+- Produces a documented, human-approved organization-only release checklist.
 
 - [ ] **Step 1: Confirm the publishing decisions with the repository owner**
 
-Required values: npm package name, scoped or unscoped name, npm account/organization, license, repository URL, and whether the package remains private.
+Required values: the GitHub organization, package scope, repository URL, package visibility, and the repositories or teams allowed to install it.
 
 - [ ] **Step 2: Validate release metadata once values are provided**
 
-Add only approved `name`, `license`, `repository`, `bugs`, `homepage` and `publishConfig.access` fields to `package.json`. Remove `private` only when publishing is authorized.
+Verify `name`, `repository`, `.npmrc`, `publishConfig.registry`, and the manual `publish-package.yml` workflow target `EscapeRoomEngs` GitHub Packages. Configure package visibility and consuming-repository access in GitHub after its first publication.
 
 - [ ] **Step 3: Apply the queued version when authorized**
 
@@ -380,13 +380,13 @@ npm run test:package
 npm audit --omit=dev --audit-level=high
 ```
 
-Expected: version becomes `0.2.0`, `CHANGELOG.md` is created, package test and audit pass.
+Expected: v1.0.0 package metadata, the packed-consumer test and the audit pass. The package is not published by this command.
 
 - [ ] **Step 4: Commit the release version**
 
 ```bash
-git add package.json package-lock.json CHANGELOG.md .changeset
-git commit -m "chore: release v0.2.0"
+git add package.json package-lock.json CHANGELOG.md .changeset .github/workflows/publish-package.yml
+git commit -m "chore: prepare v1.0.0 organization release"
 ```
 
 ## Self-review
