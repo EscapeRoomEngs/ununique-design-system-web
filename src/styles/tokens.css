@@ -2,12 +2,30 @@
   --color-uui-surface-primary: #ffffff;
   --color-uui-surface-secondary: #f5f5f5;
   --color-uui-surface-tertiary: #e6e6e6;
+  --color-uui-surface-invert: #232527;
   --color-uui-surface-brand: #ff4053;
+  --color-uui-surface-negative: #ffeef0;
+  --color-uui-surface-positive: #e6f4ff;
+  --color-uui-surface-info: #f1f5f9;
   --color-uui-text-primary: #232527;
   --color-uui-text-secondary: #636363;
   --color-uui-text-tertiary: #a0a0a0;
   --color-uui-text-invert: #ffffff;
+  --color-uui-text-negative: #ff4053;
+  --color-uui-text-positive: #1677ff;
+  --color-uui-text-info: #64748b;
+  --color-uui-icon-primary: #232527;
+  --color-uui-icon-secondary: #636363;
+  --color-uui-icon-tertiary: #a0a0a0;
+  --color-uui-icon-invert: #ffffff;
+  --color-uui-icon-negative: #ff4053;
+  --color-uui-icon-positive: #1677ff;
+  --color-uui-icon-info: #64748b;
   --color-uui-border-default: #d1d1d1;
+  --color-uui-border-hover: #a0a0a0;
+  --color-uui-border-tertiary: #636363;
+  --color-uui-border-invert: #e6e6e6;
+  --color-uui-border-negative: #ff4053;
   --color-uui-border-strong: #636363;
 }
 
