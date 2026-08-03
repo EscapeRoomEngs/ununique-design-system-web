@@ -22,6 +22,12 @@ describe("Body", () => {
     expect(body).not.toHaveAttribute("weight");
   });
 
+  it("uses the namespaced semantic brand utility", () => {
+    render(<Body fontColor="brand">브랜드 강조</Body>);
+
+    expect(screen.getByText("브랜드 강조")).toHaveClass("text-uui-text-brand");
+  });
+
   it("keeps the legacy Display fallback size for ExtraSmall", () => {
     render(<Display fontStyle="ExtraSmall">디스플레이</Display>);
 

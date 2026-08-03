@@ -16,4 +16,15 @@ describe("legacy semantic token CSS", () => {
   it("preserves the legacy info text value", () => {
     expect(css).toContain("--color-uui-text-info: #64748b");
   });
+
+  it("maps the namespaced brand utilities to runtime semantic variables", () => {
+    expect(css).toContain("--color-uui-surface-brand: var(--uui-semantic-surface-brand)");
+    expect(css).toContain("--color-uui-text-brand: var(--uui-semantic-text-brand)");
+  });
+
+  it("keeps brand themes namespaced and negative tokens independent", () => {
+    expect(css).toContain('[data-uui-theme="orange"]');
+    expect(css).toContain("--uui-semantic-surface-brand: #ff3d00");
+    expect(css).toContain("--color-uui-border-negative: #ff4053");
+  });
 });
