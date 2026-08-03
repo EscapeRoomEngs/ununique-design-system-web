@@ -19,6 +19,14 @@ describe("legacy Storybook compatibility CSS", () => {
     }
   });
 
+  it("keeps the Storybook reset in a base layer below Tailwind utilities", () => {
+    const css = readFileSync(path.resolve("src/stories/legacyStorybook.css"), "utf8");
+    const packageCss = readFileSync(path.resolve("src/styles/index.css"), "utf8");
+
+    expect(packageCss).toContain("@layer theme, base, components, utilities;");
+    expect(css).toMatch(/@layer base\s*\{[\s\S]*?button\s*\{/);
+  });
+
   it("defines namespaced Foundation helper selectors", () => {
     const css = readFileSync(path.resolve("src/stories/legacyStorybook.css"), "utf8");
 
