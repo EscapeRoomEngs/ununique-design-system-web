@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Container } from "../../atom/Container";
 import { Dialog } from "../../components/Dialog";
-import "../globalStyles.css";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta = {

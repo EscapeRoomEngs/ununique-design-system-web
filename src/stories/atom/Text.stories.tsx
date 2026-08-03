@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Text } from "../../atom/Text";
 import { usage } from "../../foundation/typography";
-import "../globalStyles.css";
 
 const dummyText = `I'm Fine, Gwanchana- Ding Ring Ring Ring Ring...`;
 

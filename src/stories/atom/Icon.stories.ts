@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Icon } from "../../atom/Icon";
 import { token } from "../../foundation/color";
-import "../globalStyles.css";
 
 const meta: Meta = {
   // title: "Design System/Atom/Icon/Example",

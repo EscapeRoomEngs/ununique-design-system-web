@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Container } from "../../atom/Container";
 import { Button } from "../../components/Button";
-import "../globalStyles.css";
 
 const meta: Meta<typeof Container> = {
   title: "Design System/Atom/Container",
