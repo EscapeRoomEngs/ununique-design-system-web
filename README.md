@@ -4,7 +4,7 @@ React 기반 개인 디자인 시스템 PoC입니다. CRA와 `styled-components`
 
 ## 개발
 
-Node.js 20.19 이상이 필요합니다.
+Node.js 22.22.2 이상이 필요합니다.
 
 ```bash
 npm install
