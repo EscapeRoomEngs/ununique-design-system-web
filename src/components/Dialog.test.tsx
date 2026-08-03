@@ -17,4 +17,10 @@ describe("Dialog", () => {
     await user.click(screen.getByRole("button", { name: "닫기" }));
     expect(onClick).toHaveBeenCalledOnce();
   });
+
+  it("keeps the legacy fixed 400px dialog panel", () => {
+    render(<Dialog title="제목" messages="내용" btns={[{ text: "닫기" }]} />);
+
+    expect(screen.getByRole("dialog").querySelector("section")).toHaveClass("w-[400px]", "p-4", "pt-6", "gap-6");
+  });
 });

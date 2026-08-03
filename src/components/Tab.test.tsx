@@ -20,4 +20,10 @@ describe("TabBar", () => {
 
     expect(screen.getByRole("button", { name: "상품" })).toHaveClass("leading-[1.3]");
   });
+
+  it("keeps the legacy tab padding and underline thickness", () => {
+    render(<TabBar tabList={[{ text: "상품" }]} selected={{ text: "상품" }} />);
+
+    expect(screen.getByRole("button", { name: "상품" })).toHaveClass("border-b-2", "px-6", "py-3.5", "text-lg");
+  });
 });

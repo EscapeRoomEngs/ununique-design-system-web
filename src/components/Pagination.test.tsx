@@ -14,4 +14,10 @@ describe("Pagination", () => {
 
     expect(onPageChange).toHaveBeenCalledWith(1);
   });
+
+  it("keeps the legacy page input dimensions and padding", () => {
+    render(<Pagination currentPageIndex={0} totalPageCnt={2} />);
+
+    expect(screen.getByRole("textbox", { name: "현재 페이지" })).toHaveClass("h-10", "w-[68px]", "px-2.5", "py-2", "text-center");
+  });
 });

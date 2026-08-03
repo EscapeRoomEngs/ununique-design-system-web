@@ -41,7 +41,7 @@ export default function Pagination({
         </button>
         <div className="rounded-lg border border-uui-border-default focus-within:border-uui-text-primary">
           <input
-            aria-label="현재 페이지" type="text" className="h-10 w-[68px] bg-transparent px-2.5 text-center outline-none"
+            aria-label="현재 페이지" type="text" className="h-10 w-[68px] bg-transparent px-2.5 py-2 text-center outline-none"
             ref={inputRef}
             value={inputValue}
             onChange={(e: ChangeEvent) =>
