@@ -44,6 +44,21 @@ export function Example() {
 
 `react`와 `react-dom`은 peer dependency이므로 사용하는 앱에 React 18.3 이상 또는 React 19가 설치되어 있어야 합니다. 패키지 CSS는 폰트를 포함하지 않아 번들 크기를 작게 유지합니다. 앱의 기본 폰트는 소비자 프로젝트에서 설정하세요.
 
+## 브랜드 테마
+
+색상 scale(`orange.50` 등)은 디자인 시스템 내부 참조값이며 package root API로 제공하지 않습니다. 소비자와 컴포넌트는 `bg-uui-surface-brand`, `text-uui-text-brand`, `border-uui-border-negative`처럼 `uui` 네임스페이스가 붙은 semantic utility만 사용합니다.
+
+`data-uui-theme`는 해당 요소의 자식에게만 브랜드 semantic token을 적용합니다. 기본값과 `red`는 기존 Red 브랜드이며, `orange`는 Waiting RN 기준 Orange 브랜드입니다. 오류 의미의 `negative` 토큰은 두 테마 모두 Red로 유지됩니다.
+
+```tsx
+<section data-uui-theme="orange">
+  <Button property="brand" text="웨이팅 시작" />
+  <Text usage="body" fontColor="brand">주요 안내</Text>
+</section>
+```
+
+패키지 CSS는 소비자 앱의 전역 CSS와 함께 로드되므로, `uui` prefix를 제거하지 마세요. CSS custom property, theme attribute, semantic utility 모두 이 prefix를 통해 충돌을 방지합니다.
+
 `npm run release:package`는 `https://npm.pkg.github.com`으로 배포합니다. 패키지의 visibility와 접근 권한은 GitHub Packages 설정에서 `EscapeRoomEngs` 조직 및 이 저장소에만 부여합니다. 공개 npm registry에는 배포하지 않습니다.
 
 ## 버전 관리

@@ -3,7 +3,6 @@
   --color-uui-surface-secondary: #f5f5f5;
   --color-uui-surface-tertiary: #e6e6e6;
   --color-uui-surface-invert: #232527;
-  --color-uui-surface-brand: #ff4053;
   --color-uui-surface-negative: #ffeef0;
   --color-uui-surface-positive: #e6f4ff;
   --color-uui-surface-info: #f1f5f9;
@@ -29,9 +28,26 @@
   --color-uui-border-strong: #636363;
 }
 
+@theme inline {
+  --color-uui-surface-brand: var(--uui-semantic-surface-brand);
+  --color-uui-text-brand: var(--uui-semantic-text-brand);
+}
+
 :root {
   --uui-font-sans: "Pretendard", sans-serif;
   --uui-radius-sm: 4px;
   --uui-radius-md: 8px;
   --uui-radius-lg: 16px;
+  --uui-semantic-surface-brand: #ff4053;
+  --uui-semantic-text-brand: #ff4053;
+}
+
+[data-uui-theme="red"] {
+  --uui-semantic-surface-brand: #ff4053;
+  --uui-semantic-text-brand: #ff4053;
+}
+
+[data-uui-theme="orange"] {
+  --uui-semantic-surface-brand: #ff3d00;
+  --uui-semantic-text-brand: #ff3d00;
 }
