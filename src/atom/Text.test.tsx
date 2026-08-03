@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Body } from "./Text";
+import { Body, Display, Heading, Title } from "./Text";
 
 describe("Body", () => {
   it("uses static typography utility classes", () => {
@@ -20,5 +20,23 @@ describe("Body", () => {
 
     expect(body).not.toHaveAttribute("fontcolor");
     expect(body).not.toHaveAttribute("weight");
+  });
+
+  it("keeps the legacy Display fallback size for ExtraSmall", () => {
+    render(<Display fontStyle="ExtraSmall">디스플레이</Display>);
+
+    expect(screen.getByText("디스플레이")).toHaveClass("text-[44px]");
+  });
+
+  it("keeps the legacy Heading fallback size for ExtraSmall", () => {
+    render(<Heading fontStyle="ExtraSmall">헤딩</Heading>);
+
+    expect(screen.getByText("헤딩")).toHaveClass("text-4xl");
+  });
+
+  it("keeps the legacy Title fallback size for ExtraSmall", () => {
+    render(<Title fontStyle="ExtraSmall">타이틀</Title>);
+
+    expect(screen.getByText("타이틀")).toHaveClass("text-2xl");
   });
 });

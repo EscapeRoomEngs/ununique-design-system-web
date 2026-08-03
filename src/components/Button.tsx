@@ -5,10 +5,10 @@ import { Body } from "../atom/Text";
 import { cn } from "../lib/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed",
+  "inline-flex cursor-pointer items-center justify-center gap-2 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed",
   {
     variants: {
-      size: { Small: "h-10 px-6", Medium: "h-12 px-8", Large: "h-[54px] px-8" },
+      size: { Small: "h-10 px-6 py-[7px]", Medium: "h-12 px-8 py-3.5", Large: "h-[54px] px-8 py-4" },
       radius: { 0: "rounded-none", 4: "rounded", 8: "rounded-lg" },
       property: {
         outlined: "border border-uui-border-default bg-uui-surface-primary text-uui-text-secondary",
