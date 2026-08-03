@@ -30,3 +30,13 @@ export const LableExample: Story = {
 export const BodyExample: Story = {
   args: { children: usage.p.description },
 };
+
+export const SemanticTextParity: Story = {
+  render: () => (
+    <div className="flex flex-col gap-2">
+      {(["negative", "positive", "info"] as const).map((fontColor) => (
+        <Text key={fontColor} usage="body" fontColor={fontColor}>{fontColor}</Text>
+      ))}
+    </div>
+  ),
+};

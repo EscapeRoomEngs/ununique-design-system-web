@@ -99,3 +99,13 @@ export const HorizontalLayout: Story = {
     </Container>
   ),
 };
+
+export const SemanticSurfaceParity: Story = {
+  render: () => (
+    <Container display="flex" spacing={8}>
+      {(["negative", "positive", "info"] as const).map((bgColor) => (
+        <Container key={bgColor} bgColor={bgColor} borderColor="default" radius={8} style={{ width: 80, height: 80 }} />
+      ))}
+    </Container>
+  ),
+};

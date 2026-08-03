@@ -21,3 +21,7 @@ Use Vitest and React Testing Library for component behavior, `jest-axe` for auto
 - Source, package configuration, public assets and build/test configuration changes run CI (lint, coverage and package build).
 - UI and Storybook-related changes also run Chromatic on pull requests and on `main`. Newer runs cancel obsolete runs for the same pull request or branch, and Chromatic snapshots only affected stories.
 - The organization-package publish workflow stays manual and remains the release gate for `test:package` and `npm publish`.
+
+## Visual parity review
+
+For a UI component change, review the Chromatic diff for its default state, semantic color variants and the relevant disabled, error or selected state. Do not accept a new baseline until it has been compared with the `v0.1.0` Storybook appearance.

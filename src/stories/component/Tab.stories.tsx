@@ -38,3 +38,11 @@ export const ReviewSelected: Story = {
     style: { width: "800px" },
   },
 };
+
+export const SelectedStateParity: Story = {
+  args: {
+    tabList,
+    selected: { text: "리뷰", href: "/review" },
+    style: { width: "800px" },
+  },
+};

@@ -44,3 +44,14 @@ export const DisabledButton: Story = {
     disabled: true,
   },
 };
+
+export const SemanticButtonParity: Story = {
+  render: () => (
+    <div className="flex gap-2">
+      {(["negative", "positive", "info"] as const).map((property) => (
+        <Button key={property} property={property} text={property} />
+      ))}
+      <Button disabled property="brand" text="disabled" />
+    </div>
+  ),
+};

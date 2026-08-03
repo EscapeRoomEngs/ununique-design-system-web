@@ -56,3 +56,13 @@ export const DisabledTextField: Story = {
 export const ErrorTextField: Story = {
   args: { "aria-label": "오류 입력", value: "유효하지 않은 값", isError: () => true },
 };
+
+export const StateParity: Story = {
+  render: () => (
+    <div className="grid gap-2">
+      <TextField aria-label="기본 입력" value="기본" />
+      <TextField aria-label="오류 입력" value="오류" isError={() => true} />
+      <TextField aria-label="비활성 입력" value="비활성" disabled />
+    </div>
+  ),
+};
