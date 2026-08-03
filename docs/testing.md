@@ -25,3 +25,5 @@ Use Vitest and React Testing Library for component behavior, `jest-axe` for auto
 ## Visual parity review
 
 For a UI component change, review the Chromatic diff for its default state, semantic color variants and the relevant disabled, error or selected state. Do not accept a new baseline until it has been compared with the `v0.1.0` Storybook appearance.
+
+Storybook-only compatibility helpers must use the `uui-legacy-*` namespace. Do not add generic selectors such as `.grid`, `.text-*` or `.border-*`: they can override Tailwind utilities in rendered component stories. Class assertions protect source mappings, but visual approval still requires reviewing the rendered parity stories at the target viewport.
