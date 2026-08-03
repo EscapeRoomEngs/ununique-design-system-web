@@ -48,7 +48,7 @@ export function Example() {
 
 색상 scale(`orange.50` 등)은 디자인 시스템 내부 참조값이며 package root API로 제공하지 않습니다. 소비자와 컴포넌트는 `bg-uui-surface-brand`, `text-uui-text-brand`, `border-uui-border-negative`처럼 `uui` 네임스페이스가 붙은 semantic utility만 사용합니다.
 
-`data-uui-theme`는 해당 요소의 자식에게만 브랜드 semantic token을 적용합니다. 기본값과 `red`는 기존 Red 브랜드이며, `orange`는 Waiting RN 기준 Orange 브랜드입니다. 오류 의미의 `negative` 토큰은 두 테마 모두 Red로 유지됩니다.
+`data-uui-theme`는 해당 요소와 그 자식에게 브랜드 semantic token을 적용합니다. 기본값과 `red`는 기존 Red 브랜드이며, `orange`는 Waiting RN 기준 Orange 브랜드입니다. 오류 의미의 `negative` 토큰은 두 테마 모두 Red로 유지됩니다.
 
 ```tsx
 <section data-uui-theme="orange">
