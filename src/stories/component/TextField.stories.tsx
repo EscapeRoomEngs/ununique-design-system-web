@@ -48,3 +48,11 @@ export const PasswordFieldExample: Story = {
     );
   },
 };
+
+export const DisabledTextField: Story = {
+  args: { "aria-label": "비활성 입력", value: "변경할 수 없는 값", disabled: true },
+};
+
+export const ErrorTextField: Story = {
+  args: { "aria-label": "오류 입력", value: "유효하지 않은 값", isError: () => true },
+};

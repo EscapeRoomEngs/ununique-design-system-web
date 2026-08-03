@@ -1,90 +1,63 @@
-import styled from "styled-components";
-import { Container } from "../atom/Container";
 import { Icon } from "../atom/Icon";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 export interface PaginationProps {
   currentPageIndex?: number;
   totalPageCnt?: number;
-  onPageChange?: (v: any) => void;
+  onPageChange?: (value: number) => void;
 }
 export default function Pagination({
   currentPageIndex = 0,
   totalPageCnt = 0,
   onPageChange,
 }: PaginationProps) {
-  const PageInputWrapperStyle = `
-  .pagination-input-wrapper {
-    border-radius: 8px;
-    border: 1px solid var(--gray-300, #d1d1d1);
-    :focus-within {
-      border-radius: 8px;
-      border: 1px solid var(--gray-900, #232527);
-    }
-    > input {
-      background-color: transparent;
-      text-align: center;
-      padding: 8px 10px;
-      height: 40px;
-      width: 68px;
-      outline: 0;
-    }
-  }
-  `;
-  const IconWrapper = styled(Container)`
-    cursor: pointer;
-  `;
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const [inputValue, setValue] = useState(currentPageIndex + 1);
+  const isFirstPage = currentPageIndex <= 0;
+  const isLastPage = totalPageCnt === 0 || currentPageIndex >= totalPageCnt - 1;
+  const [inputState, setInputState] = useState({ pageIndex: currentPageIndex, value: currentPageIndex + 1 });
+  const inputValue = inputState.pageIndex === currentPageIndex ? inputState.value : currentPageIndex + 1;
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (inputRef.current && !inputRef.current.contains(e.target as HTMLElement))
-        setValue(currentPageIndex + 1);
+        setInputState({ pageIndex: currentPageIndex, value: currentPageIndex + 1 });
     };
     window.addEventListener("mousedown", handleClick);
     return () => window.removeEventListener("mousedown", handleClick);
-  }, [inputValue, inputRef]);
-
-  useEffect(() => {
-    setValue(currentPageIndex + 1);
   }, [currentPageIndex]);
 
-  function onChangePageIdx(newIdx: any) {
-    if (isNaN(newIdx)) return;
+  function onChangePageIdx(newIdx: number) {
+    if (Number.isNaN(newIdx) || totalPageCnt < 1) return;
     let result = newIdx;
     if (newIdx < 1) result = 1;
     else if (newIdx > totalPageCnt) result = totalPageCnt;
-    setValue(result);
-    onPageChange && onPageChange(result - 1);
+    setInputState({ pageIndex: currentPageIndex, value: result });
+    if (result - 1 !== currentPageIndex) onPageChange?.(result - 1);
   }
   return (
-    <>
-      <style type="text/css">{PageInputWrapperStyle}</style>
-      <div className="flex-center gap-16">
-        <IconWrapper display="flex" align="center" onClick={() => onChangePageIdx(inputValue - 1)}>
+      <div className="flex items-center justify-center gap-4">
+        <button aria-label="이전 페이지" disabled={isFirstPage} type="button" className="cursor-pointer disabled:cursor-not-allowed" onClick={() => onChangePageIdx(inputValue - 1)}>
           <Icon iconNm="chevronLeft" iconColor={currentPageIndex > 0 ? "primary" : "tertiary"} />
-        </IconWrapper>
-        <div className="pagination-input-wrapper">
+        </button>
+        <div className="rounded-lg border border-uui-border-default focus-within:border-uui-text-primary">
           <input
-            type="text"
+            aria-label="현재 페이지" type="text" className="h-10 w-[68px] bg-transparent px-2.5 text-center outline-none"
             ref={inputRef}
             value={inputValue}
             onChange={(e: ChangeEvent) =>
-              setValue(Number((e.target as HTMLInputElement).value.replaceAll(/[^0-9]/g, "")))
+              setInputState({ pageIndex: currentPageIndex, value: Number((e.target as HTMLInputElement).value.replaceAll(/[^0-9]/g, "")) })
             }
             onKeyDown={(e) => e.key === "Enter" && onChangePageIdx(inputValue)}
           />
         </div>
         <p>/</p>
         <p>{totalPageCnt}</p>
-        <IconWrapper display="flex" align="center" onClick={() => onChangePageIdx(inputValue + 1)}>
+        <button aria-label="다음 페이지" disabled={isLastPage} type="button" className="cursor-pointer disabled:cursor-not-allowed" onClick={() => onChangePageIdx(inputValue + 1)}>
           <Icon
             iconNm="chevronRight"
             iconColor={totalPageCnt - 1 > currentPageIndex ? "primary" : "tertiary"}
           />
-        </IconWrapper>
+        </button>
       </div>
-    </>
   );
 }

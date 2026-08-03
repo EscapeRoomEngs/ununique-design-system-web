@@ -1,51 +1,13 @@
-import styled from "styled-components";
-import { Container } from "../atom/Container";
-import { Body, Title } from "../atom/Text";
-import { layout } from "../foundation/layout";
 import { Button, ButtonProps } from "./Button";
+import { Body, Title } from "../atom/Text";
 
-export interface DialogProps {
-  title: string;
-  messages: string;
-  btns: ButtonProps[];
-}
-export const Dialog = ({ title, messages, btns = [{ text: "닫기" }] }: DialogProps) => {
-  const DialogBackground = styled.div`
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    position: fixed;
-    ${layout.flex({})}
-    background-color: rgba(35, 37, 39, 0.25);
-    > .grid-container {
-      width: 400px;
-      padding: 24px 16px 16px;
-      > .btns-wrapper {
-        width: 368px;
-        > button {
-          width: 100%;
-        }
-      }
-    }
-  `;
-  return (
-    <DialogBackground>
-      <Container display="flex" bgColor="primary" direction="column" radius={16} spacing={24}>
-        <Title fontStyle="Small">{title}</Title>
-        <Container justify="center" spacing={0}>
-          {messages?.split("\\n")?.map((line, lidx) => (
-            <Body fontColor="secondary" key={lidx}>
-              {line}
-            </Body>
-          ))}
-        </Container>
-        <Container className="btns-wrapper" display="flex" spacing={8}>
-          {btns?.map((btn, bidx) => <Button key={bidx} {...btn} />)}
-        </Container>
-      </Container>
-    </DialogBackground>
-  );
-};
+export interface DialogProps { title: string; messages: string; btns: ButtonProps[] }
+export const Dialog = ({ title, messages, btns = [{ text: "닫기" }] }: DialogProps) => (
+  <div role="dialog" aria-modal="true" aria-label={title} className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 p-4">
+    <section className="flex w-full max-w-[400px] flex-col gap-6 rounded-2xl bg-uui-surface-primary p-4 pt-6">
+      <Title fontStyle="Small">{title}</Title>
+      <div className="grid justify-center gap-0">{messages.split("\\n").map((line, index) => <Body fontColor="secondary" key={index}>{line}</Body>)}</div>
+      <div className="flex gap-2">{btns.map((button, index) => <Button className="w-full" key={index} {...button} />)}</div>
+    </section>
+  </div>
+);
