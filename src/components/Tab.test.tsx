@@ -25,6 +25,20 @@ describe("TabBar", () => {
     expect(screen.getByRole("tab", { name: "후기" })).toHaveAttribute("tabindex", "-1");
   });
 
+  it("defaults the first tab to the selected roving focus target", () => {
+    render(<TabBar tabList={[{ text: "상품" }, { text: "후기" }]} />);
+
+    expect(screen.getByRole("tab", { name: "상품" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("tab", { name: "상품" })).toHaveAttribute("tabindex", "0");
+    expect(screen.getByRole("tab", { name: "후기" })).toHaveAttribute("aria-selected", "false");
+  });
+
+  it("keeps the tablist role when consumer props provide another role", () => {
+    render(<TabBar tabList={[{ text: "상품" }]} role="presentation" />);
+
+    expect(screen.getByRole("tablist")).toBeInTheDocument();
+  });
+
   it("selects the next tab with ArrowRight", async () => {
     const user = userEvent.setup();
     const onSelect = vi.fn();

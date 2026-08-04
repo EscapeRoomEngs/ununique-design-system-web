@@ -9,6 +9,8 @@ export interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect
 }
 export function TabBar({ tabList = [], selected, onSelect, ...props }: TabProps) {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const selectedIndex = tabList.findIndex((tab) => tab.text === selected?.text);
+  const activeIndex = selectedIndex >= 0 ? selectedIndex : 0;
 
   function selectTab(index: number) {
     const tab = tabList[index];
@@ -32,18 +34,18 @@ export function TabBar({ tabList = [], selected, onSelect, ...props }: TabProps)
   }
 
   return (
-    <Container display="flex" spacing={0} role="tablist" {...props}>
+    <Container display="flex" spacing={0} {...props} role="tablist">
       {tabList.map((tab, tidx) => (
         <button
           key={tidx}
           type="button"
           ref={(element) => { tabRefs.current[tidx] = element; }}
           role="tab"
-          aria-selected={tab.text === selected?.text}
-          tabIndex={tab.text === selected?.text ? 0 : -1}
+          aria-selected={tidx === activeIndex}
+          tabIndex={tidx === activeIndex ? 0 : -1}
           onClick={() => onSelect?.(tab)}
           onKeyDown={(event) => onTabKeyDown(tidx, event)}
-          className={`w-full cursor-pointer border-b-2 bg-uui-surface-primary px-6 py-3.5 text-center font-[family-name:var(--uui-font-sans)] text-lg font-semibold leading-[1.3] focus-visible:outline-2 focus-visible:outline-uui-focus-brand ${tab.text === selected?.text ? "border-uui-surface-brand text-uui-text-brand" : "border-uui-border-default text-uui-text-tertiary"}`}
+          className={`w-full cursor-pointer border-b-2 bg-uui-surface-primary px-6 py-3.5 text-center font-[family-name:var(--uui-font-sans)] text-lg font-semibold leading-[1.3] focus-visible:outline-2 focus-visible:outline-uui-focus-brand ${tidx === activeIndex ? "border-uui-surface-brand text-uui-text-brand" : "border-uui-border-default text-uui-text-tertiary"}`}
         >
           {tab.text}
         </button>
