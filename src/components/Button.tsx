@@ -5,7 +5,7 @@ import { Body } from "../atom/Text";
 import { cn } from "../lib/cn";
 
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-uui-focus-brand disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-uui-surface-tertiary disabled:text-uui-text-tertiary",
+  "inline-flex cursor-pointer items-center justify-center gap-2 font-semibold transition-colors motion-reduce:transition-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-uui-focus-brand disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-uui-surface-tertiary disabled:text-uui-text-tertiary",
   {
     variants: {
       size: { Small: "h-10 px-6 py-[7px]", Medium: "h-12 px-8 py-3.5", Large: "h-[54px] px-8 py-4" },
@@ -28,12 +28,20 @@ const iconColors = { outlined: "secondary", brand: "invert", negative: "negative
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "property">, VariantProps<typeof buttonVariants> {
   text?: string;
   icon?: string;
+  iconPosition?: "start" | "end";
+  fullWidth?: boolean;
+  loading?: boolean;
 }
 
-export function Button({ text, size = "Small", radius = 4, property = "outlined", icon, className, type = "button", ...props }: ButtonProps) {
-  const iconColor = props.disabled ? "tertiary" : iconColors[property ?? "outlined"];
-  return <button type={type} className={cn(buttonVariants({ size, radius, property }), props.disabled && "bg-uui-surface-tertiary text-uui-text-tertiary", className)} {...props}>
-    {icon && <Icon iconNm={icon} iconSize={20} iconColor={iconColor} />}
+export function Button({ text, size = "Small", radius = 4, property = "outlined", icon, iconPosition = "start", fullWidth = false, loading = false, className, type = "button", disabled = false, ...props }: ButtonProps) {
+  const isDisabled = disabled || loading;
+  const iconColor = isDisabled ? "tertiary" : iconColors[property ?? "outlined"];
+  const iconElement = icon && !loading ? <Icon iconNm={icon} iconSize={20} iconColor={iconColor} /> : null;
+
+  return <button type={type} disabled={isDisabled} aria-busy={loading || undefined} className={cn(buttonVariants({ size, radius, property }), isDisabled && "bg-uui-surface-tertiary text-uui-text-tertiary", fullWidth && "w-full", className)} {...props}>
+    {loading && <span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" />}
+    {iconPosition === "start" && iconElement}
     {text && <Body fontStyle={(size ?? "Small") as "Small" | "Medium" | "Large"} weight={600}>{text}</Body>}
+    {iconPosition === "end" && iconElement}
   </button>;
 }

@@ -36,7 +36,7 @@ export function Example() {
   return (
     <Container display="flex" direction="column" spacing={16}>
       <Title>주문 확인</Title>
-      <Button text="계속" property="contained" />
+      <Button text="계속" property="brand" />
     </Container>
   );
 }
@@ -68,6 +68,21 @@ React Provider를 사용할 수 없는 정적 HTML, 마이크로 프런트엔드
   <!-- 이 경계 아래의 uui semantic utility가 Orange 브랜드 토큰을 상속합니다. -->
 </section>
 ```
+
+### Button 상태와 접근성
+
+`Button`은 enabled 상태에서 hover·active·keyboard focus-visible 상태를 자동으로 처리합니다. `focus-visible`은 2px outline으로 표시되므로 마우스 클릭에는 불필요한 focus ring이 나타나지 않습니다. `disabled` 또는 `loading` 상태에서는 pointer interaction이 차단됩니다.
+
+```tsx
+<Button property="brand" text="저장" loading />
+<Button property="outlined" text="다음" icon="chevronRight" iconPosition="end" />
+<Button property="brand" text="계속" fullWidth />
+
+// 아이콘만 제공하는 경우에는 반드시 이름을 제공합니다.
+<Button property="brand" icon="add" aria-label="항목 추가" />
+```
+
+`loading`은 native `disabled`와 `aria-busy="true"`를 함께 적용합니다. `fullWidth`는 버튼을 부모 너비로 확장하며, `iconPosition`은 `start`(기본값) 또는 `end`를 사용합니다.
 
 패키지 CSS는 소비자 앱의 전역 CSS와 함께 로드되므로, `uui` prefix를 제거하지 마세요. CSS custom property, theme attribute, semantic utility 모두 이 prefix를 통해 충돌을 방지합니다.
 

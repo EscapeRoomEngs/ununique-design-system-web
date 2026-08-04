@@ -75,4 +75,19 @@ describe("Button", () => {
 
     expect(screen.getByRole("button", { name: "확인" })).toHaveClass("h-12", "px-8", "py-3.5", "cursor-pointer");
   });
+
+  it("exposes loading as a disabled busy button without losing its accessible name", () => {
+    render(<Button loading property="brand" text="저장" />);
+
+    expect(screen.getByRole("button", { name: "저장" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "저장" })).toHaveAttribute("aria-busy", "true");
+  });
+
+  it("supports full-width layout and an end-positioned decorative icon", () => {
+    const { container } = render(<Button fullWidth icon="add" iconPosition="end" text="추가" />);
+    const button = screen.getByRole("button", { name: "추가" });
+
+    expect(button).toHaveClass("w-full");
+    expect(container.querySelector("button > p + svg.add")).toBeInTheDocument();
+  });
 });
