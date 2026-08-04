@@ -8,6 +8,28 @@ describe("Button", () => {
     expect(screen.getByRole("button", { name: "확인" })).toHaveClass("bg-uui-surface-brand");
   });
 
+  it("uses semantic brand hover, active, and 2px focus classes", () => {
+    render(<Button property="brand" text="저장" />);
+
+    expect(screen.getByRole("button", { name: "저장" })).toHaveClass(
+      "hover:bg-uui-surface-brand-hover",
+      "active:bg-uui-surface-brand-active",
+      "focus-visible:outline-2",
+      "focus-visible:outline-uui-focus-brand",
+      "text-uui-text-primary",
+    );
+  });
+
+  it("blocks pointer interaction and applies disabled utilities when disabled", () => {
+    render(<Button disabled property="brand" text="저장" />);
+
+    expect(screen.getByRole("button", { name: "저장" })).toHaveClass(
+      "disabled:pointer-events-none",
+      "disabled:bg-uui-surface-tertiary",
+      "disabled:text-uui-text-tertiary",
+    );
+  });
+
   it("uses legacy disabled colors", () => {
     render(<Button disabled property="brand" text="확인" />);
 
