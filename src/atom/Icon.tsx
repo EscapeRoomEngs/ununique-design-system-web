@@ -15,6 +15,7 @@ import IconSearch from "../assets/icon/search.svg?react";
 import IconUpload from "../assets/icon/upload.svg?react";
 import IconVisible from "../assets/icon/visibility.svg?react";
 import IconInvisible from "../assets/icon/visibility_off.svg?react";
+import type { SVGAttributes } from "react";
 import { token } from "../foundation/color";
 
 /**
@@ -43,7 +44,11 @@ export const IconObj = {
   checkedSquare: { component: CheckedSquare },
 };
 
-export interface IconProps {
+const semanticIconColors = {
+  brand: "var(--uui-semantic-surface-brand)",
+} as const;
+
+export interface IconProps extends SVGAttributes<SVGSVGElement> {
   /**
    * 아이콘 명을 지정합니다.
    */
@@ -63,6 +68,7 @@ export interface IconProps {
     | "negative"
     | "positive"
     | "info"
+    | "brand"
     | string;
   /**
    * 아이콘 색상을 직접 지정합니다.
@@ -71,19 +77,19 @@ export interface IconProps {
   /**
    * 기타 아이콘 스타일을 특정하는 경우 사용합니다. (ex. border 등)
    */
-  style?: React.CSSProperties;
 }
 export const Icon = ({
   iconNm = "confirm",
   iconSize = 24,
   iconColor,
   iconColorHex,
+  style,
   ...props
 }: IconProps) => {
   const icon = IconObj[iconNm as keyof typeof IconObj];
   if (!icon) return null;
   const Component = icon.component;
-  const fill = (iconColor && token.icon[iconColor as keyof typeof token.icon]?.hex) || iconColorHex || token.icon.primary.hex;
+  const fill = (iconColor && semanticIconColors[iconColor as keyof typeof semanticIconColors]) || (iconColor && token.icon[iconColor as keyof typeof token.icon]?.hex) || iconColorHex || token.icon.primary.hex;
   const rotation = "rotate" in icon ? icon.rotate : 0;
-  return <Component className={iconNm} width={iconSize} height={iconSize} fill={fill} style={{ transform: `rotate(${rotation}deg)`, ...props.style }} {...props} />;
+  return <Component className={iconNm} width={iconSize} height={iconSize} fill={fill} style={{ transform: `rotate(${rotation}deg)`, ...style }} aria-hidden="true" focusable="false" {...props} />;
 };

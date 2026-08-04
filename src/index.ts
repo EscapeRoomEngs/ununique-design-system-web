@@ -4,6 +4,8 @@ export { Button } from "./components/Button";
 export type { ButtonProps } from "./components/Button";
 export { Container } from "./atom/Container";
 export type { ContainerProps } from "./atom/Container";
+export { ThemeProvider } from "./theme/ThemeProvider";
+export type { ThemeName, ThemeProviderProps } from "./theme/ThemeProvider";
 export { Icon, IconObj } from "./atom/Icon";
 export type { IconProps } from "./atom/Icon";
 export { Body, Display, Heading, Label, Lable, Text, Title } from "./atom/Text";

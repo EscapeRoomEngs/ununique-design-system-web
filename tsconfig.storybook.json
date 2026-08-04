@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "emitDeclarationOnly": false,
+    "noEmit": true,
+    "moduleResolution": "bundler"
+  },
+  "include": ["src/vite-env.d.ts", "src/stories/**/*.stories.ts", "src/stories/**/*.stories.tsx"]
+}

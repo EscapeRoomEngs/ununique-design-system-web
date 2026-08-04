@@ -1,9 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react/*";
+import type { Meta, StoryObj } from "@storybook/react";
 import { useEffect, useState } from "react";
 import { Container } from "../../atom/Container";
 import { Radio } from "../../components/Input";
+import { ThemeProvider } from "../../theme/ThemeProvider";
 
-const meta: Meta = {
+const meta: Meta<typeof Radio> = {
   title: "Design System/Component/Radio",
   component: Radio,
   parameters: { layout: "centered" },
@@ -21,8 +22,6 @@ export const RadioExample: Story = {
     useEffect(() => setIsChecked(args.checked), [args.checked]);
     return (
       <Radio
-        id="radio-button-ex"
-        value="Option Text Lable"
         {...args}
         checked={isChecked}
         onChange={() => setIsChecked(!isChecked)}
@@ -39,7 +38,7 @@ export const RadioGroupExample: Story = {
         {lables?.map((lable, idx) => (
           <Radio
             key={idx}
-            id="radio-button-group-ex"
+            id={`radio-button-group-ex-${idx}`}
             value={lable}
             checked={selected === lable}
             onChange={setSelected}
@@ -48,4 +47,16 @@ export const RadioGroupExample: Story = {
       </Container>
     );
   },
+};
+
+export const BrandThemeParity: Story = {
+  render: () => (
+    <Container display="flex" spacing={24}>
+      {(["red", "orange"] as const).map((theme) => (
+        <ThemeProvider key={theme} theme={theme}>
+          <Radio color="brand" id={`radio-${theme}`} value={`${theme} brand`} checked readOnly />
+        </ThemeProvider>
+      ))}
+    </Container>
+  ),
 };

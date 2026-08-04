@@ -1,10 +1,11 @@
-import { Meta, StoryObj } from "@storybook/react/*";
+import type { Meta, StoryObj } from "@storybook/react";
 import { useEffect, useState } from "react";
+import { userEvent, within } from "storybook/test";
 import { Container } from "../../atom/Container";
 import { Lable } from "../../atom/Text";
 import { Dropdown } from "../../components/Input";
 
-const meta: Meta = {
+const meta: Meta<typeof Dropdown> = {
   title: "Design System/Component/Dropdown",
   component: Dropdown,
   parameters: { layout: "centered" },
@@ -19,7 +20,7 @@ type Story = StoryObj<typeof meta>;
 
 export const DropdownExample: Story = {
   args: {
-    value: {},
+    selected: {},
     optionList: [
       { id: 1, name: "Option 1" },
       { id: 2, name: "Option 2" },
@@ -31,15 +32,15 @@ export const DropdownExample: Story = {
     placeholder: "Placeholder",
   },
   render: (args) => {
-    const [selected, setSelected] = useState({});
-    useEffect(() => setSelected(args.value), [args.value]);
+    const [selected, setSelected] = useState(args.selected);
+    useEffect(() => setSelected(args.selected), [args.selected]);
     return <Dropdown {...args} selected={selected} onChange={setSelected} />;
   },
 };
 
 export const SelectFieldExample: Story = {
   args: {
-    value: { id: "all", name: "전체 보기" },
+    selected: { id: "all", name: "전체 보기" },
     optionList: [
       { id: "all", name: "전체 보기" },
       { id: "top", name: "상의" },
@@ -51,8 +52,8 @@ export const SelectFieldExample: Story = {
     placeholder: "분류 선택",
   },
   render: (args) => {
-    const [selected, setSelected] = useState({});
-    useEffect(() => setSelected(args.value), [args.value]);
+    const [selected, setSelected] = useState(args.selected);
+    useEffect(() => setSelected(args.selected), [args.selected]);
     return (
       <Container spacing={8}>
         <Lable>분류</Lable>
@@ -67,5 +68,17 @@ export const DisabledDropdown: Story = {
     selected: { id: "all", name: "전체 보기" },
     optionList: [{ id: "all", name: "전체 보기" }],
     disabled: true,
+  },
+};
+
+export const BrandOpenState: Story = {
+  args: {
+    "aria-label": "브랜드 열린 선택 목록",
+    selected: { id: 1, name: "선택됨" },
+    optionList: [{ id: 1, name: "선택됨" }, { id: 2, name: "다른 옵션" }],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("combobox", { name: "브랜드 열린 선택 목록" }));
   },
 };

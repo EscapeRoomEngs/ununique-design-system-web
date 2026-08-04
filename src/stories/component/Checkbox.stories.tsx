@@ -1,9 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react/*";
+import type { Meta, StoryObj } from "@storybook/react";
 import { useEffect, useState } from "react";
 import { Container } from "../../atom/Container";
 import { Checkbox } from "../../components/Input";
+import { ThemeProvider } from "../../theme/ThemeProvider";
 
-const meta: Meta = {
+const meta: Meta<typeof Checkbox> = {
   title: "Design System/Component/Checkbox",
   component: Checkbox,
   parameters: { layout: "centered" },
@@ -27,8 +28,6 @@ export const CheckboxExample: Story = {
     useEffect(() => setIsChecked(args.checked), [args.checked]);
     return (
       <Checkbox
-        id="checkbox-button-ex"
-        value="Option Text Lable"
         {...args}
         checked={isChecked}
         onChange={() => setIsChecked(!isChecked)}
@@ -50,7 +49,7 @@ export const CheckboxGroupExample: Story = {
         {lables?.map((lable, idx) => (
           <Checkbox
             key={idx}
-            id="checkbox-button-group-ex"
+            id={`checkbox-button-group-ex-${idx}`}
             value={lable}
             checked={selected?.includes(lable)}
             onChange={onChangeSelected}
@@ -59,4 +58,16 @@ export const CheckboxGroupExample: Story = {
       </Container>
     );
   },
+};
+
+export const BrandThemeParity: Story = {
+  render: () => (
+    <Container display="flex" spacing={24}>
+      {(["red", "orange"] as const).map((theme) => (
+        <ThemeProvider key={theme} theme={theme}>
+          <Checkbox color="brand" id={`checkbox-${theme}`} value={`${theme} brand`} checked readOnly />
+        </ThemeProvider>
+      ))}
+    </Container>
+  ),
 };

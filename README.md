@@ -36,7 +36,7 @@ export function Example() {
   return (
     <Container display="flex" direction="column" spacing={16}>
       <Title>주문 확인</Title>
-      <Button text="계속" property="contained" />
+      <Button text="계속" property="brand" />
     </Container>
   );
 }
@@ -50,12 +50,26 @@ export function Example() {
 
 `data-uui-theme`는 해당 요소와 그 자식에게 브랜드 semantic token을 적용합니다. 기본값과 `red`는 기존 Red 브랜드이며, `orange`는 Waiting RN 기준 Orange 브랜드입니다. 오류 의미의 `negative` 토큰은 두 테마 모두 Red로 유지됩니다.
 
+React 앱에서는 `ThemeProvider`로 테마 경계를 선언합니다. `theme`을 생략하면 Red 테마가 적용되며, 중첩된 Provider로 화면 일부만 Orange 테마로 전환할 수 있습니다.
+
 ```tsx
-<section data-uui-theme="orange">
+import { Button, Text, ThemeProvider } from "@escaperoomengs/ununique-design-system-web";
+
+<ThemeProvider theme="orange">
   <Button property="brand" text="웨이팅 시작" />
   <Text usage="body" fontColor="brand">주요 안내</Text>
+</ThemeProvider>
+```
+
+React Provider를 사용할 수 없는 정적 HTML, 마이크로 프런트엔드 경계, 또는 서버 템플릿에서는 같은 계약의 `data-uui-theme` 속성을 fallback으로 사용합니다. 값은 `red` 또는 `orange`입니다.
+
+```html
+<section data-uui-theme="orange">
+  <!-- 이 경계 아래의 uui semantic utility가 Orange 브랜드 토큰을 상속합니다. -->
 </section>
 ```
+
+Storybook에서는 상단 toolbar의 `브랜드 테마`에서 `Red` 또는 `Orange`를 선택해 모든 Story를 같은 테마 경계에서 확인할 수 있습니다.
 
 패키지 CSS는 소비자 앱의 전역 CSS와 함께 로드되므로, `uui` prefix를 제거하지 마세요. CSS custom property, theme attribute, semantic utility 모두 이 prefix를 통해 충돌을 방지합니다.
 
