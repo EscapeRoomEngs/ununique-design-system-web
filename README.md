@@ -73,7 +73,7 @@ Storybook에서는 상단 toolbar의 `브랜드 테마`에서 `Red` 또는 `Oran
 
 패키지 CSS는 소비자 앱의 전역 CSS와 함께 로드되므로, `uui` prefix를 제거하지 마세요. CSS custom property, theme attribute, semantic utility 모두 이 prefix를 통해 충돌을 방지합니다.
 
-`v<major>.<minor>.<patch>` 태그를 현재 `main` 커밋에 push하면 GitHub Actions가 Changeset으로 버전과 변경 이력을 반영하고, 검증한 뒤 `https://npm.pkg.github.com`으로 배포합니다. 태그 값과 Changeset이 계산한 패키지 버전이 다르면 배포하지 않습니다. 패키지의 visibility와 접근 권한은 GitHub Packages 설정에서 `EscapeRoomEngs` 조직 및 이 저장소에만 부여합니다. 공개 npm registry에는 배포하지 않습니다.
+`v<major>.<minor>.<patch>` 또는 prerelease 형식의 `v<major>.<minor>.<patch>-<label>` 태그를 현재 `main` 커밋에 push하면 GitHub Actions가 Changeset으로 버전과 변경 이력을 반영하고, 검증한 뒤 `https://npm.pkg.github.com`으로 배포합니다. 태그 값과 Changeset이 계산한 패키지 버전이 다르면 배포하지 않습니다. 패키지의 visibility와 접근 권한은 GitHub Packages 설정에서 `EscapeRoomEngs` 조직 및 이 저장소에만 부여합니다. 공개 npm registry에는 배포하지 않습니다.
 
 ## 버전 관리
 

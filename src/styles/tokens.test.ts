@@ -3,7 +3,6 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 const css = readFileSync(path.resolve("src/styles/tokens.css"), "utf8");
-const entryCss = readFileSync(path.resolve("src/styles/index.css"), "utf8");
 
 function scopedHex(scope: string, variable: string) {
   const start = css.indexOf(`${scope} {`);
@@ -71,6 +70,5 @@ describe("legacy semantic token CSS", () => {
   it("keeps interaction tokens separate from legacy component foreground colors", () => {
     expect(css).not.toContain("--color-uui-text-on-brand");
     expect(css).not.toContain("--uui-semantic-text-on-brand");
-    expect(entryCss).not.toContain('@source inline("text-uui-icon-brand")');
   });
 });

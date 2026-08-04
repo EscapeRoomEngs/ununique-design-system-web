@@ -3,4 +3,8 @@
 @import "tailwindcss/utilities.css" layer(utilities) source("../");
 @import "./tokens.css";
 
+@layer utilities {
+  .text-uui-icon-brand { color: var(--uui-semantic-text-brand); }
+}
+
 .uui-root { font-family: var(--uui-font-sans); }
