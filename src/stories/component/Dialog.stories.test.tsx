@@ -32,7 +32,7 @@ describe("Dialog stories", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("synchronizes both themed dialog previews with the open control", () => {
+  it("synchronizes the themed dialog preview with the open control without duplicate overlays", () => {
     const args = {
       onClose: vi.fn(),
       title: "동기화 제목",
@@ -43,9 +43,29 @@ describe("Dialog stories", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 
     rerender(<BrandThemeParity {...args} open />);
-    expect(screen.getAllByRole("dialog", { name: "동기화 제목" })).toHaveLength(2);
+    expect(screen.getAllByRole("dialog", { name: "동기화 제목" })).toHaveLength(1);
 
     rerender(<BrandThemeParity {...args} open={false} />);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("switches launchers while keeping a single active themed modal", async () => {
+    const user = userEvent.setup();
+    render(
+      <BrandThemeParity
+        open={false}
+        title="테마 전환"
+        messages="한 번에 하나"
+        btns={[{ text: "닫기", property: "brand" }]}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "red 다이얼로그 열기" }));
+    expect(screen.getAllByRole("dialog", { name: "테마 전환" })).toHaveLength(1);
+
+    await user.click(screen.getByRole("button", { name: "orange 다이얼로그 열기" }));
+    const dialogs = screen.getAllByRole("dialog", { name: "테마 전환" });
+    expect(dialogs).toHaveLength(1);
+    expect(dialogs[0].closest('[data-uui-theme="orange"]')).toBeInTheDocument();
   });
 });

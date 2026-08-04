@@ -51,10 +51,22 @@ describe("TextField", () => {
   });
 
   it("sets error semantics while preserving described-by references", () => {
-    render(<TextField aria-describedby="email-help" aria-label="오류 입력" value="" isError={() => true} />);
+    render(<TextField aria-describedby="email-help" aria-invalid="grammar" aria-label="오류 입력" value="" isError={() => true} />);
 
     expect(screen.getByLabelText("오류 입력")).toHaveAttribute("aria-invalid", "true");
     expect(screen.getByLabelText("오류 입력")).toHaveAttribute("aria-describedby", "email-help");
+  });
+
+  it("preserves consumer aria-invalid values when the field has no error", () => {
+    render(
+      <>
+        <TextField aria-invalid aria-label="검증 입력" value="" />
+        <TextField aria-invalid="grammar" aria-label="문법 입력" value="" />
+      </>,
+    );
+
+    expect(screen.getByLabelText("검증 입력")).toHaveAttribute("aria-invalid", "true");
+    expect(screen.getByLabelText("문법 입력")).toHaveAttribute("aria-invalid", "grammar");
   });
 
   it("preserves the legacy field dimensions and padding", () => {
@@ -158,6 +170,26 @@ describe("Dropdown", () => {
     await user.keyboard("{Home}{Escape}");
     expect(trigger).toHaveAttribute("aria-expanded", "false");
     expect(onChange).toHaveBeenCalledOnce();
+  });
+
+  it("commits the keyboard-active option on Tab and moves focus forward", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <>
+        <Dropdown aria-label="도시" optionList={[{ id: 1, name: "서울" }, { id: 2, name: "부산" }]} onChange={onChange} />
+        <button type="button">다음 제어</button>
+      </>,
+    );
+    const trigger = screen.getByRole("combobox", { name: "도시" });
+
+    await user.click(trigger);
+    await user.keyboard("{ArrowDown}");
+    await user.tab();
+
+    expect(onChange).toHaveBeenCalledWith({ id: 2, name: "부산" });
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    expect(screen.getByRole("button", { name: "다음 제어" })).toHaveFocus();
   });
 
   it("uses neutral option hover and semantic focus-visible states", async () => {

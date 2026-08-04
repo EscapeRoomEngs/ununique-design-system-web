@@ -14,7 +14,8 @@ The work covers every public interactive component: `Button`, `TextField`, `Drop
 - Export a typed `ThemeName` union and `ThemeProvider` wrapper. The provider renders an ordinary element with `data-uui-theme`, so theme inheritance remains CSS-native and nested providers work naturally.
 - Keep primitive scales internal. Components and consumers use only `uui`-namespaced semantic utility classes and public component props.
 - Add semantic brand tokens for default, hover, active, and focus. Red remains the default theme. Orange uses the approved Orange scale, with the documented pressed value (`orange.600`) as its active state.
-- Brand foreground text uses the primary foreground token rather than white, so the normal Button label size has sufficient contrast on both Red and Orange backgrounds.
+- Brand identity surfaces keep the approved Red and Orange values, including Orange active `#E63600`. Theme-aware `on-brand` foreground tokens may change between default, hover, and active states so each actual 14–18px Button label reaches at least 4.5:1 contrast; components never use a raw black utility.
+- Brand text used on white is a darker theme-specific semantic value. Negative identity values remain Red, while Button labels on negative, positive, info, neutral, and invert surfaces use dedicated `on-*` foreground tokens rather than identity text tokens.
 
 ## Component behavior
 
@@ -27,7 +28,8 @@ The work covers every public interactive component: `Button`, `TextField`, `Drop
 ### Button
 
 - Preserve existing `size`, `radius`, `property`, `text`, `icon`, and native button props.
-- Give each visual property an enabled hover/active/focus-visible/disabled state. `brand` consumes the theme-aware tokens; semantic negative/positive/info behavior remains independent of the selected brand.
+- Give each visual property an enabled hover/active/focus-visible/disabled state. `brand` consumes theme-aware surface and foreground tokens; outlined, negative, positive, info, and invert use state-complete semantic surface tokens independent of the selected brand.
+- Every default, hover, and active Button foreground/background pair must reach WCAG AA 4.5:1 for the component's normal-size label text.
 - Retain `type="button"` as the default and allow all native button attributes.
 
 ### TextField and Dropdown
@@ -35,7 +37,7 @@ The work covers every public interactive component: `Button`, `TextField`, `Drop
 - TextField uses a 2px border in default, focus, error, and disabled states. The internal clear/password controls are transparent, have no inherited gray surface, and receive accessible focus styling.
 - TextField forwards native ARIA attributes and sets `aria-invalid` when its error state is true without overriding a consumer-provided `aria-describedby`.
 - Dropdown uses the select-only combobox/listbox pattern: a labelled toggle with `aria-expanded`, `aria-controls`, and active option state; options use `role="option"` and `aria-selected`.
-- Dropdown supports ArrowUp/ArrowDown, Home, End, Enter/Space, and Escape. Selecting an option closes the popup and returns focus to the toggle. Disabled and empty option lists cannot open.
+- Dropdown supports ArrowUp/ArrowDown, Home, End, Enter/Space, Escape, and Tab. Click and Enter/Space selection close the popup with focus on the toggle; Tab commits the keyboard-active option, closes, and allows focus to advance normally without refocusing the toggle. Disabled and empty option lists cannot open.
 
 ### Radio, Checkbox, TabBar, and Pagination
 
@@ -58,7 +60,7 @@ The work covers every public interactive component: `Button`, `TextField`, `Drop
 
 ## Verification
 
-- Unit tests cover typed ThemeProvider output, semantic token contracts, and Button state classes.
+- Unit tests cover typed ThemeProvider output, semantic token contracts, deterministic contrast ratios, the published brand-icon utility, and the complete Button state matrix.
 - Interaction tests use Testing Library keyboard events for Dropdown, Dialog, TabBar, and Pagination.
 - `jest-axe` coverage includes all public interactive components, including an open Dialog and open Dropdown.
 - Story compilation is verified with `npm run build-storybook`; library output is verified with `npm run build`; lint and the full Vitest suite must pass.

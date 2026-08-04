@@ -39,30 +39,47 @@ function ControlledDialog(args: DialogProps) {
   );
 }
 
-function ThemeDialogLauncher({ theme, ...args }: DialogProps & { theme: "red" | "orange" }) {
-  const [open, setOpen] = useState(args.open ?? true);
-
-  useEffect(() => setOpen(args.open ?? true), [args.open]);
-
-  const close = () => {
-    setOpen(false);
-    args.onClose?.();
-  };
-
+function ThemeDialogLauncher({ theme, onOpen, ...args }: DialogProps & { theme: "red" | "orange"; onOpen: () => void }) {
   const btns = args.btns.map((button) => ({
     ...button,
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
       button.onClick?.(event);
-      close();
+      args.onClose?.();
     },
   }));
 
   return (
     <ThemeProvider theme={theme} className="grid gap-2">
       <Body fontColor="brand">{theme} dialog</Body>
-      <Button property="brand" text={`${theme} 다이얼로그 열기`} onClick={() => setOpen(true)} />
-      <Dialog {...args} btns={btns} open={open} onClose={close} />
+      <Button property="brand" text={`${theme} 다이얼로그 열기`} onClick={onOpen} />
+      <Dialog {...args} btns={btns} />
     </ThemeProvider>
+  );
+}
+
+function ThemeDialogParity(args: DialogProps) {
+  const [activeTheme, setActiveTheme] = useState<"red" | "orange" | null>(args.open ? "red" : null);
+
+  useEffect(() => setActiveTheme(args.open ? "red" : null), [args.open]);
+
+  const close = () => {
+    setActiveTheme(null);
+    args.onClose?.();
+  };
+
+  return (
+    <div className="flex gap-6">
+      {(["red", "orange"] as const).map((theme) => (
+        <ThemeDialogLauncher
+          {...args}
+          key={theme}
+          theme={theme}
+          open={activeTheme === theme}
+          onOpen={() => setActiveTheme(theme)}
+          onClose={close}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -94,10 +111,5 @@ export const BrandThemeParity: Story = {
     btns: [{ text: "닫기", property: "brand" }],
     open: false,
   },
-  render: (args) => (
-    <div className="flex gap-6">
-      <ThemeDialogLauncher {...args} theme="red" />
-      <ThemeDialogLauncher {...args} theme="orange" />
-    </div>
-  ),
+  render: (args) => <ThemeDialogParity {...args} />,
 };

@@ -1,7 +1,12 @@
 import { HTMLAttributes, useRef } from "react";
 import { Container } from "../atom/Container";
 
-export interface TabItem { text: string; [key: string]: unknown }
+export interface TabItem {
+  text: string;
+  id?: string;
+  panelId?: string;
+  [key: string]: unknown;
+}
 export interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
   tabList?: TabItem[];
   selected?: TabItem;
@@ -41,6 +46,8 @@ export function TabBar({ tabList = [], selected, onSelect, ...props }: TabProps)
           type="button"
           ref={(element) => { tabRefs.current[tidx] = element; }}
           role="tab"
+          id={tab.id}
+          aria-controls={tab.panelId}
           aria-selected={tidx === activeIndex}
           tabIndex={tidx === activeIndex ? 0 : -1}
           onClick={() => onSelect?.(tab)}

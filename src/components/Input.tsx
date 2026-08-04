@@ -12,13 +12,13 @@ export interface TextFieldsProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   size?: InputSize;
 }
 
-export function TextField({ size = "Small", type = "text", placeholder = "입력", disabled = false, value = "", maxLength = 1000, onChange, isError, ...props }: TextFieldsProps) {
+export function TextField({ size = "Small", type = "text", placeholder = "입력", disabled = false, value = "", maxLength = 1000, onChange, isError, "aria-invalid": ariaInvalid, ...props }: TextFieldsProps) {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const textType = type === "password" && isPasswordVisible ? "text" : type;
   const error = isError?.() ?? false;
 
   return <div className={`${widths[size]} flex h-11 items-center gap-4 rounded border-2 bg-uui-surface-primary px-[15px] py-3 ${error ? "border-uui-border-negative" : "border-uui-border-default focus-within:border-uui-focus-brand focus-within:outline-2 focus-within:outline-uui-focus-brand"} ${disabled ? "bg-uui-surface-tertiary" : ""}`}>
-    <input {...props} aria-invalid={error || undefined} type={textType} value={value} disabled={disabled} placeholder={placeholder} className="min-w-0 flex-1 bg-transparent text-sm leading-[1.3] text-uui-text-primary outline-none placeholder:text-uui-text-tertiary disabled:text-uui-text-secondary" onChange={(event) => onChange?.(event.target.value.slice(0, maxLength))} />
+    <input {...props} aria-invalid={error ? true : ariaInvalid} type={textType} value={value} disabled={disabled} placeholder={placeholder} className="min-w-0 flex-1 bg-transparent text-sm leading-[1.3] text-uui-text-primary outline-none placeholder:text-uui-text-tertiary disabled:text-uui-text-secondary" onChange={(event) => onChange?.(event.target.value.slice(0, maxLength))} />
     {!disabled && value && <div className="flex items-center gap-1">
       {type === "password" && <button aria-label="비밀번호 표시 전환" type="button" className="grid size-5 cursor-pointer place-items-center rounded bg-transparent focus-visible:outline-2 focus-visible:outline-uui-focus-brand" onMouseDown={(event) => event.preventDefault()} onClick={() => setPasswordVisible((visible) => !visible)}><Icon iconNm={isPasswordVisible ? "visible" : "invisible"} iconSize={16} iconColor="tertiary" /></button>}
       <button aria-label="입력 지우기" type="button" className="grid size-5 cursor-pointer place-items-center rounded bg-transparent focus-visible:outline-2 focus-visible:outline-uui-focus-brand" onMouseDown={(event) => event.preventDefault()} onClick={() => onChange?.("")}><Icon iconNm="close" iconSize={16} iconColor="tertiary" /></button>
@@ -61,12 +61,12 @@ export function Dropdown({ size = "Small", selected = {}, placeholder = "선택"
     setOpen(true);
   };
 
-  const selectOption = (index: number) => {
+  const selectOption = (index: number, restoreFocus = true) => {
     const option = optionList[index];
     if (!option) return;
     onChange?.(option);
     setOpen(false);
-    triggerRef.current?.focus();
+    if (restoreFocus) triggerRef.current?.focus();
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -105,6 +105,9 @@ export function Dropdown({ size = "Small", selected = {}, placeholder = "선택"
           event.preventDefault();
           setOpen(false);
         }
+        break;
+      case "Tab":
+        if (open) selectOption(activeIndex, false);
         break;
     }
   };

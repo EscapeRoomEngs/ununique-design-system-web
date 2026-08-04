@@ -25,6 +25,23 @@ describe("TabBar", () => {
     expect(screen.getByRole("tab", { name: "후기" })).toHaveAttribute("tabindex", "-1");
   });
 
+  it("forwards optional tab and controlled panel relationships", () => {
+    render(
+      <TabBar
+        tabList={[
+          { text: "상품", id: "product-tab", panelId: "product-panel" },
+          { text: "후기", id: "review-tab" },
+        ]}
+        selected={{ text: "상품" }}
+      />,
+    );
+
+    expect(screen.getByRole("tab", { name: "상품" })).toHaveAttribute("id", "product-tab");
+    expect(screen.getByRole("tab", { name: "상품" })).toHaveAttribute("aria-controls", "product-panel");
+    expect(screen.getByRole("tab", { name: "후기" })).toHaveAttribute("id", "review-tab");
+    expect(screen.getByRole("tab", { name: "후기" })).not.toHaveAttribute("aria-controls");
+  });
+
   it("defaults the first tab to the selected roving focus target", () => {
     render(<TabBar tabList={[{ text: "상품" }, { text: "후기" }]} />);
 

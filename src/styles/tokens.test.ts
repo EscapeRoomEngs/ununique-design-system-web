@@ -3,6 +3,30 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 const css = readFileSync(path.resolve("src/styles/tokens.css"), "utf8");
+const entryCss = readFileSync(path.resolve("src/styles/index.css"), "utf8");
+
+function scopedHex(scope: string, variable: string) {
+  const start = css.indexOf(`${scope} {`);
+  if (start < 0) throw new Error(`Missing CSS scope: ${scope}`);
+  const end = css.indexOf("}", start);
+  const block = css.slice(start, end);
+  const match = block.match(new RegExp(`${variable}:\\s*(#[0-9a-fA-F]{6})`));
+  if (!match) throw new Error(`Missing hex token ${variable} in ${scope}`);
+  return match[1];
+}
+
+function relativeLuminance(hex: string) {
+  const channels = hex.match(/[0-9a-f]{2}/gi)?.map((channel) => Number.parseInt(channel, 16) / 255);
+  if (!channels || channels.length !== 3) throw new Error(`Invalid hex color: ${hex}`);
+  const [red, green, blue] = channels.map((channel) => channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4);
+  return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
+}
+
+function contrastRatio(foreground: string, background: string) {
+  const lighter = Math.max(relativeLuminance(foreground), relativeLuminance(background));
+  const darker = Math.min(relativeLuminance(foreground), relativeLuminance(background));
+  return (lighter + 0.05) / (darker + 0.05);
+}
 
 describe("legacy semantic token CSS", () => {
   it("preserves the legacy negative surface value", () => {
@@ -20,6 +44,7 @@ describe("legacy semantic token CSS", () => {
   it("maps the namespaced brand utilities to runtime semantic variables", () => {
     expect(css).toContain("--color-uui-surface-brand: var(--uui-semantic-surface-brand)");
     expect(css).toContain("--color-uui-text-brand: var(--uui-semantic-text-brand)");
+    expect(css).toContain("--color-uui-icon-brand: var(--uui-semantic-text-brand)");
   });
 
   it("keeps brand themes namespaced and negative tokens independent", () => {
@@ -33,5 +58,49 @@ describe("legacy semantic token CSS", () => {
     expect(css).toContain("--color-uui-surface-brand-active: var(--uui-semantic-surface-brand-active)");
     expect(css).toContain("--color-uui-focus-brand: var(--uui-semantic-focus-brand)");
     expect(css).toContain("--uui-semantic-surface-brand-active: #e63600");
+  });
+
+  it("keeps brand text readable on white in the default, red, and orange themes", () => {
+    const white = scopedHex("@theme", "--color-uui-surface-primary");
+
+    for (const scope of [":root", '[data-uui-theme="red"]', '[data-uui-theme="orange"]']) {
+      const ratio = contrastRatio(scopedHex(scope, "--uui-semantic-text-brand"), white);
+      expect(ratio, `${scope} brand text contrast`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it("keeps every enabled Button foreground and surface state at WCAG AA contrast", () => {
+    const globalContracts = [
+      { property: "outlined", foreground: "--color-uui-text-on-neutral", backgrounds: ["--color-uui-surface-primary", "--color-uui-surface-secondary", "--color-uui-surface-tertiary"] },
+      { property: "negative", foreground: "--color-uui-text-on-negative", backgrounds: ["--color-uui-surface-negative", "--color-uui-surface-negative-hover", "--color-uui-surface-negative-active"] },
+      { property: "positive", foreground: "--color-uui-text-on-positive", backgrounds: ["--color-uui-surface-positive", "--color-uui-surface-positive-hover", "--color-uui-surface-positive-active"] },
+      { property: "info", foreground: "--color-uui-text-on-info", backgrounds: ["--color-uui-surface-info", "--color-uui-surface-info-hover", "--color-uui-surface-info-active"] },
+      { property: "invert", foreground: "--color-uui-text-on-invert", backgrounds: ["--color-uui-surface-invert", "--color-uui-surface-invert-hover", "--color-uui-surface-invert-active"] },
+    ];
+
+    for (const contract of globalContracts) {
+      const foreground = scopedHex("@theme", contract.foreground);
+      for (const backgroundToken of contract.backgrounds) {
+        const ratio = contrastRatio(foreground, scopedHex("@theme", backgroundToken));
+        expect(ratio, `${contract.property} ${backgroundToken} contrast`).toBeGreaterThanOrEqual(4.5);
+      }
+    }
+
+    const brandStateTokens = [
+      ["--uui-semantic-text-on-brand", "--uui-semantic-surface-brand"],
+      ["--uui-semantic-text-on-brand-hover", "--uui-semantic-surface-brand-hover"],
+      ["--uui-semantic-text-on-brand-active", "--uui-semantic-surface-brand-active"],
+    ] as const;
+
+    for (const scope of [":root", '[data-uui-theme="red"]', '[data-uui-theme="orange"]']) {
+      for (const [foregroundToken, backgroundToken] of brandStateTokens) {
+        const ratio = contrastRatio(scopedHex(scope, foregroundToken), scopedHex(scope, backgroundToken));
+        expect(ratio, `${scope} brand ${backgroundToken} contrast`).toBeGreaterThanOrEqual(4.5);
+      }
+    }
+  });
+
+  it("safelists the public namespaced brand icon text utility", () => {
+    expect(entryCss).toContain('@source inline("text-uui-icon-brand")');
   });
 });
