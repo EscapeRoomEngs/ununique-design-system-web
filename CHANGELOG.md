@@ -1,5 +1,11 @@
 # @escaperoomengs/ununique-design-system-web
 
+## 1.1.0
+
+### Minor Changes
+
+- 6bca4cc: Add the typed ThemeProvider and complete semantic hover, active, focus, keyboard, and ARIA behavior across public interactive components.
+
 ## 1.0.0
 
 ### Major Changes
