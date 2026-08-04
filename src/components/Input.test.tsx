@@ -35,7 +35,10 @@ describe("TextField", () => {
   it("keeps the legacy one-pixel field border and uses a thin keyboard focus indicator", () => {
     render(<TextField aria-label="비밀번호" type="password" value="abc" />);
 
-    const field = screen.getByLabelText("비밀번호").parentElement;
+    const input = screen.getByLabelText("비밀번호");
+    const field = input.parentElement;
+
+    expect(input).toHaveClass("border-0", "outline-none");
     expect(field).toHaveClass(
       "border",
       "focus-within:border-uui-focus-brand",
