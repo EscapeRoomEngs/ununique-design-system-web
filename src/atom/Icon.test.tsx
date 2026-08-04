@@ -7,4 +7,24 @@ describe("Icon", () => {
     const { container } = render(<Icon iconNm="add" iconSize={20} />);
     expect(container.querySelector("svg")).toHaveAttribute("width", "20");
   });
+
+  it("uses the runtime brand semantic color", () => {
+    const { container } = render(<Icon iconNm="add" iconColor="brand" />);
+
+    expect(container.querySelector("svg")).toHaveAttribute("fill", "var(--uui-semantic-text-brand)");
+  });
+
+  it("hides decorative icons from assistive technology by default", () => {
+    const { container } = render(<Icon iconNm="add" />);
+
+    expect(container.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
+    expect(container.querySelector("svg")).toHaveAttribute("focusable", "false");
+  });
+
+  it("allows consumers to override decorative SVG attributes", () => {
+    const { container } = render(<Icon iconNm="add" aria-hidden="false" focusable="true" />);
+
+    expect(container.querySelector("svg")).toHaveAttribute("aria-hidden", "false");
+    expect(container.querySelector("svg")).toHaveAttribute("focusable", "true");
+  });
 });

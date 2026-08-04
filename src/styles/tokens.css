@@ -30,7 +30,11 @@
 
 @theme inline {
   --color-uui-surface-brand: var(--uui-semantic-surface-brand);
+  --color-uui-surface-brand-hover: var(--uui-semantic-surface-brand-hover);
+  --color-uui-surface-brand-active: var(--uui-semantic-surface-brand-active);
   --color-uui-text-brand: var(--uui-semantic-text-brand);
+  --color-uui-icon-brand: var(--uui-semantic-text-brand);
+  --color-uui-focus-brand: var(--uui-semantic-focus-brand);
 }
 
 :root {
@@ -39,15 +43,24 @@
   --uui-radius-md: 8px;
   --uui-radius-lg: 16px;
   --uui-semantic-surface-brand: #ff4053;
+  --uui-semantic-surface-brand-hover: #ff1836;
+  --uui-semantic-surface-brand-active: #d9092b;
   --uui-semantic-text-brand: #ff4053;
+  --uui-semantic-focus-brand: #ff4053;
 }
 
 [data-uui-theme="red"] {
   --uui-semantic-surface-brand: #ff4053;
+  --uui-semantic-surface-brand-hover: #ff1836;
+  --uui-semantic-surface-brand-active: #d9092b;
   --uui-semantic-text-brand: #ff4053;
+  --uui-semantic-focus-brand: #ff4053;
 }
 
 [data-uui-theme="orange"] {
   --uui-semantic-surface-brand: #ff3d00;
+  --uui-semantic-surface-brand-hover: #e63600;
+  --uui-semantic-surface-brand-active: #e63600;
   --uui-semantic-text-brand: #ff3d00;
+  --uui-semantic-focus-brand: #ff3d00;
 }
