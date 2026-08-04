@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useEffect, useState } from "react";
-import { userEvent } from "storybook/test";
 import { Container } from "../../atom/Container";
 import { Checkbox } from "../../components/Input";
 import { ThemeProvider } from "../../theme/ThemeProvider";
@@ -66,16 +65,9 @@ export const BrandThemeParity: Story = {
     <Container display="flex" spacing={24}>
       {(["red", "orange"] as const).map((theme) => (
         <ThemeProvider key={theme} theme={theme}>
-          <Checkbox id={`checkbox-${theme}`} value={`${theme} checked`} checked readOnly />
+          <Checkbox color="brand" id={`checkbox-${theme}`} value={`${theme} brand`} checked readOnly />
         </ThemeProvider>
       ))}
     </Container>
   ),
-};
-
-export const KeyboardFocus: Story = {
-  args: { id: "checkbox-keyboard-focus", value: "Tab focus", checked: false, readOnly: true },
-  play: async () => {
-    await userEvent.tab();
-  },
 };

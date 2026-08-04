@@ -27,6 +27,14 @@ describe("Pagination", () => {
     expect(screen.getByRole("navigation", { name: "페이지 탐색" })).toBeInTheDocument();
   });
 
+  it("removes native background and appearance from arrow buttons", () => {
+    render(<Pagination currentPageIndex={0} totalPageCnt={5} />);
+
+    for (const button of [screen.getByRole("button", { name: "이전 페이지" }), screen.getByRole("button", { name: "다음 페이지" })]) {
+      expect(button).toHaveClass("appearance-none", "border-0", "bg-transparent", "p-0");
+    }
+  });
+
   it("commits a typed page when the page input loses focus", async () => {
     const user = userEvent.setup();
     const onPageChange = vi.fn();

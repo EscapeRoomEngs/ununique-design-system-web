@@ -8,10 +8,10 @@ describe("Icon", () => {
     expect(container.querySelector("svg")).toHaveAttribute("width", "20");
   });
 
-  it("uses the runtime brand semantic color", () => {
+  it("uses the runtime brand surface color for brand icons", () => {
     const { container } = render(<Icon iconNm="add" iconColor="brand" />);
 
-    expect(container.querySelector("svg")).toHaveAttribute("fill", "var(--uui-semantic-text-brand)");
+    expect(container.querySelector("svg")).toHaveAttribute("fill", "var(--uui-semantic-surface-brand)");
   });
 
   it("hides decorative icons from assistive technology by default", () => {

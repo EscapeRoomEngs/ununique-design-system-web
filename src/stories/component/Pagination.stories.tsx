@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Pagination from "../../components/Pagination";
 import { useEffect, useState } from "react";
-import { Body } from "../../atom/Text";
 import type { PaginationProps } from "../../components/Pagination";
-import { ThemeProvider } from "../../theme/ThemeProvider";
 import { userEvent } from "storybook/test";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -39,21 +37,8 @@ export const LastPage: Story = {
   args: { currentPageIndex: 4, totalPageCnt: 5 },
 };
 
-export const BrandThemeParity: Story = {
-  render: () => (
-    <div className="grid gap-6">
-      {(["red", "orange"] as const).map((theme) => (
-        <ThemeProvider key={theme} theme={theme} className="grid gap-2">
-          <Body fontColor="brand">{theme} pagination focus</Body>
-          <ControlledPagination currentPageIndex={1} totalPageCnt={5} />
-        </ThemeProvider>
-      ))}
-    </div>
-  ),
-};
-
-export const KeyboardFocus: Story = {
-  args: { currentPageIndex: 0, totalPageCnt: 5 },
+export const BrandFocusState: Story = {
+  args: { currentPageIndex: 1, totalPageCnt: 5 },
   play: async () => {
     await userEvent.tab();
   },

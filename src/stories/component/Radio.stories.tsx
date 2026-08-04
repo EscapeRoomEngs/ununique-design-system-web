@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useEffect, useState } from "react";
-import { userEvent } from "storybook/test";
 import { Container } from "../../atom/Container";
 import { Radio } from "../../components/Input";
 import { ThemeProvider } from "../../theme/ThemeProvider";
@@ -55,16 +54,9 @@ export const BrandThemeParity: Story = {
     <Container display="flex" spacing={24}>
       {(["red", "orange"] as const).map((theme) => (
         <ThemeProvider key={theme} theme={theme}>
-          <Radio id={`radio-${theme}`} value={`${theme} selected`} checked readOnly />
+          <Radio color="brand" id={`radio-${theme}`} value={`${theme} brand`} checked readOnly />
         </ThemeProvider>
       ))}
     </Container>
   ),
-};
-
-export const KeyboardFocus: Story = {
-  args: { id: "radio-keyboard-focus", value: "Tab focus", checked: false, readOnly: true },
-  play: async () => {
-    await userEvent.tab();
-  },
 };

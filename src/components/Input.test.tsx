@@ -266,4 +266,11 @@ describe("Radio and Checkbox", () => {
       expect(label).toHaveClass("has-[:focus-visible]:outline-2", "has-[:focus-visible]:outline-uui-focus-brand");
     }
   });
+
+  it("uses the runtime brand surface only when a choice explicitly requests brand color", () => {
+    const { container } = render(<><Radio id="radio-brand" value="브랜드 선택" checked color="brand" /><Checkbox id="checkbox-brand" value="브랜드 확인" checked color="brand" /></>);
+
+    expect(container.querySelectorAll("svg")[0]).toHaveAttribute("fill", "var(--uui-semantic-surface-brand)");
+    expect(container.querySelectorAll("svg")[1]).toHaveAttribute("fill", "var(--uui-semantic-surface-brand)");
+  });
 });

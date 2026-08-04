@@ -26,7 +26,7 @@ export default function Pagination({
   }
   return (
       <nav aria-label="페이지 탐색" className="flex items-center justify-center gap-4">
-        <button aria-label="이전 페이지" disabled={isFirstPage} type="button" className="cursor-pointer focus-visible:outline-2 focus-visible:outline-uui-focus-brand disabled:cursor-not-allowed" onClick={() => onChangePageIdx(inputValue - 1)}>
+        <button aria-label="이전 페이지" disabled={isFirstPage} type="button" className="appearance-none border-0 bg-transparent p-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-uui-focus-brand disabled:cursor-not-allowed" onClick={() => onChangePageIdx(inputValue - 1)}>
           <Icon iconNm="chevronLeft" iconColor={currentPageIndex > 0 ? "primary" : "tertiary"} />
         </button>
         <div className="rounded-lg border border-uui-border-default focus-within:border-uui-text-primary">
@@ -42,7 +42,7 @@ export default function Pagination({
         </div>
         <p>/</p>
         <p>{totalPageCnt}</p>
-        <button aria-label="다음 페이지" disabled={isLastPage} type="button" className="cursor-pointer focus-visible:outline-2 focus-visible:outline-uui-focus-brand disabled:cursor-not-allowed" onClick={() => onChangePageIdx(inputValue + 1)}>
+        <button aria-label="다음 페이지" disabled={isLastPage} type="button" className="appearance-none border-0 bg-transparent p-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-uui-focus-brand disabled:cursor-not-allowed" onClick={() => onChangePageIdx(inputValue + 1)}>
           <Icon
             iconNm="chevronRight"
             iconColor={totalPageCnt - 1 > currentPageIndex ? "primary" : "tertiary"}

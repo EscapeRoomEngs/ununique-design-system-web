@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { userEvent, within } from "storybook/test";
 import { Body, Lable } from "../../atom/Text";
 import { TextField } from "../../components/Input";
-import { ThemeProvider } from "../../theme/ThemeProvider";
 
 const meta: Meta<typeof TextField> = {
   title: "Design System/Component/TextField",
@@ -69,22 +68,9 @@ export const StateParity: Story = {
   ),
 };
 
-export const BrandThemeParity: Story = {
-  render: () => (
-    <div className="grid gap-6">
-      {(["red", "orange"] as const).map((theme) => (
-        <ThemeProvider key={theme} theme={theme} className="grid gap-2">
-          <Body fontColor="brand">{theme} focus</Body>
-          <TextField aria-label={`${theme} 테마 입력`} value="Tab 키로 포커스" readOnly />
-        </ThemeProvider>
-      ))}
-    </div>
-  ),
-};
-
-export const FocusedTextField: Story = {
-  args: { "aria-label": "포커스 입력", value: "포커스 상태", readOnly: true },
+export const BrandFocusState: Story = {
+  args: { "aria-label": "브랜드 포커스 입력", value: "포커스 상태", readOnly: true },
   play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole("textbox", { name: "포커스 입력" }));
+    await userEvent.click(within(canvasElement).getByRole("textbox", { name: "브랜드 포커스 입력" }));
   },
 };

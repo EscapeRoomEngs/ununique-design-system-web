@@ -72,36 +72,15 @@ export const BrandThemeParity: Story = {
   ),
 };
 
-export const IconOnlyButton: Story = {
-  args: {
-    icon: "add",
-    "aria-label": "항목 추가",
-    property: "brand",
-  },
-};
-
-export const InteractionStates: Story = {
+export const BrandInteractionStates: Story = {
   render: () => (
     <div className="grid gap-4">
-      <p className="text-sm text-uui-text-secondary">실제 Button은 pointer 및 keyboard 입력에 따라 아래 상태로 전환됩니다.</p>
+      <p className="text-sm text-uui-text-secondary">상단 toolbar에서 브랜드를 선택한 뒤 상태별 배경색을 비교하세요.</p>
       <div className="flex flex-wrap items-end gap-3">
         <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Default</span><Button text="계속" property="brand" /></div>
         <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Hover</span><Button className="bg-uui-surface-brand-hover" text="계속" property="brand" /></div>
         <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Active</span><Button className="bg-uui-surface-brand-active" text="계속" property="brand" /></div>
-        <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Focus visible</span><Button className="outline-solid outline-2 outline-offset-2 outline-uui-focus-brand" text="계속" property="brand" /></div>
-        <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Disabled</span><Button text="계속" property="brand" disabled /></div>
-        <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Loading</span><Button text="계속" property="brand" loading /></div>
       </div>
-    </div>
-  ),
-};
-
-export const LayoutAndIconPosition: Story = {
-  render: () => (
-    <div className="grid w-[360px] gap-3">
-      <Button fullWidth icon="add" text="새 항목 추가" property="brand" />
-      <Button fullWidth icon="chevronRight" iconPosition="end" text="다음 단계" property="outlined" />
-      <Button icon="add" aria-label="항목 추가" property="brand" />
     </div>
   ),
 };

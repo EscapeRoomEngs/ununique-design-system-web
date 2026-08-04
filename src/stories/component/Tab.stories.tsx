@@ -4,7 +4,6 @@ import type { TabItem, TabProps } from "../../components/Tab";
 import { useEffect, useState } from "react";
 import { Body } from "../../atom/Text";
 import { ThemeProvider } from "../../theme/ThemeProvider";
-import { userEvent } from "storybook/test";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof TabBar> = {
@@ -72,15 +71,4 @@ export const BrandThemeParity: Story = {
       ))}
     </div>
   ),
-};
-
-export const KeyboardFocus: Story = {
-  args: {
-    tabList,
-    selected: tabList[0],
-    style: { width: "800px" },
-  },
-  play: async () => {
-    await userEvent.tab();
-  },
 };

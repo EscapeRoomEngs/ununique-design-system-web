@@ -45,7 +45,7 @@ export const IconObj = {
 };
 
 const semanticIconColors = {
-  brand: "var(--uui-semantic-text-brand)",
+  brand: "var(--uui-semantic-surface-brand)",
 } as const;
 
 export interface IconProps extends SVGAttributes<SVGSVGElement> {
