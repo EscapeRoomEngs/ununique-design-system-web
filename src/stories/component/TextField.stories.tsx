@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useEffect, useState } from "react";
-import { userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { Body, Lable } from "../../atom/Text";
 import { TextField } from "../../components/Input";
 
@@ -71,6 +71,10 @@ export const StateParity: Story = {
 export const BrandFocusState: Story = {
   args: { "aria-label": "브랜드 포커스 입력", value: "포커스 상태", readOnly: true },
   play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole("textbox", { name: "브랜드 포커스 입력" }));
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "브랜드 포커스 입력" });
+
+    await userEvent.tab();
+    await expect(input).toHaveFocus();
   },
 };
