@@ -86,8 +86,8 @@ export const InteractionStates: Story = {
       <p className="text-sm text-uui-text-secondary">실제 Button은 pointer 및 keyboard 입력에 따라 아래 상태로 전환됩니다.</p>
       <div className="flex flex-wrap items-end gap-3">
         <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Default</span><Button text="계속" property="brand" /></div>
-        <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Hover</span><Button className="bg-uui-surface-brand-hover text-uui-text-on-brand-hover" text="계속" property="brand" /></div>
-        <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Active</span><Button className="bg-uui-surface-brand-active text-uui-text-on-brand-active" text="계속" property="brand" /></div>
+        <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Hover</span><Button className="bg-uui-surface-brand-hover" text="계속" property="brand" /></div>
+        <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Active</span><Button className="bg-uui-surface-brand-active" text="계속" property="brand" /></div>
         <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Focus visible</span><Button className="outline-solid outline-2 outline-offset-2 outline-uui-focus-brand" text="계속" property="brand" /></div>
         <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Disabled</span><Button text="계속" property="brand" disabled /></div>
         <div className="grid gap-2"><span className="text-xs text-uui-text-secondary">Loading</span><Button text="계속" property="brand" loading /></div>

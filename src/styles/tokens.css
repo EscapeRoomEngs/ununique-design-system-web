@@ -21,11 +21,6 @@
   --color-uui-text-negative: #ff4053;
   --color-uui-text-positive: #1677ff;
   --color-uui-text-info: #64748b;
-  --color-uui-text-on-neutral: #444444;
-  --color-uui-text-on-negative: #8c0021;
-  --color-uui-text-on-positive: #003eb3;
-  --color-uui-text-on-info: #334155;
-  --color-uui-text-on-invert: #ffffff;
   --color-uui-icon-primary: #232527;
   --color-uui-icon-secondary: #636363;
   --color-uui-icon-tertiary: #a0a0a0;
@@ -46,10 +41,6 @@
   --color-uui-surface-brand-hover: var(--uui-semantic-surface-brand-hover);
   --color-uui-surface-brand-active: var(--uui-semantic-surface-brand-active);
   --color-uui-text-brand: var(--uui-semantic-text-brand);
-  --color-uui-text-on-brand: var(--uui-semantic-text-on-brand);
-  --color-uui-text-on-brand-hover: var(--uui-semantic-text-on-brand-hover);
-  --color-uui-text-on-brand-active: var(--uui-semantic-text-on-brand-active);
-  --color-uui-icon-brand: var(--uui-semantic-text-brand);
   --color-uui-focus-brand: var(--uui-semantic-focus-brand);
 }
 
@@ -62,9 +53,6 @@
   --uui-semantic-surface-brand-hover: #ff1836;
   --uui-semantic-surface-brand-active: #d9092b;
   --uui-semantic-text-brand: #b30024;
-  --uui-semantic-text-on-brand: #000000;
-  --uui-semantic-text-on-brand-hover: #000000;
-  --uui-semantic-text-on-brand-active: #ffffff;
   --uui-semantic-focus-brand: #ff4053;
 }
 
@@ -73,9 +61,6 @@
   --uui-semantic-surface-brand-hover: #ff1836;
   --uui-semantic-surface-brand-active: #d9092b;
   --uui-semantic-text-brand: #b30024;
-  --uui-semantic-text-on-brand: #000000;
-  --uui-semantic-text-on-brand-hover: #000000;
-  --uui-semantic-text-on-brand-active: #ffffff;
   --uui-semantic-focus-brand: #ff4053;
 }
 
@@ -84,8 +69,5 @@
   --uui-semantic-surface-brand-hover: #e63600;
   --uui-semantic-surface-brand-active: #e63600;
   --uui-semantic-text-brand: #982600;
-  --uui-semantic-text-on-brand: #000000;
-  --uui-semantic-text-on-brand-hover: #000000;
-  --uui-semantic-text-on-brand-active: #000000;
   --uui-semantic-focus-brand: #ff3d00;
 }

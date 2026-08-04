@@ -11,27 +11,27 @@ describe("Button", () => {
   const stateContracts = [
     {
       property: "outlined" as const,
-      classes: ["bg-uui-surface-primary", "text-uui-text-on-neutral", "hover:border-uui-border-hover", "hover:bg-uui-surface-secondary", "active:border-uui-border-tertiary", "active:bg-uui-surface-tertiary"],
+      classes: ["bg-uui-surface-primary", "text-uui-text-secondary", "hover:border-uui-border-hover", "hover:bg-uui-surface-secondary", "active:border-uui-border-tertiary", "active:bg-uui-surface-tertiary"],
     },
     {
       property: "brand" as const,
-      classes: ["bg-uui-surface-brand", "text-uui-text-on-brand", "hover:bg-uui-surface-brand-hover", "hover:text-uui-text-on-brand-hover", "active:bg-uui-surface-brand-active", "active:text-uui-text-on-brand-active"],
+      classes: ["bg-uui-surface-brand", "text-uui-text-invert", "hover:bg-uui-surface-brand-hover", "active:bg-uui-surface-brand-active"],
     },
     {
       property: "negative" as const,
-      classes: ["bg-uui-surface-negative", "text-uui-text-on-negative", "hover:bg-uui-surface-negative-hover", "active:bg-uui-surface-negative-active"],
+      classes: ["bg-uui-surface-negative", "text-uui-text-negative", "hover:bg-uui-surface-negative-hover", "active:bg-uui-surface-negative-active"],
     },
     {
       property: "positive" as const,
-      classes: ["bg-uui-surface-positive", "text-uui-text-on-positive", "hover:bg-uui-surface-positive-hover", "active:bg-uui-surface-positive-active"],
+      classes: ["bg-uui-surface-positive", "text-uui-text-positive", "hover:bg-uui-surface-positive-hover", "active:bg-uui-surface-positive-active"],
     },
     {
       property: "info" as const,
-      classes: ["bg-uui-surface-info", "text-uui-text-on-info", "hover:bg-uui-surface-info-hover", "active:bg-uui-surface-info-active"],
+      classes: ["bg-uui-surface-info", "text-uui-text-info", "hover:bg-uui-surface-info-hover", "active:bg-uui-surface-info-active"],
     },
     {
       property: "invert" as const,
-      classes: ["bg-uui-surface-invert", "text-uui-text-on-invert", "hover:bg-uui-surface-invert-hover", "active:bg-uui-surface-invert-active"],
+      classes: ["bg-uui-surface-invert", "text-uui-text-invert", "hover:bg-uui-surface-invert-hover", "active:bg-uui-surface-invert-active"],
     },
   ];
 

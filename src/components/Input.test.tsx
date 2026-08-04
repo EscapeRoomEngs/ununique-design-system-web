@@ -32,20 +32,22 @@ describe("TextField", () => {
     expect(screen.getByLabelText("오류 입력").parentElement).toHaveClass("border-uui-border-negative");
   });
 
-  it("uses a two-pixel field border and transparent icon controls", () => {
+  it("keeps the legacy one-pixel field border and uses a thin keyboard focus indicator", () => {
     render(<TextField aria-label="비밀번호" type="password" value="abc" />);
 
     const field = screen.getByLabelText("비밀번호").parentElement;
     expect(field).toHaveClass(
-      "border-2",
+      "border",
       "focus-within:border-uui-focus-brand",
-      "focus-within:outline-2",
-      "focus-within:outline-uui-focus-brand",
+      "has-[:focus-visible]:outline-solid",
+      "has-[:focus-visible]:outline-1",
+      "has-[:focus-visible]:outline-uui-focus-brand",
     );
     expect(screen.getByRole("button", { name: "비밀번호 표시 전환" })).toHaveClass(
       "bg-transparent",
       "rounded",
-      "focus-visible:outline-2",
+      "focus-visible:outline-solid",
+      "focus-visible:outline-1",
       "focus-visible:outline-uui-focus-brand",
     );
   });
@@ -206,6 +208,24 @@ describe("Dropdown", () => {
     );
   });
 
+  it("uses a thin keyboard focus indicator and no thick outline when open", async () => {
+    const user = userEvent.setup();
+    render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
+    const trigger = screen.getByRole("combobox");
+
+    expect(trigger).toHaveClass(
+      "border",
+      "focus-visible:outline-solid",
+      "focus-visible:outline-1",
+      "focus-visible:outline-offset-1",
+      "focus-visible:outline-uui-focus-brand",
+    );
+
+    await user.click(trigger);
+    expect(trigger).toHaveClass("border-uui-focus-brand");
+    expect(trigger).not.toHaveClass("outline-2");
+  });
+
   it("preserves the legacy trigger and option padding", async () => {
     const user = userEvent.setup();
     render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
@@ -237,11 +257,11 @@ describe("Radio and Checkbox", () => {
     expect(screen.getByRole("checkbox", { name: "선택" }).closest("label")).not.toHaveClass("opacity-60");
   });
 
-  it("uses brand defaults and exposes focus-visible styling through choice labels", () => {
+  it("keeps the legacy negative defaults and exposes focus-visible styling through choice labels", () => {
     const { container } = render(<><Radio id="radio" value="동의" checked={false} /><Checkbox id="checkbox" value="선택" checked={false} /></>);
 
-    expect(container.querySelectorAll("svg")[0]).toHaveAttribute("fill", "var(--uui-semantic-text-brand)");
-    expect(container.querySelectorAll("svg")[1]).toHaveAttribute("fill", "var(--uui-semantic-text-brand)");
+    expect(container.querySelectorAll("svg")[0]).toHaveAttribute("fill", "#ff4053");
+    expect(container.querySelectorAll("svg")[1]).toHaveAttribute("fill", "#ff4053");
     for (const label of [screen.getByRole("radio").closest("label"), screen.getByRole("checkbox").closest("label")]) {
       expect(label).toHaveClass("has-[:focus-visible]:outline-2", "has-[:focus-visible]:outline-uui-focus-brand");
     }

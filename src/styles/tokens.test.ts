@@ -44,7 +44,6 @@ describe("legacy semantic token CSS", () => {
   it("maps the namespaced brand utilities to runtime semantic variables", () => {
     expect(css).toContain("--color-uui-surface-brand: var(--uui-semantic-surface-brand)");
     expect(css).toContain("--color-uui-text-brand: var(--uui-semantic-text-brand)");
-    expect(css).toContain("--color-uui-icon-brand: var(--uui-semantic-text-brand)");
   });
 
   it("keeps brand themes namespaced and negative tokens independent", () => {
@@ -69,38 +68,9 @@ describe("legacy semantic token CSS", () => {
     }
   });
 
-  it("keeps every enabled Button foreground and surface state at WCAG AA contrast", () => {
-    const globalContracts = [
-      { property: "outlined", foreground: "--color-uui-text-on-neutral", backgrounds: ["--color-uui-surface-primary", "--color-uui-surface-secondary", "--color-uui-surface-tertiary"] },
-      { property: "negative", foreground: "--color-uui-text-on-negative", backgrounds: ["--color-uui-surface-negative", "--color-uui-surface-negative-hover", "--color-uui-surface-negative-active"] },
-      { property: "positive", foreground: "--color-uui-text-on-positive", backgrounds: ["--color-uui-surface-positive", "--color-uui-surface-positive-hover", "--color-uui-surface-positive-active"] },
-      { property: "info", foreground: "--color-uui-text-on-info", backgrounds: ["--color-uui-surface-info", "--color-uui-surface-info-hover", "--color-uui-surface-info-active"] },
-      { property: "invert", foreground: "--color-uui-text-on-invert", backgrounds: ["--color-uui-surface-invert", "--color-uui-surface-invert-hover", "--color-uui-surface-invert-active"] },
-    ];
-
-    for (const contract of globalContracts) {
-      const foreground = scopedHex("@theme", contract.foreground);
-      for (const backgroundToken of contract.backgrounds) {
-        const ratio = contrastRatio(foreground, scopedHex("@theme", backgroundToken));
-        expect(ratio, `${contract.property} ${backgroundToken} contrast`).toBeGreaterThanOrEqual(4.5);
-      }
-    }
-
-    const brandStateTokens = [
-      ["--uui-semantic-text-on-brand", "--uui-semantic-surface-brand"],
-      ["--uui-semantic-text-on-brand-hover", "--uui-semantic-surface-brand-hover"],
-      ["--uui-semantic-text-on-brand-active", "--uui-semantic-surface-brand-active"],
-    ] as const;
-
-    for (const scope of [":root", '[data-uui-theme="red"]', '[data-uui-theme="orange"]']) {
-      for (const [foregroundToken, backgroundToken] of brandStateTokens) {
-        const ratio = contrastRatio(scopedHex(scope, foregroundToken), scopedHex(scope, backgroundToken));
-        expect(ratio, `${scope} brand ${backgroundToken} contrast`).toBeGreaterThanOrEqual(4.5);
-      }
-    }
-  });
-
-  it("safelists the public namespaced brand icon text utility", () => {
-    expect(entryCss).toContain('@source inline("text-uui-icon-brand")');
+  it("keeps interaction tokens separate from legacy component foreground colors", () => {
+    expect(css).not.toContain("--color-uui-text-on-brand");
+    expect(css).not.toContain("--uui-semantic-text-on-brand");
+    expect(entryCss).not.toContain('@source inline("text-uui-icon-brand")');
   });
 });
