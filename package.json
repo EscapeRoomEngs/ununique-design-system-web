@@ -55,10 +55,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:package": "npm run build && node scripts/test-package.mjs",
+    "test:package": "npm run typecheck:storybook && npm run build && node scripts/test-package.mjs",
     "lint": "eslint .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "typecheck:storybook": "tsc --project tsconfig.storybook.json",
+    "build-storybook": "npm run typecheck:storybook && storybook build",
     "chromatic": "npx chromatic --project-token=chpt_5b7834704b08147"
   },
   "browserslist": {

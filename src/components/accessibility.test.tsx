@@ -35,7 +35,13 @@ describe("design-system accessibility", () => {
       </>,
     );
 
-    await user.click(screen.getByRole("combobox", { name: "도시" }));
+    const dropdown = screen.getByRole("combobox", { name: "도시" });
+    expect(screen.getByRole("dialog", { name: "삭제 확인" })).toBeInTheDocument();
+
+    await user.click(dropdown);
+
+    expect(dropdown).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
 
     expect(await axe(container)).toHaveNoViolations();
   });

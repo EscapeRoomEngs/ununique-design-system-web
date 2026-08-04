@@ -23,8 +23,6 @@ export const RadioExample: Story = {
     useEffect(() => setIsChecked(args.checked), [args.checked]);
     return (
       <Radio
-        id="radio-button-ex"
-        value="Option Text Lable"
         {...args}
         checked={isChecked}
         onChange={() => setIsChecked(!isChecked)}

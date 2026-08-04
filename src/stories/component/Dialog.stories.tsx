@@ -39,20 +39,29 @@ function ControlledDialog(args: DialogProps) {
   );
 }
 
-function ThemeDialogLauncher({ theme }: { theme: "red" | "orange" }) {
-  const [open, setOpen] = useState(false);
+function ThemeDialogLauncher({ theme, ...args }: DialogProps & { theme: "red" | "orange" }) {
+  const [open, setOpen] = useState(args.open ?? true);
+
+  useEffect(() => setOpen(args.open ?? true), [args.open]);
+
+  const close = () => {
+    setOpen(false);
+    args.onClose?.();
+  };
+
+  const btns = args.btns.map((button) => ({
+    ...button,
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+      button.onClick?.(event);
+      close();
+    },
+  }));
 
   return (
     <ThemeProvider theme={theme} className="grid gap-2">
       <Body fontColor="brand">{theme} dialog</Body>
       <Button property="brand" text={`${theme} 다이얼로그 열기`} onClick={() => setOpen(true)} />
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-        title={`${theme} 테마`}
-        messages="브랜드 버튼과 포커스 상태를 확인하세요"
-        btns={[{ text: "닫기", property: "brand", onClick: () => setOpen(false) }]}
-      />
+      <Dialog {...args} btns={btns} open={open} onClose={close} />
     </ThemeProvider>
   );
 }
@@ -83,11 +92,12 @@ export const BrandThemeParity: Story = {
     title: "테마 다이얼로그",
     messages: "브랜드 버튼과 포커스 상태를 확인하세요",
     btns: [{ text: "닫기", property: "brand" }],
+    open: false,
   },
-  render: () => (
+  render: (args) => (
     <div className="flex gap-6">
-      <ThemeDialogLauncher theme="red" />
-      <ThemeDialogLauncher theme="orange" />
+      <ThemeDialogLauncher {...args} theme="red" />
+      <ThemeDialogLauncher {...args} theme="orange" />
     </div>
   ),
 };
