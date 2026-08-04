@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useState } from "react";
+import { ButtonHTMLAttributes, InputHTMLAttributes, KeyboardEvent, useId, useRef, useState } from "react";
 import { Icon } from "../atom/Icon";
 import { Body, Lable } from "../atom/Text";
 
@@ -27,7 +27,7 @@ export function TextField({ size = "Small", type = "text", placeholder = "입력
 }
 
 export type DropdownOption = Record<string, string | number>;
-export interface DropdownProps {
+export interface DropdownProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> {
   keyValue?: { id: string; name: string };
   optionList?: DropdownOption[];
   selected?: DropdownOption;
@@ -37,14 +37,84 @@ export interface DropdownProps {
   size?: InputSize;
 }
 
-export function Dropdown({ size = "Small", selected = {}, placeholder = "선택", keyValue = { id: "id", name: "name" }, optionList = [], disabled = false, onChange }: DropdownProps) {
+export function Dropdown({ size = "Small", selected = {}, placeholder = "선택", keyValue = { id: "id", name: "name" }, optionList = [], disabled = false, onChange, onClick, onKeyDown, className, id, ...props }: DropdownProps) {
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const generatedId = useId();
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const triggerId = id ?? `${generatedId}-trigger`;
+  const listboxId = `${generatedId}-listbox`;
   const label = selected[keyValue.name];
+  const accessibleLabel = props["aria-label"] ?? (props["aria-labelledby"] ? undefined : String(label ?? placeholder));
+  const isUnavailable = disabled || !optionList.length;
+  const selectedIndex = optionList.findIndex((option) => option[keyValue.id] === selected[keyValue.id]);
+  const initialIndex = selectedIndex >= 0 ? selectedIndex : 0;
 
-  return <div className={`${widths[size]} relative flex h-11 items-center justify-between rounded border ${open ? "border-uui-focus-brand outline-2 outline-uui-focus-brand" : "border-uui-border-default"} bg-uui-surface-primary px-[15px] py-3 ${disabled || !optionList.length ? "bg-uui-surface-tertiary text-uui-text-secondary" : "cursor-pointer"}`}>
-    <Body fontColor={label === undefined ? "tertiary" : undefined}>{label ?? placeholder}</Body>
-    <button aria-expanded={open} aria-haspopup="listbox" aria-label={open ? "옵션 목록 닫기" : "옵션 목록 열기"} disabled={disabled || !optionList.length} type="button" className="grid size-5 cursor-pointer place-items-center rounded bg-transparent focus-visible:outline-2 focus-visible:outline-uui-focus-brand disabled:pointer-events-none disabled:cursor-not-allowed" onClick={() => setOpen((current) => !current)}><Icon iconNm={open ? "chevronLess" : "chevronMore"} iconSize={16} iconColor="secondary" /></button>
-    {open && <div role="listbox" className="absolute top-12 left-0 z-10 max-h-52 w-full overflow-auto rounded border border-uui-border-tertiary bg-uui-surface-primary">{optionList.map((option) => <button type="button" className="block h-11 w-full px-[15px] py-3 text-left hover:bg-uui-surface-secondary active:bg-uui-surface-tertiary focus-visible:outline-2 focus-visible:outline-uui-focus-brand" key={String(option[keyValue.id])} onClick={() => { onChange?.(option); setOpen(false); }}><Body>{option[keyValue.name] ?? "-"}</Body></button>)}</div>}
+  const openListbox = (index = initialIndex) => {
+    setActiveIndex(index);
+    setOpen(true);
+  };
+
+  const selectOption = (index: number) => {
+    const option = optionList[index];
+    if (!option) return;
+    onChange?.(option);
+    setOpen(false);
+    triggerRef.current?.focus();
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    onKeyDown?.(event);
+    if (event.defaultPrevented) return;
+
+    switch (event.key) {
+      case "ArrowDown":
+        event.preventDefault();
+        if (!open) openListbox();
+        else setActiveIndex((current) => (current + 1) % optionList.length);
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        if (!open) openListbox(optionList.length - 1);
+        else setActiveIndex((current) => (current - 1 + optionList.length) % optionList.length);
+        break;
+      case "Home":
+        event.preventDefault();
+        if (!open) openListbox(0);
+        else setActiveIndex(0);
+        break;
+      case "End":
+        event.preventDefault();
+        if (!open) openListbox(optionList.length - 1);
+        else setActiveIndex(optionList.length - 1);
+        break;
+      case "Enter":
+      case " ":
+        event.preventDefault();
+        if (open) selectOption(activeIndex);
+        else openListbox();
+        break;
+      case "Escape":
+        if (open) {
+          event.preventDefault();
+          setOpen(false);
+        }
+        break;
+    }
+  };
+
+  return <div className={`${widths[size]} relative`}>
+    <button {...props} ref={triggerRef} id={triggerId} role="combobox" type="button" disabled={isUnavailable} aria-label={accessibleLabel} aria-expanded={open} aria-haspopup="listbox" aria-controls={listboxId} aria-activedescendant={open && activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined} className={`${widths[size]} flex h-11 items-center justify-between rounded border ${open ? "border-uui-focus-brand outline-2 outline-uui-focus-brand" : "border-uui-border-default"} bg-uui-surface-primary px-[15px] py-3 focus-visible:outline-2 focus-visible:outline-uui-focus-brand ${isUnavailable ? "bg-uui-surface-tertiary text-uui-text-secondary" : "cursor-pointer"} ${className ?? ""}`} onClick={(event) => {
+      onClick?.(event);
+      if (!event.defaultPrevented) {
+        if (open) setOpen(false);
+        else openListbox();
+      }
+    }} onKeyDown={handleKeyDown}>
+      <Body fontColor={label === undefined ? "tertiary" : undefined}>{label ?? placeholder}</Body>
+      <span aria-hidden="true" className="grid size-5 place-items-center rounded bg-transparent"><Icon iconNm={open ? "chevronLess" : "chevronMore"} iconSize={16} iconColor="secondary" /></span>
+    </button>
+    {open && <div id={listboxId} role="listbox" className="absolute top-12 left-0 z-10 max-h-52 w-full overflow-auto rounded border border-uui-border-tertiary bg-uui-surface-primary">{optionList.map((option, index) => <div id={`${listboxId}-option-${index}`} role="option" aria-selected={selectedIndex === index} className="block h-11 w-full cursor-pointer bg-transparent px-[15px] py-3 text-left hover:bg-uui-surface-secondary active:bg-uui-surface-tertiary focus-visible:outline-2 focus-visible:outline-uui-focus-brand" key={String(option[keyValue.id])} onMouseEnter={() => setActiveIndex(index)} onMouseDown={(event) => event.preventDefault()} onClick={() => selectOption(index)}><Body>{option[keyValue.name] ?? "-"}</Body></div>)}</div>}
   </div>;
 }
 

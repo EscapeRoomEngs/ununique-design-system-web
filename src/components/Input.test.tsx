@@ -71,18 +71,73 @@ describe("Dropdown", () => {
     const option = { id: 1, name: "서울" };
 
     render(<Dropdown optionList={[option]} onChange={onChange} />);
-    await user.click(screen.getByRole("button", { name: "옵션 목록 열기" }));
-    await user.click(screen.getByRole("button", { name: "서울" }));
+    await user.click(screen.getByRole("combobox"));
+    await user.click(screen.getByRole("option", { name: "서울" }));
 
     expect(onChange).toHaveBeenCalledWith(option);
+  });
+
+  it("selects the active dropdown option with the keyboard", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Dropdown aria-label="도시" optionList={[{ id: 1, name: "서울" }, { id: 2, name: "부산" }]} onChange={onChange} />);
+    const trigger = screen.getByRole("combobox", { name: "도시" });
+
+    await user.click(trigger);
+    await user.keyboard("{ArrowDown}{Enter}");
+
+    expect(onChange).toHaveBeenCalledWith({ id: 2, name: "부산" });
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("connects the combobox to its active listbox option and forwards native labels", async () => {
+    const user = userEvent.setup();
+    render(<Dropdown id="city" aria-label="도시" aria-describedby="city-help" selected={{ id: 1, name: "서울" }} optionList={[{ id: 1, name: "서울" }, { id: 2, name: "부산" }]} />);
+    const trigger = screen.getByRole("combobox", { name: "도시" });
+
+    expect(trigger).toHaveAttribute("id", "city");
+    expect(trigger).toHaveAttribute("aria-describedby", "city-help");
+    expect(trigger).toHaveAttribute("aria-haspopup", "listbox");
+    await user.click(trigger);
+
+    const listbox = screen.getByRole("listbox");
+    const selectedOption = screen.getByRole("option", { name: "서울" });
+    expect(trigger).toHaveAttribute("aria-controls", listbox.id);
+    expect(trigger).toHaveAttribute("aria-activedescendant", selectedOption.id);
+    expect(selectedOption).toHaveAttribute("aria-selected", "true");
+    expect(trigger).toHaveFocus();
+  });
+
+  it("uses the displayed placeholder as its fallback accessible name", () => {
+    render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
+
+    expect(screen.getByRole("combobox", { name: "선택" })).toBeInTheDocument();
+  });
+
+  it("supports Home, End, Space, and Escape while focus remains on the trigger", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Dropdown aria-label="도시" optionList={[{ id: 1, name: "서울" }, { id: 2, name: "부산" }, { id: 3, name: "제주" }]} onChange={onChange} />);
+    const trigger = screen.getByRole("combobox", { name: "도시" });
+
+    await user.click(trigger);
+    await user.keyboard("{End} ");
+    expect(onChange).toHaveBeenLastCalledWith({ id: 3, name: "제주" });
+    expect(trigger).toHaveFocus();
+
+    await user.keyboard(" ");
+    await user.keyboard("{Home}{Escape}");
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    expect(onChange).toHaveBeenCalledOnce();
   });
 
   it("uses neutral option hover and semantic focus-visible states", async () => {
     const user = userEvent.setup();
     render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
 
-    await user.click(screen.getByRole("button", { name: "옵션 목록 열기" }));
-    expect(screen.getByRole("button", { name: "서울" })).toHaveClass(
+    await user.click(screen.getByRole("combobox"));
+    expect(screen.getByRole("option", { name: "서울" })).toHaveClass(
+      "bg-transparent",
       "hover:bg-uui-surface-secondary",
       "active:bg-uui-surface-tertiary",
       "focus-visible:outline-2",
@@ -94,11 +149,11 @@ describe("Dropdown", () => {
     const user = userEvent.setup();
     render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
 
-    const trigger = screen.getByRole("button", { name: "옵션 목록 열기" });
-    expect(trigger.parentElement).toHaveClass("w-[328px]", "h-11", "px-[15px]", "py-3", "cursor-pointer");
+    const trigger = screen.getByRole("combobox");
+    expect(trigger).toHaveClass("w-[328px]", "h-11", "px-[15px]", "py-3", "cursor-pointer");
 
     await user.click(trigger);
-    expect(screen.getByRole("button", { name: "서울" })).toHaveClass("h-11", "px-[15px]", "py-3");
+    expect(screen.getByRole("option", { name: "서울" })).toHaveClass("h-11", "px-[15px]", "py-3");
   });
 });
 
