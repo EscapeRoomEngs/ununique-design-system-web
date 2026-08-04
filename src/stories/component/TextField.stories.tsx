@@ -1,9 +1,11 @@
-import { Meta, StoryObj } from "@storybook/react/*";
+import type { Meta, StoryObj } from "@storybook/react";
 import { useEffect, useState } from "react";
+import { userEvent, within } from "storybook/test";
 import { Body, Lable } from "../../atom/Text";
 import { TextField } from "../../components/Input";
+import { ThemeProvider } from "../../theme/ThemeProvider";
 
-const meta: Meta = {
+const meta: Meta<typeof TextField> = {
   title: "Design System/Component/TextField",
   component: TextField,
   parameters: { layout: "centered" },
@@ -54,15 +56,35 @@ export const DisabledTextField: Story = {
 };
 
 export const ErrorTextField: Story = {
-  args: { "aria-label": "오류 입력", value: "유효하지 않은 값", isError: () => true },
+  args: { "aria-label": "오류 입력", value: "유효하지 않은 값", readOnly: true, isError: () => true },
 };
 
 export const StateParity: Story = {
   render: () => (
     <div className="grid gap-2">
-      <TextField aria-label="기본 입력" value="기본" />
-      <TextField aria-label="오류 입력" value="오류" isError={() => true} />
+      <TextField aria-label="기본 입력" value="기본" readOnly />
+      <TextField aria-label="오류 입력" value="오류" readOnly isError={() => true} />
       <TextField aria-label="비활성 입력" value="비활성" disabled />
     </div>
   ),
+};
+
+export const BrandThemeParity: Story = {
+  render: () => (
+    <div className="grid gap-6">
+      {(["red", "orange"] as const).map((theme) => (
+        <ThemeProvider key={theme} theme={theme} className="grid gap-2">
+          <Body fontColor="brand">{theme} focus</Body>
+          <TextField aria-label={`${theme} 테마 입력`} value="Tab 키로 포커스" readOnly />
+        </ThemeProvider>
+      ))}
+    </div>
+  ),
+};
+
+export const FocusedTextField: Story = {
+  args: { "aria-label": "포커스 입력", value: "포커스 상태", readOnly: true },
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole("textbox", { name: "포커스 입력" }));
+  },
 };

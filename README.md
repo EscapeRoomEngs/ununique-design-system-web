@@ -50,10 +50,22 @@ export function Example() {
 
 `data-uui-theme`는 해당 요소와 그 자식에게 브랜드 semantic token을 적용합니다. 기본값과 `red`는 기존 Red 브랜드이며, `orange`는 Waiting RN 기준 Orange 브랜드입니다. 오류 의미의 `negative` 토큰은 두 테마 모두 Red로 유지됩니다.
 
+React 앱에서는 `ThemeProvider`로 테마 경계를 선언합니다. `theme`을 생략하면 Red 테마가 적용되며, 중첩된 Provider로 화면 일부만 Orange 테마로 전환할 수 있습니다.
+
 ```tsx
-<section data-uui-theme="orange">
+import { Button, Text, ThemeProvider } from "@escaperoomengs/ununique-design-system-web";
+
+<ThemeProvider theme="orange">
   <Button property="brand" text="웨이팅 시작" />
   <Text usage="body" fontColor="brand">주요 안내</Text>
+</ThemeProvider>
+```
+
+React Provider를 사용할 수 없는 정적 HTML, 마이크로 프런트엔드 경계, 또는 서버 템플릿에서는 같은 계약의 `data-uui-theme` 속성을 fallback으로 사용합니다. 값은 `red` 또는 `orange`입니다.
+
+```html
+<section data-uui-theme="orange">
+  <!-- 이 경계 아래의 uui semantic utility가 Orange 브랜드 토큰을 상속합니다. -->
 </section>
 ```
 
