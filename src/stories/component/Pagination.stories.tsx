@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Pagination from "../../components/Pagination";
 import { useEffect, useState } from "react";
 import type { PaginationProps } from "../../components/Pagination";
-import { userEvent } from "storybook/test";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof Pagination> = {
@@ -35,11 +34,4 @@ export const FirstPage: Story = {
 
 export const LastPage: Story = {
   args: { currentPageIndex: 4, totalPageCnt: 5 },
-};
-
-export const BrandFocusState: Story = {
-  args: { currentPageIndex: 1, totalPageCnt: 5 },
-  play: async () => {
-    await userEvent.tab();
-  },
 };
