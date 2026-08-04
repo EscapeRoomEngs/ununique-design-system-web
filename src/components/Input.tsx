@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, InputHTMLAttributes, KeyboardEvent, useId, useRef, useState } from "react";
+import { ButtonHTMLAttributes, InputHTMLAttributes, KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { Icon } from "../atom/Icon";
 import { Body, Lable } from "../atom/Text";
 
@@ -42,6 +42,7 @@ export function Dropdown({ size = "Small", selected = {}, placeholder = "선택"
   const [activeIndex, setActiveIndex] = useState(-1);
   const generatedId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const optionRefs = useRef<Array<HTMLDivElement | null>>([]);
   const triggerId = id ?? `${generatedId}-trigger`;
   const listboxId = `${generatedId}-listbox`;
   const label = selected[keyValue.name];
@@ -49,6 +50,11 @@ export function Dropdown({ size = "Small", selected = {}, placeholder = "선택"
   const isUnavailable = disabled || !optionList.length;
   const selectedIndex = optionList.findIndex((option) => option[keyValue.id] === selected[keyValue.id]);
   const initialIndex = selectedIndex >= 0 ? selectedIndex : 0;
+
+  useEffect(() => {
+    if (!open || activeIndex < 0) return;
+    optionRefs.current[activeIndex]?.scrollIntoView?.({ block: "nearest" });
+  }, [activeIndex, open]);
 
   const openListbox = (index = initialIndex) => {
     setActiveIndex(index);
@@ -114,7 +120,7 @@ export function Dropdown({ size = "Small", selected = {}, placeholder = "선택"
       <Body fontColor={label === undefined ? "tertiary" : undefined}>{label ?? placeholder}</Body>
       <span aria-hidden="true" className="grid size-5 place-items-center rounded bg-transparent"><Icon iconNm={open ? "chevronLess" : "chevronMore"} iconSize={16} iconColor="secondary" /></span>
     </button>
-    {open && <div id={listboxId} role="listbox" className="absolute top-12 left-0 z-10 max-h-52 w-full overflow-auto rounded border border-uui-border-tertiary bg-uui-surface-primary">{optionList.map((option, index) => <div id={`${listboxId}-option-${index}`} role="option" aria-selected={selectedIndex === index} className="block h-11 w-full cursor-pointer bg-transparent px-[15px] py-3 text-left hover:bg-uui-surface-secondary active:bg-uui-surface-tertiary focus-visible:outline-2 focus-visible:outline-uui-focus-brand" key={String(option[keyValue.id])} onMouseEnter={() => setActiveIndex(index)} onMouseDown={(event) => event.preventDefault()} onClick={() => selectOption(index)}><Body>{option[keyValue.name] ?? "-"}</Body></div>)}</div>}
+    {open && <div id={listboxId} role="listbox" className="absolute top-12 left-0 z-10 max-h-52 w-full overflow-auto rounded border border-uui-border-tertiary bg-uui-surface-primary">{optionList.map((option, index) => <div ref={(element) => { optionRefs.current[index] = element; }} id={`${listboxId}-option-${index}`} role="option" aria-selected={selectedIndex === index} className={`block h-11 w-full cursor-pointer px-[15px] py-3 text-left hover:bg-uui-surface-secondary active:bg-uui-surface-tertiary focus-visible:outline-2 focus-visible:outline-uui-focus-brand ${activeIndex === index ? "bg-uui-surface-secondary" : "bg-transparent"}`} key={String(option[keyValue.id])} onMouseEnter={() => setActiveIndex(index)} onMouseDown={(event) => event.preventDefault()} onClick={() => selectOption(index)}><Body>{option[keyValue.name] ?? "-"}</Body></div>)}</div>}
   </div>;
 }
 

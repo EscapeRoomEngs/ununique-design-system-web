@@ -90,6 +90,35 @@ describe("Dropdown", () => {
     expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 
+  it("moves the active dropdown option upward and applies semantic active styling", async () => {
+    const user = userEvent.setup();
+    render(<Dropdown aria-label="도시" optionList={[{ id: 1, name: "서울" }, { id: 2, name: "부산" }]} />);
+    const trigger = screen.getByRole("combobox", { name: "도시" });
+
+    await user.click(trigger);
+    await user.keyboard("{ArrowUp}");
+
+    const first = screen.getByRole("option", { name: "서울" });
+    const active = screen.getByRole("option", { name: "부산" });
+    expect(trigger).toHaveAttribute("aria-activedescendant", active.id);
+    expect(active).toHaveClass("bg-uui-surface-secondary");
+    expect(first).toHaveClass("bg-transparent");
+  });
+
+  it("scrolls the keyboard-active dropdown option into view", async () => {
+    const user = userEvent.setup();
+    render(<Dropdown aria-label="도시" optionList={[{ id: 1, name: "서울" }, { id: 2, name: "부산" }]} />);
+    const trigger = screen.getByRole("combobox", { name: "도시" });
+
+    await user.click(trigger);
+    const active = screen.getByRole("option", { name: "부산" });
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(active, "scrollIntoView", { configurable: true, value: scrollIntoView });
+    await user.keyboard("{ArrowUp}");
+
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: "nearest" });
+  });
+
   it("connects the combobox to its active listbox option and forwards native labels", async () => {
     const user = userEvent.setup();
     render(<Dropdown id="city" aria-label="도시" aria-describedby="city-help" selected={{ id: 1, name: "서울" }} optionList={[{ id: 1, name: "서울" }, { id: 2, name: "부산" }]} />);
@@ -133,10 +162,10 @@ describe("Dropdown", () => {
 
   it("uses neutral option hover and semantic focus-visible states", async () => {
     const user = userEvent.setup();
-    render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
+    render(<Dropdown optionList={[{ id: 1, name: "서울" }, { id: 2, name: "부산" }]} />);
 
     await user.click(screen.getByRole("combobox"));
-    expect(screen.getByRole("option", { name: "서울" })).toHaveClass(
+    expect(screen.getByRole("option", { name: "부산" })).toHaveClass(
       "bg-transparent",
       "hover:bg-uui-surface-secondary",
       "active:bg-uui-surface-tertiary",

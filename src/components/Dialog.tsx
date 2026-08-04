@@ -15,6 +15,7 @@ const focusableSelector = "button:not(:disabled), [href], input:not(:disabled), 
 
 export const Dialog = ({ title, messages, btns = [{ text: "닫기" }], open = true, onClose, closeOnOverlayClick = true }: DialogProps) => {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const generatedId = useId();
   const titleId = `${generatedId}-title`;
@@ -25,7 +26,7 @@ export const Dialog = ({ title, messages, btns = [{ text: "닫기" }], open = tr
 
     previouslyFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const firstFocusable = dialogRef.current?.querySelector<HTMLElement>(focusableSelector);
-    firstFocusable?.focus();
+    (firstFocusable ?? panelRef.current)?.focus();
 
     return () => previouslyFocusedRef.current?.focus();
   }, [open]);
@@ -43,6 +44,7 @@ export const Dialog = ({ title, messages, btns = [{ text: "닫기" }], open = tr
     const focusable = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>(focusableSelector) ?? []);
     if (!focusable.length) {
       event.preventDefault();
+      panelRef.current?.focus();
       return;
     }
 
@@ -64,7 +66,7 @@ export const Dialog = ({ title, messages, btns = [{ text: "닫기" }], open = tr
   if (!open) return null;
 
   return <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={messagesId} className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 p-4" onClick={handleOverlayClick} onKeyDown={handleKeyDown}>
-    <section className="flex w-[400px] flex-col gap-6 rounded-2xl bg-uui-surface-primary p-4 pt-6">
+    <section ref={panelRef} tabIndex={-1} className="flex w-[400px] flex-col gap-6 rounded-2xl bg-uui-surface-primary p-4 pt-6">
       <Title id={titleId} fontStyle="Small">{title}</Title>
       <div id={messagesId} className="grid justify-center gap-0">{messages.split("\\n").map((line, index) => <Body fontColor="secondary" key={index}>{line}</Body>)}</div>
       <div className="flex gap-2">{btns.map((button, index) => <Button className="w-full" key={index} {...button} />)}</div>

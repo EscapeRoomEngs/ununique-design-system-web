@@ -39,6 +39,19 @@ describe("Dialog", () => {
     expect(onClose).toHaveBeenCalledOnce();
   });
 
+  it("focuses a fallback and requests controlled close without unmounting when no actions exist", async () => {
+    const user = userEvent.setup();
+    const onClose = vi.fn();
+    render(<Dialog open title="확인" messages="내용" onClose={onClose} btns={[]} />);
+    const dialog = screen.getByRole("dialog", { name: "확인" });
+
+    expect(dialog.querySelector("section")).toHaveFocus();
+    await user.keyboard("{Escape}");
+
+    expect(onClose).toHaveBeenCalledOnce();
+    expect(dialog).toBeInTheDocument();
+  });
+
   it("labels and describes the dialog with stable content ids and focuses the first enabled button", () => {
     render(<Dialog title="확인" messages="첫 줄\n둘째 줄" btns={[{ text: "사용 불가", disabled: true }, { text: "계속" }]} />);
     const dialog = screen.getByRole("dialog", { name: "확인" });
