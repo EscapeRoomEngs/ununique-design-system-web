@@ -2,7 +2,7 @@
   "name": "@escaperoomengs/ununique-design-system-web",
   "version": "1.0.0",
   "type": "module",
-  "description": "React design-system components and CSS design tokens.",
+  "description": "Precompiled Tailwind CSS React design system with semantic tokens, brand themes, and accessible UI components.",
   "keywords": [
     "design-system",
     "react",
