@@ -71,6 +71,11 @@ export const DisabledDropdown: Story = {
   },
 };
 
+export const FullWidthDropdown: Story = {
+  args: { "aria-label": "전체 폭 선택", fullWidth: true, optionList: [{ id: 1, name: "서울" }] },
+  render: (args) => <div className="w-[400px]"><Dropdown {...args} /></div>,
+};
+
 export const BrandOpenState: Story = {
   args: {
     "aria-label": "브랜드 열린 선택 목록",

@@ -79,6 +79,14 @@ describe("TextField", () => {
 
     expect(screen.getByLabelText("입력").parentElement).toHaveClass("w-[328px]", "h-11", "px-[15px]", "py-3", "rounded", "gap-4");
   });
+
+  it("uses the outer wrapper for full width", () => {
+    render(<TextField aria-label="전체 폭 입력" value="" fullWidth />);
+
+    const field = screen.getByLabelText("전체 폭 입력").parentElement;
+    expect(field).toHaveClass("w-full");
+    expect(field).not.toHaveClass("w-[328px]");
+  });
 });
 
 describe("Dropdown", () => {
@@ -238,6 +246,15 @@ describe("Dropdown", () => {
 
     await user.click(trigger);
     expect(screen.getByRole("option", { name: "서울" })).toHaveClass("h-11", "px-[15px]", "py-3");
+  });
+
+  it("uses the outer wrapper and trigger for full width", () => {
+    render(<Dropdown aria-label="전체 폭 선택" fullWidth optionList={[{ id: 1, name: "서울" }]} />);
+
+    const trigger = screen.getByRole("combobox", { name: "전체 폭 선택" });
+    expect(trigger.parentElement).toHaveClass("w-full");
+    expect(trigger).toHaveClass("w-full");
+    expect(trigger).not.toHaveClass("w-[328px]");
   });
 });
 
