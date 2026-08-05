@@ -1,6 +1,6 @@
 {
   "name": "@escaperoomengs/ununique-design-system-web",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "description": "Precompiled Tailwind CSS React design system with semantic tokens, brand themes, and accessible UI components.",
   "keywords": [
