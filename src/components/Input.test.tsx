@@ -32,7 +32,7 @@ describe("TextField", () => {
     expect(screen.getByLabelText("오류 입력").parentElement).toHaveClass("border-uui-border-negative");
   });
 
-  it("keeps the legacy one-pixel field border and uses a thin keyboard focus indicator", () => {
+  it("uses one dark border when the field receives focus", () => {
     render(<TextField aria-label="비밀번호" type="password" value="abc" />);
 
     const input = screen.getByLabelText("비밀번호");
@@ -41,11 +41,9 @@ describe("TextField", () => {
     expect(input).toHaveClass("border-0", "outline-none");
     expect(field).toHaveClass(
       "border",
-      "focus-within:border-uui-focus-brand",
-      "has-[:focus-visible]:outline-solid",
-      "has-[:focus-visible]:outline-1",
-      "has-[:focus-visible]:outline-uui-focus-brand",
+      "focus-within:border-uui-border-tertiary",
     );
+    expect(field).not.toHaveClass("focus-within:border-uui-focus-brand", "has-[:focus-visible]:outline-solid", "has-[:focus-visible]:outline-1");
     expect(screen.getByRole("button", { name: "비밀번호 표시 전환" })).toHaveClass(
       "bg-transparent",
       "rounded",
@@ -219,22 +217,20 @@ describe("Dropdown", () => {
     );
   });
 
-  it("uses a thin keyboard focus indicator and no thick outline when open", async () => {
+  it("uses one dark border for keyboard focus and the open state", async () => {
     const user = userEvent.setup();
     render(<Dropdown optionList={[{ id: 1, name: "서울" }]} />);
     const trigger = screen.getByRole("combobox");
 
     expect(trigger).toHaveClass(
       "border",
-      "focus-visible:outline-solid",
-      "focus-visible:outline-1",
-      "focus-visible:outline-offset-1",
-      "focus-visible:outline-uui-focus-brand",
+      "focus-visible:border-uui-border-tertiary",
     );
+    expect(trigger).not.toHaveClass("focus-visible:outline-solid", "focus-visible:outline-1", "focus-visible:outline-offset-1");
 
     await user.click(trigger);
-    expect(trigger).toHaveClass("border-uui-focus-brand");
-    expect(trigger).not.toHaveClass("outline-2");
+    expect(trigger).toHaveClass("border-uui-border-tertiary");
+    expect(trigger).not.toHaveClass("border-uui-focus-brand", "outline-2");
   });
 
   it("preserves the legacy trigger and option padding", async () => {
