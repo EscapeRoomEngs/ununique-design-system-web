@@ -54,6 +54,11 @@ export const DisabledTextField: Story = {
   args: { "aria-label": "비활성 입력", value: "변경할 수 없는 값", disabled: true },
 };
 
+export const FullWidthTextField: Story = {
+  args: { "aria-label": "전체 폭 입력", value: "", fullWidth: true },
+  render: (args) => <div className="w-[400px]"><TextField {...args} /></div>,
+};
+
 export const ErrorTextField: Story = {
   args: { "aria-label": "오류 입력", value: "유효하지 않은 값", readOnly: true, isError: () => true },
 };
