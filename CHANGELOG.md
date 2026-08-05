@@ -1,5 +1,15 @@
 # @escaperoomengs/ununique-design-system-web
 
+## 1.2.0
+
+### Minor Changes
+
+- 78dfe2b: Add a `fullWidth` prop to TextField and Dropdown so their wrappers can fill responsive form rows without consumer DOM selectors.
+
+### Patch Changes
+
+- f0809b9: Restore the single dark focus border for TextField and Dropdown.
+
 ## 1.1.1
 
 ### Patch Changes
