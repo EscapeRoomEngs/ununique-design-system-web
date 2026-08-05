@@ -18,7 +18,7 @@ export function TextField({ size = "Small", fullWidth = false, type = "text", pl
   const textType = type === "password" && isPasswordVisible ? "text" : type;
   const error = isError?.() ?? false;
 
-  return <div className={`${fullWidth ? "w-full" : widths[size]} flex h-11 items-center gap-4 rounded border bg-uui-surface-primary px-[15px] py-3 ${error ? "border-uui-border-negative" : "border-uui-border-default focus-within:border-uui-focus-brand has-[:focus-visible]:outline-solid has-[:focus-visible]:outline-1 has-[:focus-visible]:outline-offset-1 has-[:focus-visible]:outline-uui-focus-brand"} ${disabled ? "bg-uui-surface-tertiary" : ""}`}>
+  return <div className={`${fullWidth ? "w-full" : widths[size]} flex h-11 items-center gap-4 rounded border bg-uui-surface-primary px-[15px] py-3 ${error ? "border-uui-border-negative" : "border-uui-border-default focus-within:border-uui-border-tertiary"} ${disabled ? "bg-uui-surface-tertiary" : ""}`}>
     <input {...props} aria-invalid={error ? true : ariaInvalid} type={textType} value={value} disabled={disabled} placeholder={placeholder} className="min-w-0 flex-1 border-0 bg-transparent text-sm leading-[1.3] text-uui-text-primary outline-none placeholder:text-uui-text-tertiary disabled:text-uui-text-secondary" onChange={(event) => onChange?.(event.target.value.slice(0, maxLength))} />
     {!disabled && value && <div className="flex items-center gap-1">
       {type === "password" && <button aria-label="비밀번호 표시 전환" type="button" className="grid size-5 cursor-pointer place-items-center rounded bg-transparent focus-visible:outline-solid focus-visible:outline-1 focus-visible:outline-uui-focus-brand" onMouseDown={(event) => event.preventDefault()} onClick={() => setPasswordVisible((visible) => !visible)}><Icon iconNm={isPasswordVisible ? "visible" : "invisible"} iconSize={16} iconColor="tertiary" /></button>}
@@ -116,7 +116,7 @@ export function Dropdown({ size = "Small", fullWidth = false, selected = {}, pla
   };
 
   return <div className={`${width} relative`}>
-    <button {...props} ref={triggerRef} id={triggerId} role="combobox" type="button" disabled={isUnavailable} aria-label={accessibleLabel} aria-expanded={open} aria-haspopup="listbox" aria-controls={listboxId} aria-activedescendant={open && activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined} className={`${width} flex h-11 items-center justify-between rounded border ${open ? "border-uui-focus-brand" : "border-uui-border-default"} bg-uui-surface-primary px-[15px] py-3 focus-visible:outline-solid focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-uui-focus-brand ${isUnavailable ? "bg-uui-surface-tertiary text-uui-text-secondary" : "cursor-pointer"} ${className ?? ""}`} onClick={(event) => {
+    <button {...props} ref={triggerRef} id={triggerId} role="combobox" type="button" disabled={isUnavailable} aria-label={accessibleLabel} aria-expanded={open} aria-haspopup="listbox" aria-controls={listboxId} aria-activedescendant={open && activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined} className={`${width} flex h-11 items-center justify-between rounded border ${open ? "border-uui-border-tertiary" : "border-uui-border-default"} bg-uui-surface-primary px-[15px] py-3 focus-visible:border-uui-border-tertiary ${isUnavailable ? "bg-uui-surface-tertiary text-uui-text-secondary" : "cursor-pointer"} ${className ?? ""}`} onClick={(event) => {
       onClick?.(event);
       if (!event.defaultPrevented) {
         if (open) setOpen(false);
