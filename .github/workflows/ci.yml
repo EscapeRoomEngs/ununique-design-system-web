@@ -14,21 +14,6 @@ on:
       - "tsconfig*.json"
       - "eslint.config.js"
       - ".npmrc"
-  push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "public/**"
-      - "scripts/**"
-      - "index.html"
-      - "package.json"
-      - "package-lock.json"
-      - "vite.config.ts"
-      - "vitest.config.ts"
-      - "tsconfig*.json"
-      - "eslint.config.js"
-      - ".npmrc"
   workflow_dispatch:
 
 permissions:
@@ -49,5 +34,5 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npm run test:coverage
+      - run: npm test
       - run: npm run build

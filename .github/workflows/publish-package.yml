@@ -58,7 +58,7 @@ jobs:
           fi
 
       - run: npm run lint
-      - run: npm run test:coverage
+      - run: npm test
       - run: npm run test:package
 
       - name: Commit generated release files

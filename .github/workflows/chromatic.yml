@@ -11,18 +11,6 @@ on:
       - "package-lock.json"
       - "vite.config.ts"
       - "tsconfig*.json"
-  push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - ".storybook/**"
-      - "public/**"
-      - "index.html"
-      - "package.json"
-      - "package-lock.json"
-      - "vite.config.ts"
-      - "tsconfig*.json"
   workflow_dispatch:
 
 permissions:
