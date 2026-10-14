@@ -2,6 +2,7 @@
 
 ## Commands
 
+- `npm run check`: lint, coverage (with thresholds) and package build; run before every pull request
 - `npm run test`: fast component and package-entry tests
 - `npm run test:coverage`: component coverage report in `coverage/`
 - `npm run test:package`: builds, packs and installs the package in an isolated consumer project
@@ -15,11 +16,11 @@ The initial target after the interactive-component tests are complete is at leas
 
 Use Vitest and React Testing Library for component behavior, `jest-axe` for automatically detectable accessibility issues, and Chromatic stories for visual regressions. `test:package` is the release gate for package entry points; it checks ESM, CJS and CSS imports from a clean consumer install.
 
-## GitHub Actions policy
+## Verification policy
 
-- Documentation-only changes do not start CI or Chromatic automatically. Use `workflow_dispatch` when an explicit verification run is useful.
-- Source, package configuration, public assets and build/test configuration changes run CI (lint, coverage and package build).
-- UI and Storybook-related changes also run Chromatic on pull requests and on `main`. Newer runs cancel obsolete runs for the same pull request or branch, and Chromatic snapshots only affected stories.
+- There is no GitHub Actions CI for lint, coverage and build. Run `npm run check` locally before opening or updating a pull request and record the result in the pull request.
+- Documentation-only changes do not start Chromatic automatically. Use `workflow_dispatch` when an explicit Chromatic run is useful.
+- UI and Storybook-related changes run Chromatic on pull requests and on `main`. Newer runs cancel obsolete runs for the same pull request or branch, and Chromatic snapshots only affected stories.
 - The organization-package publish workflow stays manual and remains the release gate for `test:package` and `npm publish`.
 
 ## Visual parity review
