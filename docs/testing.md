@@ -21,7 +21,7 @@ Use Vitest and React Testing Library for component behavior, `jest-axe` for auto
 - There is no GitHub Actions CI for lint, coverage and build. Run `npm run check` locally before opening or updating a pull request and record the result in the pull request.
 - Documentation-only changes do not start Chromatic automatically. Use `workflow_dispatch` when an explicit Chromatic run is useful.
 - UI and Storybook-related changes run Chromatic on pull requests and on `main`. Newer runs cancel obsolete runs for the same pull request or branch, and Chromatic snapshots only affected stories.
-- The organization-package publish workflow stays manual and remains the release gate for `test:package` and `npm publish`.
+- The organization-package publish workflow (`.github/workflows/publish-package.yml`) runs automatically when a `v*` release tag is pushed. It remains the release gate: it runs lint, `test:coverage` and `test:package` before `npm publish`.
 
 ## Visual parity review
 
