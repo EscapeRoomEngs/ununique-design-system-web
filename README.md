@@ -81,9 +81,10 @@ Changesets를 사용합니다. 컴포넌트·토큰의 사용자 영향 변경�
 
 ## 검증
 
+GitHub Actions CI는 사용하지 않습니다. PR 전에 로컬에서 실행합니다.
+
 ```bash
-npm run test
-npm run build
+npm run check  # lint, test:coverage(커버리지 임계값), library build
 npm run build-storybook
 npm audit --omit=dev --audit-level=high
 ```

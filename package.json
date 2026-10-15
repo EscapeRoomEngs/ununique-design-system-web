@@ -52,6 +52,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release:package": "npm publish",
+    "check": "npm run lint && npm run test:coverage && npm run build",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
