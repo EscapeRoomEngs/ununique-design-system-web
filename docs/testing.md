@@ -6,6 +6,7 @@
 - `npm run test:coverage`: component coverage report in `coverage/`
 - `npm run test:package`: builds, packs and installs the package in an isolated consumer project
 - `npm run build-storybook`: static component documentation build
+- `npm run chromatic`: manual Chromatic upload; the CLI reads the token from the `CHROMATIC_PROJECT_TOKEN` environment variable (CI uses the repository secret of the same name). Never commit the token.
 
 ## Coverage policy
 
